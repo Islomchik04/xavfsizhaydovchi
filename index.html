@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Xavfsiz Haydovchi | Andijon avtomaktab</title>
+    <!-- Favicon (logo.png) -->
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="apple-touch-icon" href="images/logo.png">
     <!-- SF Pro / system font stack (iOS style) -->
     <style>
         * {
@@ -75,7 +78,14 @@
             gap: 12px;
         }
 
-        .logo-icon {
+        .logo img {
+            height: 48px;
+            width: auto;
+            border-radius: 14px;
+            object-fit: contain;
+        }
+
+        .logo-icon-fallback {
             background: linear-gradient(135deg, var(--primary), #2f7eb3);
             width: 44px;
             height: 44px;
@@ -192,6 +202,18 @@
             color: #4a6577;
             max-width: 500px;
             margin-bottom: 28px;
+        }
+
+        .hook {
+            display: inline-block;
+            background: rgba(0, 89, 157, 0.08);
+            backdrop-filter: blur(4px);
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 20px;
         }
 
         .cta-group {
@@ -379,13 +401,13 @@
             gap: 6px;
         }
 
-        /* AmoCRM container — fixed positioning, not falling */
+        /* AmoCRM glass container — placed higher (after courses) */
         .amo-glass-container {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(18px);
             border-radius: 2rem;
             padding: 40px 28px;
-            margin: 50px 0 60px;
+            margin: 20px 0 60px;
             border: 1px solid rgba(255, 255, 255, 0.7);
         }
 
@@ -523,7 +545,8 @@
     <div class="container">
         <div class="navbar">
             <div class="logo">
-                <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+                <img src="images/logo.png" alt="Xavfsiz Haydovchi logo" onerror="this.style.display='none'; this.nextSibling.style.display='flex';">
+                <div class="logo-icon-fallback" style="display: none;"><i class="fas fa-shield-alt"></i></div>
                 <div class="logo-text">
                     <h1>Xavfsiz <span>Haydovchi</span></h1>
                     <p>Andijon | Avtodrom | Litsenziya</p>
@@ -546,6 +569,7 @@
             <div class="hero-grid">
                 <div class="hero-content reveal">
                     <span class="badge"><i class="fas fa-award"></i> Andijondagi eng katta avtomaktab</span>
+                    <div class="hook"><i class="fas fa-star-of-life"></i> Biz bilan prava olish oson</div>
                     <h1>Haydovchilik mahorati <span>xavfsizlikdan boshlanadi</span></h1>
                     <p>🏆 Avtodrom, tajribali instruktorlar va yuqori sifatli ta’lim. Birinchi urinishda litsenziya oling.</p>
                     <div class="cta-group">
@@ -580,6 +604,18 @@
         </div>
     </div>
 
+    <!-- AmoCRM integratsiyasi (JOYLASHUVI YUQORIGA OLIB CHIQILDI) -->
+    <div class="container">
+        <div class="amo-glass-container glass reveal">
+            <div style="text-align:center;">
+                <i class="fas fa-envelope-open-text" style="font-size: 2rem; color: var(--primary); margin-bottom: 12px; display: inline-block;"></i>
+                <h2 class="amo-title">Taklif va savollaringiz uchun</h2>
+                <p>Kursga yozilish, konsultatsiya olish yoki savol qoldirish — shaklni to‘ldiring, biz siz bilan bog‘lanamiz.</p>
+            </div>
+            <div id="amoforms_form_1715890"></div>
+        </div>
+    </div>
+
     <!-- Filiallar (barcha manzillar xaritada ko'rish bilan) -->
     <div class="locations-section" id="filiallar">
         <div class="container">
@@ -594,18 +630,6 @@
                 <div class="loc-card reveal"><div class="loc-icon"><i class="fas fa-exchange-alt"></i></div><div class="loc-info"><h4>Yangi yo‘l</h4><a class="map-link" href="https://yandex.uz/navi/10329/andijan/?ll=72.344501%2C40.813760&mode=whatshere&whatshere%5Bpoint%5D=72.344377%2C40.813529&whatshere%5Bzoom%5D=19&z=16" target="_blank"><i class="fas fa-map-marker-alt"></i> Xaritada ko‘rish</a></div></div>
                 <div class="loc-card reveal"><div class="loc-icon"><i class="fas fa-hospital-user"></i></div><div class="loc-info"><h4>Semashka</h4><a class="map-link" href="https://yandex.uz/maps/-/CPH6fEMy" target="_blank"><i class="fas fa-map-marker-alt"></i> Xaritada ko‘rish</a></div></div>
             </div>
-        </div>
-    </div>
-
-    <!-- AmoCRM integratsiyasi (to‘g‘ri joylashtirilgan, pastga tushmaydi) -->
-    <div class="container">
-        <div class="amo-glass-container glass reveal">
-            <div style="text-align:center;">
-                <i class="fas fa-envelope-open-text" style="font-size: 2rem; color: var(--primary); margin-bottom: 12px; display: inline-block;"></i>
-                <h2 class="amo-title">Taklif va savollaringiz uchun</h2>
-                <p>Kursga yozilish, konsultatsiya olish yoki savol qoldirish — shaklni to‘ldiring, biz siz bilan bog‘lanamiz.</p>
-            </div>
-            <div id="amoforms_form_1715890"></div>
         </div>
     </div>
 
@@ -630,7 +654,7 @@
         <div class="footer-grid">
             <div class="footer-col">
                 <div style="display:flex; gap:12px; align-items:center; margin-bottom:18px;">
-                    <div class="logo-icon" style="background:#1f4a6a;"><i class="fas fa-car-side"></i></div>
+                    <img src="images/logo.png" alt="logo" style="height: 42px; width: auto; border-radius: 12px;" onerror="this.style.display='none'">
                     <h4 style="color:white;">Xavfsiz Haydovchi</h4>
                 </div>
                 <p>Andijonning eng katta avtomaktabi. Rasmiy litsenziya, avtodrom va 7 qulay filial.</p>
@@ -676,7 +700,17 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
     revealElements.forEach(el => observer.observe(el));
 
-    // fix buttons
+    // fix logo fallback
+    const logoImg = document.querySelector('.logo img');
+    if (logoImg && logoImg.complete && logoImg.naturalWidth === 0) {
+        logoImg.style.display = 'none';
+        document.querySelector('.logo-icon-fallback').style.display = 'flex';
+    }
+    logoImg?.addEventListener('error', () => {
+        logoImg.style.display = 'none';
+        document.querySelector('.logo-icon-fallback').style.display = 'flex';
+    });
+
     document.querySelectorAll('.card-btn, .btn-primary, .btn-outline-light, .phone-btn').forEach(btn => {
         if (!btn.hasAttribute('data-listener')) {
             btn.setAttribute('data-listener', 'true');
