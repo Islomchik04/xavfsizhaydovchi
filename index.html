@@ -3,13 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Xavfsiz Haydovchi | Andijondagi eng katta avtomaktab</title>
-    <!-- Google Fonts + Font Awesome 6 + AOS -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+    <title>Xavfsiz Haydovchi | Andijon avtomaktab</title>
+    <!-- Google Fonts + Font Awesome 6 -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -18,50 +15,43 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: #fbfdfe;
-            color: #0b2b3d;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #fefefe;
+            color: #152b3c;
             overflow-x: hidden;
-            scroll-behavior: smooth;
         }
 
         :root {
-            --primary: #0066CC;
-            --primary-dark: #004c99;
-            --primary-glow: rgba(0, 102, 204, 0.25);
-            --primary-light: #eef4fc;
-            --dark-bg: #0A1F2E;
-            --gray-light: #f8fcff;
-            --gray-border: #eef2f8;
-            --text-dark: #102b3f;
+            --primary: #00599D;
+            --primary-dark: #003f6e;
+            --primary-light: #EFF6FC;
+            --accent: #FFB347;
+            --gray-100: #f8fafc;
+            --gray-300: #e2e8f0;
+            --shadow-sm: 0 10px 25px -5px rgba(0,0,0,0.03), 0 8px 10px -6px rgba(0,0,0,0.02);
+            --shadow-md: 0 20px 35px -12px rgba(0,89,157,0.15);
         }
 
-        /* animated gradient background */
-        .animated-bg {
-            background: radial-gradient(ellipse at 20% 30%, rgba(0,102,204,0.03) 0%, #ffffff 80%);
+        /* smooth scroll & container */
+        html {
+            scroll-behavior: smooth;
         }
-
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #eef2f8; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
-
         .container {
             max-width: 1280px;
             margin: 0 auto;
             padding: 0 28px;
         }
 
-        /* glassmorphic header */
+        /* header glass */
         .header {
-            background: rgba(255, 255, 255, 0.94);
-            backdrop-filter: blur(14px);
             position: sticky;
             top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(0,102,204,0.2);
-            box-shadow: 0 6px 18px rgba(0,0,0,0.02);
+            z-index: 100;
+            background: rgba(255,255,255,0.94);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,89,157,0.2);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.02);
         }
-
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -70,342 +60,312 @@
             flex-wrap: wrap;
             gap: 20px;
         }
-
-        .logo-area {
+        .logo {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
         }
-
         .logo-icon {
-            background: linear-gradient(135deg, var(--primary), #2c8ed6);
-            width: 48px;
-            height: 48px;
+            background: linear-gradient(135deg, var(--primary), #1d7eb6);
+            width: 46px;
+            height: 46px;
             border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 26px;
+            font-size: 24px;
             color: white;
-            box-shadow: 0 12px 18px -8px var(--primary-glow);
+            box-shadow: 0 8px 16px -6px rgba(0,89,157,0.3);
         }
-
         .logo-text h1 {
-            font-size: 1.7rem;
+            font-size: 1.6rem;
             font-weight: 800;
-            letter-spacing: -0.4px;
-            background: linear-gradient(120deg, #0a2a3b, var(--primary));
+            letter-spacing: -0.3px;
+            background: linear-gradient(120deg, #0a2f42, var(--primary));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
-
+        .logo-text span {
+            color: var(--primary);
+        }
         .logo-text p {
             font-size: 0.7rem;
             font-weight: 600;
             color: var(--primary);
         }
-
         .nav-links {
             display: flex;
             gap: 32px;
             align-items: center;
             flex-wrap: wrap;
         }
-
         .nav-links a {
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.95rem;
-            color: #1f3e4d;
+            color: #2c4b62;
             transition: 0.2s;
             position: relative;
         }
-
-        .nav-links a::after {
+        .nav-links a:after {
             content: '';
             position: absolute;
+            bottom: -6px;
+            left: 0;
             width: 0%;
             height: 2px;
-            bottom: -5px;
-            left: 0;
             background: var(--primary);
             transition: 0.25s;
         }
-
-        .nav-links a:hover::after, .nav-links a.active::after {
+        .nav-links a:hover:after,
+        .nav-links a.active:after {
             width: 100%;
         }
-
         .nav-links a.active {
             color: var(--primary);
         }
-
-        .btn-outline {
+        .phone-btn {
             border: 1.5px solid var(--primary);
             background: transparent;
-            padding: 8px 24px;
+            padding: 8px 22px;
             border-radius: 40px;
             font-weight: 700;
             font-size: 0.85rem;
             color: var(--primary);
-            transition: 0.25s;
+            transition: 0.2s;
             cursor: pointer;
         }
-
-        .btn-outline:hover {
+        .phone-btn:hover {
             background: var(--primary);
             color: white;
-            box-shadow: 0 8px 16px var(--primary-glow);
             transform: translateY(-2px);
         }
 
-        /* hero */
+        /* Hero section */
         .hero {
             padding: 80px 0 60px;
-            position: relative;
+            background: radial-gradient(ellipse at 80% 30%, rgba(0,89,157,0.03), transparent);
         }
-
         .hero-grid {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
             align-items: center;
             gap: 40px;
+            flex-wrap: wrap;
         }
-
         .hero-content {
             flex: 1;
         }
-
-        .hero-badge {
+        .badge {
             background: var(--primary-light);
             color: var(--primary);
             display: inline-flex;
             align-items: center;
             gap: 8px;
             padding: 6px 20px;
-            border-radius: 40px;
+            border-radius: 60px;
             font-weight: 700;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             margin-bottom: 24px;
         }
-
-        .hero-content h2 {
+        .hero-content h1 {
             font-size: 3.2rem;
-            font-weight: 900;
+            font-weight: 800;
             line-height: 1.2;
-            color: #0A2540;
             margin-bottom: 20px;
+            color: #0a2a3c;
         }
-
-        .hero-content h2 span {
+        .hero-content h1 span {
             color: var(--primary);
         }
-
         .hero-content p {
-            font-size: 1.05rem;
-            color: #4a5b6b;
+            font-size: 1rem;
+            color: #4b6a7c;
             margin-bottom: 32px;
-            max-width: 550px;
+            max-width: 500px;
         }
-
+        .cta-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 12px 32px;
+            border-radius: 44px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.25s;
+            box-shadow: 0 6px 14px rgba(0,89,157,0.25);
+            display: inline-block;
+        }
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 22px -8px rgba(0,89,157,0.4);
+        }
+        .btn-outline-light {
+            border: 1.5px solid var(--primary);
+            background: transparent;
+            padding: 12px 32px;
+            border-radius: 44px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .btn-outline-light:hover {
+            background: var(--primary-light);
+        }
         .hero-stats {
             display: flex;
             gap: 40px;
-            margin-top: 28px;
+            margin-top: 40px;
         }
-
-        .stat-item h3 {
-            font-size: 2rem;
+        .stat h3 {
+            font-size: 1.8rem;
             font-weight: 800;
             color: var(--primary);
         }
 
-        .btn-primary {
-            background: linear-gradient(95deg, var(--primary), #1f7fcf);
-            color: white;
-            border: none;
-            padding: 14px 34px;
-            border-radius: 44px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.25s;
-            box-shadow: 0 10px 20px -6px var(--primary-glow);
-            display: inline-block;
-            text-decoration: none;
+        /* Section titles */
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .section-sub {
+            text-align: center;
+            color: #5f7d92;
+            max-width: 700px;
+            margin: 0 auto 48px;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 18px 28px -8px var(--primary-glow);
-        }
-
-        .btn-secondary {
-            background: rgba(0,102,204,0.08);
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            padding: 12px 30px;
-            border-radius: 44px;
-            font-weight: 700;
-            margin-left: 12px;
-            text-decoration: none;
-            transition: 0.2s;
-        }
-
-        .btn-secondary:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        /* cards modern */
-        .categories-grid {
+        /* Cards grid */
+        .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
             gap: 32px;
             margin: 50px 0 80px;
         }
-
         .price-card {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(2px);
-            border-radius: 32px;
+            background: white;
+            border-radius: 36px;
             padding: 28px 24px;
-            border: 1px solid var(--gray-border);
-            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            box-shadow: 0 12px 24px -12px rgba(0,0,0,0.05);
+            border: 1px solid #eef2f8;
+            transition: all 0.35s ease;
+            box-shadow: var(--shadow-sm);
             position: relative;
-            overflow: hidden;
+            backdrop-filter: blur(2px);
         }
-
-        .price-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 6px;
-            height: 100%;
-            background: var(--primary);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .price-card:hover::before {
-            opacity: 1;
-        }
-
         .price-card:hover {
-            transform: translateY(-10px) scale(1.01);
+            transform: translateY(-12px) scale(1.01);
             border-color: var(--primary);
-            box-shadow: 0 30px 40px -18px rgba(0,102,204,0.25);
+            box-shadow: var(--shadow-md);
         }
-
-        .category-icon {
+        .card-icon {
             background: var(--primary-light);
-            width: 60px;
-            height: 60px;
+            width: 64px;
+            height: 64px;
+            border-radius: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 24px;
             font-size: 28px;
             color: var(--primary);
-            margin-bottom: 22px;
+            margin-bottom: 24px;
             transition: 0.2s;
         }
-
-        .price-card:hover .category-icon {
+        .price-card:hover .card-icon {
             background: var(--primary);
             color: white;
         }
-
-        .price-tag {
-            font-size: 2rem;
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .card-desc {
+            font-size: 0.85rem;
+            color: #5c6f87;
+            margin-bottom: 20px;
+        }
+        .price {
+            font-size: 1.9rem;
             font-weight: 800;
             color: var(--primary);
-            margin: 16px 0 12px;
+            margin: 16px 0;
         }
-
         .card-btn {
             background: transparent;
-            border: 1px solid var(--gray-border);
+            border: 1px solid var(--gray-300);
             padding: 12px 0;
             width: 100%;
-            border-radius: 40px;
+            border-radius: 50px;
             font-weight: 700;
             color: var(--primary);
+            transition: 0.2s;
             cursor: pointer;
-            transition: 0.25s;
         }
-
         .card-btn:hover {
             background: var(--primary);
             color: white;
             border-color: var(--primary);
         }
-
-        .express-card {
-            background: linear-gradient(125deg, #ffffff 0%, #eef4fc 100%);
-            border: 2px solid var(--primary);
-        }
-
         .express-badge {
             background: var(--primary);
             color: white;
             font-size: 0.7rem;
-            padding: 5px 14px;
-            border-radius: 60px;
-            display: inline-flex;
-            gap: 5px;
-            margin-bottom: 12px;
+            padding: 4px 14px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 16px;
         }
 
-        /* locations section */
-        .locations {
-            background: linear-gradient(145deg, #f9fdfe 0%, #ffffff 100%);
+        /* Location cards */
+        .locations-section {
+            background: linear-gradient(120deg, #f9fcff, #ffffff);
             border-radius: 56px;
             padding: 70px 0;
-            margin: 40px 0 60px;
-            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.05);
+            margin: 40px 0;
         }
-
         .locations-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 28px;
+            gap: 26px;
         }
-
         .loc-card {
             background: white;
             border-radius: 28px;
-            padding: 18px 22px;
+            padding: 20px 24px;
             display: flex;
             align-items: center;
             gap: 18px;
             transition: all 0.3s;
-            border: 1px solid rgba(0,102,204,0.1);
-            box-shadow: 0 5px 12px rgba(0,0,0,0.02);
+            border: 1px solid #eef2f8;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
         }
-
         .loc-card:hover {
             transform: translateY(-5px);
             border-color: var(--primary);
-            box-shadow: 0 20px 30px -15px rgba(0,102,204,0.2);
+            box-shadow: 0 18px 28px -12px rgba(0,89,157,0.15);
         }
-
-        .loc-card i:first-child {
-            font-size: 32px;
+        .loc-icon {
             background: var(--primary-light);
-            padding: 14px;
+            width: 54px;
+            height: 54px;
             border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
             color: var(--primary);
         }
-
         .loc-info h4 {
             font-weight: 800;
-            font-size: 1.1rem;
+            margin-bottom: 6px;
         }
-
         .map-link {
             font-size: 0.7rem;
             font-weight: 700;
@@ -414,119 +374,137 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            margin-top: 8px;
         }
-
         .map-link i {
-            font-size: 12px;
+            font-size: 0.7rem;
         }
 
-        .map-link:hover {
-            text-decoration: underline;
+        /* AmoCRM section - fixed positioning */
+        .amo-wrapper {
+            background: var(--primary-light);
+            border-radius: 48px;
+            padding: 48px 32px;
+            margin: 60px 0 70px;
+            text-align: center;
+            box-shadow: 0 18px 35px -12px rgba(0,0,0,0.05);
+        }
+        .amo-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        #amoforms_form_1715890 {
+            margin-top: 30px;
+            min-height: 400px;
         }
 
         /* CTA banner */
         .cta-banner {
-            background: linear-gradient(115deg, var(--primary), #003d66);
+            background: linear-gradient(115deg, var(--primary), #004a7a);
             border-radius: 48px;
-            padding: 50px 48px;
+            padding: 48px 44px;
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
             gap: 28px;
-            margin: 40px 0;
-            box-shadow: 0 28px 40px -12px rgba(0,102,204,0.4);
+            margin-bottom: 60px;
         }
-
+        .cta-text h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: white;
+        }
         .btn-white {
             background: white;
             color: var(--primary);
-            padding: 14px 36px;
+            padding: 14px 38px;
             border-radius: 50px;
             font-weight: 800;
             text-decoration: none;
-            transition: all 0.2s;
+            transition: 0.2s;
         }
-
         .btn-white:hover {
             transform: scale(1.02);
-            box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
 
-        /* AmoCRM form section */
-        .amo-section {
-            background: var(--gray-light);
-            border-radius: 48px;
-            padding: 60px 40px;
-            margin: 40px 0 70px;
-            text-align: center;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.03);
-        }
-
-        .amo-title {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 16px;
-        }
-
-        #amoforms_form_1715890 {
-            margin-top: 30px;
-            min-height: 380px;
-        }
-
+        /* footer */
         footer {
-            background: #0C1E2E;
-            color: #cfdfed;
-            padding: 60px 0 30px;
+            background: #0c1e2e;
+            color: #cbdde9;
             border-radius: 48px 48px 0 0;
+            padding: 60px 0 30px;
         }
-
         .footer-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 50px;
             justify-content: space-between;
         }
-
+        .footer-col h4 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        .footer-col a {
+            color: #bcd0df;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
         .social-icons a {
-            color: #bfd6e8;
             font-size: 1.6rem;
             margin-right: 20px;
-            transition: 0.2s;
+            color: #bcd0df;
         }
-
-        .social-icons a:hover {
-            color: white;
-            transform: translateY(-3px);
-        }
-
         .copyright {
             text-align: center;
-            border-top: 1px solid #244b62;
+            border-top: 1px solid #1f3a4f;
             padding-top: 32px;
-            margin-top: 40px;
+            margin-top: 48px;
             font-size: 0.7rem;
         }
 
-        @media (max-width: 800px) {
-            .hero-content h2 { font-size: 2.2rem; }
+        /* Animation keyframes (new effects) */
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .fade-up {
+            animation: fadeSlideUp 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
+        }
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .reveal {
+            opacity: 0;
+        }
+        .reveal.visible {
+            animation: fadeSlideUp 0.6s forwards;
+        }
+        @media (max-width: 760px) {
+            .hero-content h1 { font-size: 2.2rem; }
             .navbar { flex-direction: column; align-items: flex-start; }
-            .cta-banner { flex-direction: column; text-align: center; }
-            .amo-section { padding: 40px 20px; }
         }
     </style>
 </head>
-<body class="animated-bg">
+<body>
 
 <header class="header">
     <div class="container">
         <div class="navbar">
-            <div class="logo-area">
+            <div class="logo">
                 <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
                 <div class="logo-text">
                     <h1>Xavfsiz <span>Haydovchi</span></h1>
-                    <p><i class="fas fa-map-pin"></i> Andijon | Avtodrom | Rasmiy litsenziya</p>
+                    <p>Andijon | Avtodrom | Litsenziya</p>
                 </div>
             </div>
             <div class="nav-links">
@@ -534,7 +512,7 @@
                 <a href="#kurslar">Kurslar</a>
                 <a href="#filiallar">Filiallar</a>
                 <a href="#aloqa">Aloqa</a>
-                <button class="btn-outline" onclick="window.location.href='tel:+998980770007'"><i class="fas fa-phone-alt"></i> 98 077 00 07</button>
+                <button class="phone-btn" onclick="window.location.href='tel:+998980770007'"><i class="fas fa-phone-alt"></i> 98 077 00 07</button>
             </div>
         </div>
     </div>
@@ -544,86 +522,77 @@
     <section class="hero">
         <div class="container">
             <div class="hero-grid">
-                <div class="hero-content" data-aos="fade-up" data-aos-duration="800">
-                    <span class="hero-badge"><i class="fas fa-trophy"></i> Andijondagi eng katta avtomaktab</span>
-                    <h2>Professional haydovchilik <span>sari ishonchli qadam</span></h2>
-                    <p>🏆 Avtodrom, tajribali instruktorlar, yuqori natija. Xavfsiz Haydovchi bilan haydashni o‘rganing va birinchi urinishda litsenziya oling.</p>
-                    <div>
-                        <a href="#kurslar" class="btn-primary"><i class="fas fa-graduation-cap"></i> Kurslarni ko‘rish</a>
-                        <a href="tel:+998980770007" class="btn-secondary"><i class="fas fa-headset"></i> Konsultatsiya</a>
+                <div class="hero-content reveal" data-delay="0">
+                    <span class="badge"><i class="fas fa-award"></i> Andijondagi eng katta avtomaktab</span>
+                    <h1>Haydovchilik mahorati <span>xavfsizlikdan boshlanadi</span></h1>
+                    <p>🏆 Avtodrom, tajribali instruktorlar va yuqori sifatli ta’lim. Sertifikat va litsenziya kafolati.</p>
+                    <div class="cta-group">
+                        <a href="#kurslar" class="btn-primary"><i class="fas fa-list-ul"></i> Kurslar</a>
+                        <a href="tel:+998980770007" class="btn-outline-light"><i class="fas fa-headset"></i> Konsultatsiya</a>
                     </div>
                     <div class="hero-stats">
-                        <div class="stat-item"><h3>7+</h3><p>Filiallar</p></div>
-                        <div class="stat-item"><h3>1</h3><p>Avtodrom</p></div>
-                        <div class="stat-item"><h3>98%</h3><p>Imtihon natijasi</p></div>
+                        <div class="stat"><h3>7+</h3><p>Filiallar</p></div>
+                        <div class="stat"><h3>1</h3><p>Avtodrom</p></div>
+                        <div class="stat"><h3>98%</h3><p>Muvaffaqiyat</p></div>
                     </div>
                 </div>
-                <div class="hero-image" data-aos="fade-left" style="flex:0.8; text-align:center;">
-                    <i class="fas fa-car-side" style="font-size: 220px; color: var(--primary-light); opacity: 0.6;"></i>
+                <div class="hero-image" style="flex:0.8; text-align:center;">
+                    <i class="fas fa-car" style="font-size: 200px; color: var(--primary-light); opacity: 0.7;"></i>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- KURSLAR / TOIFALAR -->
+    <!-- Kurslar toifalari -->
     <div class="container" id="kurslar">
-        <div style="margin: 40px 0 20px; text-align:center;" data-aos="fade-up">
-            <h2 style="font-size: 2.3rem; font-weight:800;">Litsenziya <span style="color:var(--primary)">toifalari</span></h2>
-            <p style="color:#5c6f87; max-width:650px; margin:12px auto;">Eng ommabop toifalar va qulay narxlar — sizning ehtiyojingizga mos kurs</p>
-        </div>
-        <div class="categories-grid">
-            <!-- A -->
-            <div class="price-card" data-aos="zoom-in" data-aos-delay="50"><div class="category-icon"><i class="fas fa-motorcycle"></i></div><div class="card-title" style="font-size:1.7rem; font-weight:800;">A toifa</div><div class="card-desc" style="margin:6px 0;">Mototsikllar, skuterlar</div><div class="price-tag">2,250,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Ro‘yxatdan o‘tish</button></div>
-            <!-- B -->
-            <div class="price-card" data-aos="zoom-in" data-aos-delay="100"><div class="category-icon"><i class="fas fa-car"></i></div><div class="card-title" style="font-size:1.7rem; font-weight:800;">B toifa</div><div class="card-desc">Yengil avtomobillar (3500 kg gacha)</div><div class="price-tag">4,100,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Yozilish</button></div>
-            <!-- BC -->
-            <div class="price-card" data-aos="zoom-in" data-aos-delay="150"><div class="category-icon"><i class="fas fa-truck-moving"></i></div><div class="card-title" style="font-size:1.7rem; font-weight:800;">BC toifa</div><div class="card-desc">B + C kombinatsiyasi</div><div class="price-tag">7,000,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Kursga yozilish</button></div>
-            <!-- C -->
-            <div class="price-card" data-aos="zoom-in" data-aos-delay="200"><div class="category-icon"><i class="fas fa-truck"></i></div><div class="card-title" style="font-size:1.7rem; font-weight:800;">C toifa</div><div class="card-desc">Yuk avtomobillari >3500kg</div><div class="price-tag">3,800,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Batafsil</button></div>
-            <!-- CE -->
-            <div class="price-card" data-aos="zoom-in" data-aos-delay="250"><div class="category-icon"><i class="fas fa-trailer"></i></div><div class="card-title" style="font-size:1.7rem; font-weight:800;">CE toifa</div><div class="card-desc">Yuk mashinasi + tirkama</div><div class="price-tag">3,800,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Yozilish</button></div>
-            <!-- D -->
-            <div class="price-card" data-aos="zoom-in" data-aos-delay="300"><div class="category-icon"><i class="fas fa-bus"></i></div><div class="card-title" style="font-size:1.7rem; font-weight:800;">D toifa</div><div class="card-desc">Avtobuslar, yo'lovchi tashish</div><div class="price-tag">5,000,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Yozilish</button></div>
-            <!-- Express kurs -->
-            <div class="price-card express-card" data-aos="zoom-in" data-aos-delay="350"><div><span class="express-badge"><i class="fas fa-bolt"></i> EXPRESS KURS</span></div><div class="card-title" style="font-size:1.5rem; font-weight:800;">Intensiv tayyorlov</div><div class="card-desc">Shaxsiy instruktor, tez natija</div><div class="price-tag">Shaxsiy taklif</div><button class="card-btn" onclick="window.open('https://t.me/s/xavfsiz_xaydovchi', '_blank')">Telegram orqali</button></div>
+        <h2 class="section-title reveal">Litsenziya <span style="color:var(--primary)">toifalari</span></h2>
+        <p class="section-sub reveal">Barcha toifalar bo'yicha arzon va sifatli ta’lim, shaffof narxlar</p>
+        <div class="cards-grid">
+            <div class="price-card reveal" data-delay="0"><div class="card-icon"><i class="fas fa-motorcycle"></i></div><div class="card-title">A toifa</div><div class="card-desc">Mototsikllar, skuterlar</div><div class="price">2,250,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Ro‘yxatdan o‘tish</button></div>
+            <div class="price-card reveal" data-delay="50"><div class="card-icon"><i class="fas fa-car"></i></div><div class="card-title">B toifa</div><div class="card-desc">Yengil avtomobillar (3.5t gacha)</div><div class="price">4,100,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Yozilish</button></div>
+            <div class="price-card reveal" data-delay="100"><div class="card-icon"><i class="fas fa-truck-moving"></i></div><div class="card-title">BC toifa</div><div class="card-desc">B+C kombinatsiyasi</div><div class="price">7,000,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Kursga yozilish</button></div>
+            <div class="price-card reveal" data-delay="150"><div class="card-icon"><i class="fas fa-truck"></i></div><div class="card-title">C toifa</div><div class="card-desc">Yuk avtomobillari >3500kg</div><div class="price">3,800,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Batafsil</button></div>
+            <div class="price-card reveal" data-delay="200"><div class="card-icon"><i class="fas fa-trailer"></i></div><div class="card-title">CE toifa</div><div class="card-desc">Yuk mashinasi + tirkama</div><div class="price">3,800,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Yozilish</button></div>
+            <div class="price-card reveal" data-delay="250"><div class="card-icon"><i class="fas fa-bus"></i></div><div class="card-title">D toifa</div><div class="card-desc">Avtobuslar, yo‘lovchi tashish</div><div class="price">5,000,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Yozilish</button></div>
+            <div class="price-card express-card reveal" data-delay="300"><div><span class="express-badge"><i class="fas fa-bolt"></i> EXPRESS KURS</span></div><div class="card-title" style="font-size:1.5rem;">Tezkor tayyorlov</div><div class="card-desc">Intensiv dastur, individual jadval</div><div class="price">Maxsus narx</div><button class="card-btn" onclick="window.open('https://t.me/s/xavfsiz_xaydovchi','_blank')">Telegram orqali</button></div>
         </div>
     </div>
 
-    <!-- FILIALLAR + XARITADA KO'RISH -->
-    <div class="locations" id="filiallar">
+    <!-- Filiallar + xaritada ko'rish (barchasiga alohida link) -->
+    <div class="locations-section" id="filiallar">
         <div class="container">
-            <h2 style="font-size:2rem; font-weight:800; margin-bottom:0.5rem;" data-aos="fade-up">📍 Bizning <span style="color:var(--primary)">filiallar</span> va avtodrom</h2>
-            <p data-aos="fade-up">Andijonning barcha tumanlarida qulay manzillar. Eng katta avtodrom — Bo'stonda</p>
-            <div class="locations-grid" style="margin-top: 40px;">
-                <div class="loc-card" data-aos="fade-right"><i class="fas fa-store"></i><div class="loc-info"><h4>Yangi bozor</h4><a class="map-link" href="https://yandex.uz/maps/10329/andijan/search/?text=Yangi%20bozor%20Andijon" target="_blank"><i class="fas fa-map-marked-alt"></i> Xaritada ko‘rish</a></div></div>
-                <div class="loc-card" data-aos="fade-right" data-aos-delay="40"><i class="fas fa-flag-checkered"></i><div class="loc-info"><h4>Bo‘ston (Avtodrom)</h4><a class="map-link" href="https://yandex.uz/maps/10329/andijan/search/?text=Bo'ston%20avtodrom%20Andijon" target="_blank"><i class="fas fa-map-marked-alt"></i> Xaritada ko‘rish</a></div></div>
-                <div class="loc-card" data-aos="fade-right" data-aos-delay="80"><i class="fas fa-water"></i><div class="loc-info"><h4>Soy</h4><a class="map-link" href="https://yandex.uz/maps/10329/andijan/search/?text=Soy%20Andijon" target="_blank"><i class="fas fa-map-marked-alt"></i> Xaritada ko‘rish</a></div></div>
-                <div class="loc-card" data-aos="fade-right" data-aos-delay="120"><i class="fas fa-city"></i><div class="loc-info"><h4>Eski shahar</h4><a class="map-link" href="https://yandex.uz/maps/10329/andijan/search/?text=Eski%20shahar%20Andijon" target="_blank"><i class="fas fa-map-marked-alt"></i> Xaritada ko‘rish</a></div></div>
-                <div class="loc-card" data-aos="fade-right" data-aos-delay="160"><i class="fas fa-road"></i><div class="loc-info"><h4>80 metr</h4><a class="map-link" href="https://yandex.uz/maps/10329/andijan/search/?text=80%20metr%20Andijon" target="_blank"><i class="fas fa-map-marked-alt"></i> Xaritada ko‘rish</a></div></div>
-                <div class="loc-card" data-aos="fade-right" data-aos-delay="200"><i class="fas fa-exchange-alt"></i><div class="loc-info"><h4>Yangi yo‘l</h4><a class="map-link" href="https://yandex.uz/maps/10329/andijan/search/?text=Yangi%20yo'l%20Andijon" target="_blank"><i class="fas fa-map-marked-alt"></i> Xaritada ko‘rish</a></div></div>
-                <div class="loc-card" data-aos="fade-right" data-aos-delay="240"><i class="fas fa-hospital-user"></i><div class="loc-info"><h4>Semashka</h4><a class="map-link" href="https://yandex.uz/maps/10329/andijan/search/?text=Semashka%20Andijon" target="_blank"><i class="fas fa-map-marked-alt"></i> Xaritada ko‘rish</a></div></div>
+            <h2 class="section-title reveal">📍 Filiallar <span style="color:var(--primary)">va avtodrom</span></h2>
+            <p class="section-sub reveal">Andijon bo‘ylab 7 qulay manzil, Bo‘stonda eng zamonaviy avtodrom</p>
+            <div class="locations-grid">
+                <div class="loc-card reveal" data-delay="0"><div class="loc-icon"><i class="fas fa-store"></i></div><div class="loc-info"><h4>Yangi bozor</h4><a class="map-link" href="https://yandex.uz/maps/-/CPH6uC0C" target="_blank"><i class="fas fa-map-marker-alt"></i> Xaritada ko‘rish</a></div></div>
+                <div class="loc-card reveal" data-delay="50"><div class="loc-icon"><i class="fas fa-flag-checkered"></i></div><div class="loc-info"><h4>Bo‘ston (Avtodrom)</h4><a class="map-link" href="https://yandex.uz/maps/-/CPH6yMzZ" target="_blank"><i class="fas fa-map-marker-alt"></i> Xaritada ko‘rish</a></div></div>
+                <div class="loc-card reveal" data-delay="100"><div class="loc-icon"><i class="fas fa-water"></i></div><div class="loc-info"><h4>Soy</h4><a class="map-link" href="https://yandex.uz/maps/-/CPH6NRYs" target="_blank"><i class="fas fa-map-marker-alt"></i> Xaritada ko‘rish</a></div></div>
+                <div class="loc-card reveal" data-delay="150"><div class="loc-icon"><i class="fas fa-city"></i></div><div class="loc-info"><h4>Eski shahar</h4><a class="map-link" href="https://yandex.uz/navi/10329/andijan/?ll=72.346828%2C40.785410&mode=whatshere&whatshere%5Bpoint%5D=72.346846%2C40.785458&whatshere%5Bzoom%5D=19&z=16" target="_blank"><i class="fas fa-map-marker-alt"></i> Xaritada ko‘rish</a></div></div>
+                <div class="loc-card reveal" data-delay="200"><div class="loc-icon"><i class="fas fa-road"></i></div><div class="loc-info"><h4>80 metr</h4><a class="map-link" href="https://yandex.uz/navi/10329/andijan/?ll=72.332867%2C40.777147&mode=whatshere&whatshere%5Bpoint%5D=72.332677%2C40.777256&whatshere%5Bzoom%5D=19&z=16" target="_blank"><i class="fas fa-map-marker-alt"></i> Xaritada ko‘rish</a></div></div>
+                <div class="loc-card reveal" data-delay="250"><div class="loc-icon"><i class="fas fa-exchange-alt"></i></div><div class="loc-info"><h4>Yangi yo‘l</h4><a class="map-link" href="https://yandex.uz/navi/10329/andijan/?ll=72.344501%2C40.813760&mode=whatshere&whatshere%5Bpoint%5D=72.344377%2C40.813529&whatshere%5Bzoom%5D=19&z=16" target="_blank"><i class="fas fa-map-marker-alt"></i> Xaritada ko‘rish</a></div></div>
+                <div class="loc-card reveal" data-delay="300"><div class="loc-icon"><i class="fas fa-hospital-user"></i></div><div class="loc-info"><h4>Semashka</h4><a class="map-link" href="https://yandex.uz/maps/-/CPH6fEMy" target="_blank"><i class="fas fa-map-marker-alt"></i> Xaritada ko‘rish</a></div></div>
             </div>
-            <div style="text-align:center; margin-top:40px;" data-aos="fade-up"><i class="fas fa-circle-check" style="color:var(--primary);"></i> <strong>Eng katta avtodrom + haqiqiy harakatdagi mashg'ulotlar</strong></div>
         </div>
     </div>
 
-    <!-- AmoCRM INTEGRATSIYASI -->
+    <!-- AmoCRM integratsiyasi - to'g'ri joylashgan, pastga tushmaydi -->
     <div class="container">
-        <div class="amo-section" data-aos="flip-up">
-            <h2 class="amo-title"><i class="fas fa-envelope-open-text"></i> Savol va takliflar uchun</h2>
-            <p>Kursga yozilish, konsultatsiya olish yoki savol qoldirish — shaklni to‘ldiring, biz siz bilan bog‘lanamiz.</p>
+        <div class="amo-wrapper reveal">
+            <i class="fas fa-paper-plane" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 16px; display: inline-block;"></i>
+            <h2 class="amo-title">Tez ro‘yxatdan o‘ting yoki savol qoldiring</h2>
+            <p>Bizning menejerlar 24 soat ichida siz bilan bog‘lanadi</p>
             <div id="amoforms_form_1715890"></div>
         </div>
     </div>
 
-    <!-- CTA banner -->
+    <!-- CTA Banner -->
     <div class="container">
-        <div class="cta-banner" data-aos="zoom-in">
+        <div class="cta-banner reveal">
             <div class="cta-text">
-                <h3 style="color:white;"><i class="fas fa-graduation-cap"></i> Tezda ro‘yxatdan o‘ting!</h3>
-                <p style="color:#dcf0ff;">Savollar bo‘lsa, qo'ng'iroq qiling yoki ijtimoiy tarmoqlarda kuzating</p>
-                <div style="margin-top: 16px;">
-                    <a href="tel:+998980770007" style="color:white; font-weight:700; margin-right:20px;"><i class="fas fa-phone-alt"></i> 98 077 00 07</a>
+                <h3><i class="fas fa-mobile-alt"></i> Bugun ro‘yxatdan o‘ting!</h3>
+                <p style="color:#d9ecff;">Telegram orqali yoki qo‘ng‘iroq qiling – 98 077 00 07</p>
+                <div style="margin-top: 12px;">
+                    <a href="tel:+998980770007" style="color:white; font-weight:700; margin-right:24px;"><i class="fas fa-phone-alt"></i> 98 077 00 07</a>
                     <a href="https://t.me/s/xavfsiz_xaydovchi" style="color:white;" target="_blank"><i class="fab fa-telegram"></i> Telegram</a>
                 </div>
             </div>
@@ -637,22 +606,22 @@
         <div class="footer-grid">
             <div class="footer-col">
                 <div style="display:flex; gap:12px; align-items:center; margin-bottom:20px;">
-                    <div class="logo-icon" style="background:#1f4d6e;"><i class="fas fa-car"></i></div>
+                    <div class="logo-icon" style="background:#1e4a6e;"><i class="fas fa-car-side"></i></div>
                     <h4 style="color:white;">Xavfsiz Haydovchi</h4>
                 </div>
-                <p>Andijon viloyatidagi eng nufuzli avtomaktab, litsenziya olish uchun to‘liq sharoit. Avtodrom va tajribali instruktorlar.</p>
+                <p>Andijonning eng katta avtomaktabi. Rasmiy litsenziya, avtodrom va 7 qulay filial.</p>
             </div>
             <div class="footer-col">
                 <h4>Kurslar</h4>
-                <p>A, B, BC, C, CE, D toifalari</p>
-                <p>Ekspress tayyorlov</p>
-                <p>Online nazariya</p>
+                <a href="#">A, B, BC, C, CE, D</a>
+                <a href="#">Express kurs</a>
+                <a href="#">Online nazariya</a>
             </div>
             <div class="footer-col">
                 <h4>Bog‘lanish</h4>
-                <p><i class="fas fa-phone-alt"></i> <a href="tel:+998980770007" style="color:#bfd6e8;">98 077 00 07</a></p>
-                <p><i class="fab fa-telegram"></i> <a href="https://t.me/s/xavfsiz_xaydovchi" target="_blank">Telegram kanal</a></p>
-                <p><i class="fab fa-youtube"></i> <a href="https://www.youtube.com/@avtomaktab_andijon" target="_blank">YouTube</a></p>
+                <a href="tel:+998980770007"><i class="fas fa-phone-alt"></i> 98 077 00 07</a>
+                <a href="https://t.me/s/xavfsiz_xaydovchi" target="_blank"><i class="fab fa-telegram"></i> Telegram</a>
+                <a href="https://www.youtube.com/@avtomaktab_andijon" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
                 <div class="social-icons">
                     <a href="https://t.me/s/xavfsiz_xaydovchi" target="_blank"><i class="fab fa-telegram"></i></a>
                     <a href="https://www.instagram.com/avtomaktab_andijon/" target="_blank"><i class="fab fa-instagram"></i></a>
@@ -660,38 +629,42 @@
                 </div>
             </div>
         </div>
-        <div class="copyright">© 2025 Xavfsiz Haydovchi avtomaktab — Andijon. Barcha huquqlar himoyalangan. Rasmiy litsenziya asosida faoliyat.</div>
+        <div class="copyright">© 2025 Xavfsiz Haydovchi avtomaktab — Andijon. Barcha huquqlar himoyalangan.</div>
     </div>
 </footer>
 
-<!-- AmoCRM Script -->
+<!-- AmoCRM script -->
 <script>
     !function(a,m,o,c,r,m1){a[o+c]=a[o+c]||{setMeta:function(p){this.params=(this.params||[]).concat([p])}},a[o+r]=a[o+r]||function(f){a[o+r].f=(a[o+r].f||[]).concat([f])},a[o+r]({id:"1715890",hash:"9ac3defe787f555fdaa77306654fb1c5",locale:"ru"}),a[o+m1]=a[o+m1]||function(f,k){a[o+m1].f=(a[o+m1].f||[]).concat([[f,k]])}}(window,0,"amo_forms_","params","load","loaded");
 </script>
 <script id="amoforms_script_1715890" async="async" charset="utf-8" src="https://forms.amocrm.ru/forms/assets/js/amoforms.js?1780056134"></script>
 
-<!-- AOS Library -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<!-- Scroll reveal script (new effects) -->
 <script>
-    AOS.init({ duration: 700, once: true, offset: 20 });
-    // Smooth interactivity for cards and map links
-    document.querySelectorAll('.card-btn, .btn-primary, .btn-secondary').forEach(btn => {
-        if(!btn.getAttribute('data-listener')) {
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const delay = entry.target.getAttribute('data-delay');
+                if (delay) entry.target.style.animationDelay = delay + 'ms';
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+    reveals.forEach(el => observer.observe(el));
+    // fallback for button clicks
+    document.querySelectorAll('.card-btn, .btn-primary, .btn-outline-light, .phone-btn').forEach(btn => {
+        if(!btn.hasAttribute('data-listener')) {
             btn.setAttribute('data-listener', 'true');
             btn.addEventListener('click', (e) => {
-                if(btn.innerText.includes('Yozilish') || btn.innerText.includes("Ro‘yxat") || btn.innerText.includes("Kursga") || btn.innerText.includes("Batafsil")) {
+                if(btn.innerText.includes('Yozilish') || btn.innerText.includes('Ro‘yxat') || btn.innerText.includes('Kursga')) {
                     window.location.href = 'tel:+998980770007';
                 }
-                if(btn.innerText.includes('Telegram')) {
-                    window.open('https://t.me/s/xavfsiz_xaydovchi', '_blank');
-                }
+                if(btn.innerText.includes('Telegram')) window.open('https://t.me/s/xavfsiz_xaydovchi', '_blank');
             });
         }
     });
-    // Ensure AmoCRM container is stable
-    if (typeof window.amo_forms_load !== 'undefined') {
-        console.log("AmoCRM ready");
-    }
 </script>
 </body>
 </html>
