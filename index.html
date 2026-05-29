@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Xavfsiz Haydovchi avtomaktabi</title>
     <link rel="icon" type="image/png" href="images/favicon.png">
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -50,6 +52,7 @@
             padding: 0 24px;
         }
 
+        /* HEADER (glassmorphism + sticky) */
         .glass-header {
             background: rgba(255, 255, 255, 0.82);
             backdrop-filter: blur(20px);
@@ -78,6 +81,7 @@
             main { margin-top: 78px; }
         }
 
+        /* NAVBAR */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -85,6 +89,7 @@
             padding: 16px 0;
             flex-wrap: wrap;
             gap: 16px;
+            position: relative;
         }
 
         .logo {
@@ -111,6 +116,7 @@
         }
         .logo-text span { color: var(--primary); }
 
+        /* Desktop navigation links (default) */
         .nav-links {
             display: flex;
             gap: 28px;
@@ -167,7 +173,81 @@
             display: none;
         }
 
-        /* Hero */
+        /* Burger menu button (hidden on desktop) */
+        .burger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 22px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1010;
+            margin-left: auto;
+        }
+        .burger-menu span {
+            width: 100%;
+            height: 2.5px;
+            background-color: var(--primary);
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        /* --- MOBILE STYLES (only for screens <= 768px) --- */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-wrap: nowrap;
+            }
+            .burger-menu {
+                display: flex;
+            }
+            .nav-links {
+                position: fixed;
+                top: 78px; /* matches header height approx */
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.97);
+                backdrop-filter: blur(16px);
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+                padding: 28px 24px 36px;
+                border-radius: 0 0 28px 28px;
+                box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+                z-index: 999;
+                transition: transform 0.25s ease-out, opacity 0.2s;
+                transform: translateY(-120%);
+                opacity: 0;
+                pointer-events: none;
+                border-bottom: 1px solid rgba(0,89,157,0.2);
+            }
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: auto;
+            }
+            .nav-links a {
+                width: 100%;
+                padding: 8px 0;
+                font-size: 1.05rem;
+                border-bottom: 1px solid rgba(0,89,157,0.1);
+            }
+            .header-register-btn {
+                width: fit-content;
+                margin-top: 8px;
+                background: var(--primary);
+                color: white !important;
+                text-align: center;
+                justify-content: center;
+            }
+            /* remove after pseudo line on mobile for cleaner look */
+            .nav-links a::after {
+                display: none;
+            }
+        }
+
+        /* Hero & rest styles (unchanged) */
         .hero {
             padding: 40px 0 50px;
         }
@@ -307,7 +387,7 @@
             color: var(--primary);
         }
 
-        /* Why us section - REMOVED GLASS SHAPE, CLEAN & RESTYLED */
+        /* Why us - clean */
         .why-us {
             margin: 80px 0;
         }
@@ -512,11 +592,6 @@
             color: white;
             transform: translateY(-2px);
         }
-        .express {
-            border: 2px solid var(--primary);
-            background: rgba(255, 255, 255, 0.9);
-        }
-
         .global-enroll {
             text-align: center;
             margin: 20px 0 60px;
@@ -538,7 +613,6 @@
         .btn-large:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 30px -8px rgba(0,89,157,0.6);
-            background: linear-gradient(95deg, #004a7a, #00599D);
         }
 
         /* Locations */
@@ -605,7 +679,7 @@
         }
         .amo-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 12px; }
 
-        /* Video section - natijalar (fixed edge spacing) */
+        /* Video section */
         .video-section { 
             margin: 40px 0 70px; 
             padding: 0 4px;
@@ -729,7 +803,7 @@
         }
         @media (max-width: 780px) {
             .hero-content h1 { font-size: 2.4rem; }
-            .navbar { flex-direction: column; align-items: flex-start; }
+            .navbar { flex-direction: row; }
             .container { padding: 0 20px; }
             .carousel-btn { width: 40px; height: 40px; }
         }
@@ -753,7 +827,13 @@
                     <h1>Xavfsiz <span>Haydovchi</span></h1>
                 </div>
             </div>
-            <div class="nav-links">
+            <!-- Burger button (visible only on mobile) -->
+            <button class="burger-menu" id="burgerBtn" aria-label="Menyu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links" id="navLinks">
                 <a href="#" class="active">Bosh sahifa</a>
                 <a href="#kurslar">Kurslar</a>
                 <a href="#filiallar">Filiallar</a>
@@ -765,16 +845,13 @@
 </header>
 
 <main>
+    <!-- Hero section same as original -->
     <section class="hero">
         <div class="container">
             <div class="hero-grid">
                 <div class="hero-content reveal">
                     <span class="badge-glass"><i class="fas fa-award"></i> O‘zbekistondagi eng katta avtomaktab</span>
-                    <h1>
-                        Biz bilan<br>
-                        <span>PRAVA olish</span>
-                        yanada oson!
-                    </h1>
+                    <h1>Biz bilan<br><span>PRAVA olish</span> yanada oson!</h1>
                     <div class="hero-tagline">Tajribali o'qituvchilar, professional instruktorlar va 100% natija.</div>
                     <div class="btn-group">
                         <a href="#kurslar" class="btn-primary"><i class="fas fa-list-ul"></i> Kurslar</a>
@@ -788,7 +865,7 @@
         </div>
     </section>
 
-    <!-- Nega aynan Xavfsiz haydovchi? - Clean layout without glass shape, reorganized -->
+    <!-- Why us -->
     <div class="container">
         <div class="why-container">
             <h2 class="why-title">Nega aynan <span>Xavfsiz haydovchi</span>?</h2>
@@ -797,27 +874,9 @@
                     <img src="images/1.jpg" alt="Avtomaktab faoliyati" onerror="this.src='https://placehold.co/800x500?text=Driving+school'">
                 </div>
                 <div class="why-features-list">
-                    <div class="feature-card">
-                        <div class="feature-icon-large"><i class="fas fa-building"></i></div>
-                        <div class="feature-text">
-                            <h3>O'zbekistondagi eng katta avtomaktablardan biri</h3>
-                            <p>Keng filial tarmog'i va minglab muvaffaqiyatli bitiruvchilar</p>
-                        </div>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon-large"><i class="fas fa-road"></i></div>
-                        <div class="feature-text">
-                            <h3>Imtihon markazi bilan bir xil avtodrom</h3>
-                            <p>Zamonaviy o'quv sharoiti va haqiqiy imtihon muhiti</p>
-                        </div>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon-large"><i class="fas fa-chart-simple"></i></div>
-                        <div class="feature-text">
-                            <h3>95% dan yuqori natijaga erishgan o'quvchilar</h3>
-                            <p>Yuqori sifatli ta'lim va isbotlangan natijalar</p>
-                        </div>
-                    </div>
+                    <div class="feature-card"><div class="feature-icon-large"><i class="fas fa-building"></i></div><div class="feature-text"><h3>O'zbekistondagi eng katta avtomaktablardan biri</h3><p>Keng filial tarmog'i va minglab muvaffaqiyatli bitiruvchilar</p></div></div>
+                    <div class="feature-card"><div class="feature-icon-large"><i class="fas fa-road"></i></div><div class="feature-text"><h3>Imtihon markazi bilan bir xil avtodrom</h3><p>Zamonaviy o'quv sharoiti va haqiqiy imtihon muhiti</p></div></div>
+                    <div class="feature-card"><div class="feature-icon-large"><i class="fas fa-chart-simple"></i></div><div class="feature-text"><h3>95% dan yuqori natijaga erishgan o'quvchilar</h3><p>Yuqori sifatli ta'lim va isbotlangan natijalar</p></div></div>
                 </div>
             </div>
         </div>
@@ -825,7 +884,7 @@
 
     <!-- Kurslar toifalari -->
     <div class="container" id="kurslar">
-        <br> <h2 style="font-size: 2rem; font-weight: 700; text-align: center; margin-bottom: 16px;">Avtomaktabimizda mavjud <span style="color: var(--primary);">toifalar</span></h2>
+        <h2 style="font-size: 2rem; font-weight: 700; text-align: center; margin-bottom: 16px;">Avtomaktabimizda mavjud <span style="color: var(--primary);">toifalar</span></h2>
         <div class="cards-grid">
             <div class="glass-card reveal"><div class="card-icon"><i class="fas fa-motorcycle"></i></div><div class="card-title">A toifa</div><div class="price">2,250,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Ro‘yxatdan o‘tish</button></div>
             <div class="glass-card reveal"><div class="card-icon"><i class="fas fa-car"></i></div><div class="card-title">B toifa</div><div class="price">4,100,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Yozilish</button></div>
@@ -835,9 +894,7 @@
             <div class="glass-card reveal"><div class="card-icon"><i class="fas fa-bus"></i></div><div class="card-title">D toifa</div><div class="price">5,000,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Yozilish</button></div>
             <div class="glass-card reveal"><div class="card-icon"><i class="fas fa-bus"></i></div><div class="card-title">Express kursi</div><div class="price">1,000,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Yozilish</button></div>
         </div>
-        <div class="global-enroll reveal">
-            <a href="https://forms.amocrm.ru/rzrwxvc" target="_blank" class="btn-large"><i class="fas fa-pen-fancy"></i> Yozilish</a>
-        </div>
+        <div class="global-enroll reveal"><a href="https://forms.amocrm.ru/rzrwxvc" target="_blank" class="btn-large"><i class="fas fa-pen-fancy"></i> Yozilish</a></div>
     </div>
 
     <!-- Filiallar -->
@@ -857,30 +914,23 @@
         </div>
     </div>
 
-    <!-- AmoCRM form -->
+    <!-- AmoCRM -->
     <div class="container">
         <div class="amo-glass-container reveal">
             <i class="fas fa-envelope-open-text" style="font-size: 2.2rem; color: var(--primary); margin-bottom: 16px; display: inline-block;"></i>
             <h2 class="amo-title">Hoziroq darslarimizga yoziling</h2>
             <p>Siz bilan o'zimiz bog'lanamiz</p>
-            <script>
-            !function(a,m,o,c,r,m1){a[o+c]=a[o+c]||{setMeta:function(p){this.params=(this.params||[]).concat([p])}},a[o+r]=a[o+r]||function(f){a[o+r].f=(a[o+r].f||[]).concat([f])},a[o+r]({id:"1715926",hash:"34a8acd41660d7dcc1a482098af1c93e",locale:"ru"}),a[o+m1]=a[o+m1]||function(f,k){a[o+m1].f=(a[o+m1].f||[]).concat([[f,k]])}}(window,0,"amo_forms_","params","load","loaded");
-            </script>
+            <script>!function(a,m,o,c,r,m1){a[o+c]=a[o+c]||{setMeta:function(p){this.params=(this.params||[]).concat([p])}},a[o+r]=a[o+r]||function(f){a[o+r].f=(a[o+r].f||[]).concat([f])},a[o+r]({id:"1715926",hash:"34a8acd41660d7dcc1a482098af1c93e",locale:"ru"}),a[o+m1]=a[o+m1]||function(f,k){a[o+m1].f=(a[o+m1].f||[]).concat([[f,k]])}}(window,0,"amo_forms_","params","load","loaded");</script>
             <script id="amoforms_script_1715926" async="async" charset="utf-8" src="https://forms.amocrm.ru/forms/assets/js/amoforms.js?1780060354"></script>
         </div>
     </div>
 
-    <!-- O'quvchilarimiz natijalari video carousel (fixed edge design) -->
+    <!-- Video carousel -->
     <div class="container video-section">
         <h2 class="section-title reveal"><span>O'quvchilarimiz natijalari</span></h2>
         <div class="carousel-container reveal">
             <button class="carousel-btn prev-btn" aria-label="Oldingi"><i class="fas fa-chevron-left"></i></button>
-            <div class="carousel-wrapper" id="videoCarousel">
-                <div class="carousel-track">
-                    <div class="carousel-item"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/cZfR8jMlmac" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div>
-                    <div class="carousel-item"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/bghxsXkDoAM" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div>
-                </div>
-            </div>
+            <div class="carousel-wrapper" id="videoCarousel"><div class="carousel-track"><div class="carousel-item"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/cZfR8jMlmac" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div><div class="carousel-item"><div class="video-wrapper"><iframe src="https://www.youtube.com/embed/bghxsXkDoAM" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div></div></div>
             <button class="carousel-btn next-btn" aria-label="Keyingi"><i class="fas fa-chevron-right"></i></button>
         </div>
     </div>
@@ -889,27 +939,9 @@
 <footer class="glass-footer" id="aloqa">
     <div class="container">
         <div class="footer-grid">
-            <div class="footer-col">
-                <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 20px;">
-                    <img src="images/logo.PNG" alt="logo" style="height: 44px; width: auto;" onerror="this.src='https://placehold.co/44x44'">
-                    <h4 style="color: white;">Xavfsiz Haydovchi</h4>
-                </div>
-                <p>O‘zbekistondagi eng katta avtomaktab.</p>
-            </div>
-            <div class="footer-col">
-                <h4 style="color: white;">Kurslar</h4>
-                <a href="#" style="color: #cddfec; display: block; margin-bottom: 8px;">A, B, BC, C, CE, D</a>
-                <a href="#" style="color: #cddfec;">Express kurs</a>
-            </div>
-            <div class="footer-col">
-                <h4 style="color: white;">Bog‘lanish</h4>
-                <a href="tel:+998980770007" style="color: #cddfec;"><i class="fas fa-phone-alt"></i> 98 077 00 07</a>
-                <div class="social-links" style="margin-top: 16px;">
-                    <a href="https://t.me/s/xavfsiz_xaydovchi" target="_blank"><i class="fab fa-telegram"></i></a>
-                    <a href="https://www.instagram.com/avtomaktab_andijon/" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.youtube.com/@avtomaktab_andijon" target="_blank"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
+            <div class="footer-col"><div style="display: flex; gap: 12px; align-items: center; margin-bottom: 20px;"><img src="images/logo.PNG" alt="logo" style="height: 44px; width: auto;" onerror="this.src='https://placehold.co/44x44'"><h4 style="color: white;">Xavfsiz Haydovchi</h4></div><p>O‘zbekistondagi eng katta avtomaktab.</p></div>
+            <div class="footer-col"><h4 style="color: white;">Kurslar</h4><a href="#" style="color: #cddfec; display: block; margin-bottom: 8px;">A, B, BC, C, CE, D</a><a href="#" style="color: #cddfec;">Express kurs</a></div>
+            <div class="footer-col"><h4 style="color: white;">Bog‘lanish</h4><a href="tel:+998980770007" style="color: #cddfec;"><i class="fas fa-phone-alt"></i> 98 077 00 07</a><div class="social-links" style="margin-top: 16px;"><a href="https://t.me/s/xavfsiz_xaydovchi" target="_blank"><i class="fab fa-telegram"></i></a><a href="https://www.instagram.com/avtomaktab_andijon/" target="_blank"><i class="fab fa-instagram"></i></a><a href="https://www.youtube.com/@avtomaktab_andijon" target="_blank"><i class="fab fa-youtube"></i></a></div></div>
         </div>
         <div class="copyright">© 2025 Xavfsiz Haydovchi avtomaktabi. Barcha huquqlar himoyalangan.</div>
     </div>
@@ -917,6 +949,7 @@
 
 <script>
     (function() {
+        // Scroll reveal
         const reveals = document.querySelectorAll('.reveal');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -928,6 +961,7 @@
         }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
         reveals.forEach(el => observer.observe(el));
 
+        // Header auto hide
         const header = document.getElementById('autoHideHeader');
         if (header) {
             let lastScrollY = window.scrollY;
@@ -948,6 +982,55 @@
             header.classList.remove('header-hidden');
         }
 
+        // BURGER MENU FUNCTIONALITY (mobile only, but safe)
+        const burger = document.getElementById('burgerBtn');
+        const navLinks = document.getElementById('navLinks');
+        if (burger && navLinks) {
+            const toggleMenu = () => {
+                const isExpanded = burger.getAttribute('aria-expanded') === 'true';
+                burger.setAttribute('aria-expanded', !isExpanded);
+                navLinks.classList.toggle('active');
+                // Optional: prevent body scroll when menu open?
+                if (!isExpanded) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            };
+            burger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleMenu();
+            });
+            // Close menu when clicking a link inside navLinks
+            const allLinks = navLinks.querySelectorAll('a');
+            allLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                        burger.setAttribute('aria-expanded', 'false');
+                        document.body.style.overflow = '';
+                    }
+                });
+            });
+            // Click outside to close (only on mobile, but generally safe)
+            document.addEventListener('click', (event) => {
+                if (navLinks.classList.contains('active') && !navLinks.contains(event.target) && !burger.contains(event.target)) {
+                    navLinks.classList.remove('active');
+                    burger.setAttribute('aria-expanded', 'false');
+                    document.body.style.overflow = '';
+                }
+            });
+            // Handle resize: if window becomes desktop size, ensure menu is closed and overflow reset
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    burger.setAttribute('aria-expanded', 'false');
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+
+        // Video carousel
         const wrapper = document.getElementById('videoCarousel');
         const prevBtn = document.querySelector('.prev-btn');
         const nextBtn = document.querySelector('.next-btn');
@@ -962,6 +1045,5 @@
         }
     })();
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
 </body>
 </html>
