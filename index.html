@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Xavfsiz Haydovchi | Andijon Avtomaktab</title>
-    <!-- SF Pro & system fonts + Font Awesome 6 (minimal, clean) -->
+    <!-- SF Pro & system fonts + Font Awesome -->
     <style>
         * {
             margin: 0;
@@ -14,46 +14,61 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
-            background: #f8fafc;
-            color: #1e2f3a;
-            line-height: 1.4;
-            scroll-behavior: smooth;
+            background: #f5f7fb;
+            color: #1c2e3a;
+            overflow-x: hidden;
         }
 
         :root {
-            --primary: #4c7a8f;      /* soft, calm blue-slate */
-            --primary-soft: #6f9eb3;
-            --primary-light: rgba(76, 122, 143, 0.08);
-            --primary-border: rgba(76, 122, 143, 0.2);
-            --gray-bg: #ffffff;
-            --gray-light: #f1f4f9;
-            --text-muted: #5b6f7c;
-            --card-shadow: 0 6px 14px rgba(0, 0, 0, 0.02), 0 2px 6px rgba(0, 0, 0, 0.03);
-            --card-shadow-hover: 0 20px 28px -12px rgba(0, 0, 0, 0.08);
+            --primary: #00599D;
+            --primary-light: rgba(0, 89, 157, 0.12);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.02);
+            --shadow-md: 0 20px 35px -10px rgba(0, 89, 157, 0.15);
         }
 
         .container {
             max-width: 1280px;
             margin: 0 auto;
-            padding: 0 28px;
+            padding: 0 24px;
         }
 
-        /* minimal header — soft glass */
+        /* iOS glass header + Auto Hide */
         .glass-header {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            position: sticky;
+            background: rgba(255, 255, 255, 0.78);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            position: fixed;
             top: 0;
-            z-index: 100;
-            border-bottom: 1px solid #e9edf2;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 89, 157, 0.2);
+            transition: transform 0.28s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            will-change: transform;
+        }
+
+        .header-hidden {
+            transform: translateY(-100%);
+        }
+
+        /* offset main content to prevent header overlap */
+        main {
+            margin-top: 88px;
+        }
+
+        @media (max-width: 780px) {
+            main {
+                margin-top: 78px;
+            }
         }
 
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px 0;
+            padding: 16px 0;
             flex-wrap: wrap;
             gap: 16px;
         }
@@ -65,38 +80,41 @@
         }
 
         .logo-icon {
-            background: var(--primary-light);
-            width: 40px;
-            height: 40px;
-            border-radius: 14px;
+            background: var(--primary);
+            width: 46px;
+            height: 46px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            color: var(--primary);
+            font-size: 24px;
+            color: white;
+            box-shadow: 0 6px 12px -4px rgba(0, 89, 157, 0.3);
         }
 
         .logo-text h1 {
-            font-size: 1.45rem;
-            font-weight: 600;
-            letter-spacing: -0.2px;
-            color: #1d3e4f;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            background: linear-gradient(135deg, #0a2f42, var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         .logo-text span {
             color: var(--primary);
-            font-weight: 500;
         }
 
         .logo-text p {
             font-size: 0.7rem;
-            font-weight: 450;
-            color: var(--text-muted);
+            font-weight: 500;
+            color: var(--primary);
         }
 
         .nav-links {
             display: flex;
-            gap: 26px;
+            gap: 28px;
             align-items: center;
             flex-wrap: wrap;
         }
@@ -105,20 +123,21 @@
             text-decoration: none;
             font-weight: 500;
             font-size: 0.9rem;
-            color: #2c4b5e;
-            transition: 0.2s ease;
+            color: #2c4b62;
+            transition: 0.2s;
         }
 
-        .nav-links a.active, .nav-links a:hover {
+        .nav-links a.active {
             color: var(--primary);
+            font-weight: 600;
         }
 
         .phone-gloss {
-            background: transparent;
-            border: 1px solid var(--primary-border);
-            padding: 7px 20px;
-            border-radius: 60px;
-            font-weight: 500;
+            background: rgba(0, 89, 157, 0.08);
+            border: 1px solid rgba(0, 89, 157, 0.3);
+            padding: 8px 22px;
+            border-radius: 40px;
+            font-weight: 600;
             font-size: 0.85rem;
             color: var(--primary);
             cursor: pointer;
@@ -128,12 +147,11 @@
         .phone-gloss:hover {
             background: var(--primary);
             color: white;
-            border-color: var(--primary);
         }
 
-        /* Hero section minimal */
+        /* Hero */
         .hero {
-            padding: 56px 0 48px;
+            padding: 40px 0 50px;
         }
 
         .hero-grid {
@@ -149,155 +167,146 @@
 
         .badge-glass {
             background: var(--primary-light);
+            backdrop-filter: blur(4px);
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 5px 16px;
+            padding: 6px 18px;
             border-radius: 40px;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 0.75rem;
             color: var(--primary);
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         .hero-content h1 {
-            font-size: 2.8rem;
-            font-weight: 620;
+            font-size: 3rem;
+            font-weight: 700;
             line-height: 1.2;
             margin-bottom: 20px;
-            color: #173e4f;
+            color: #0a2a3c;
         }
 
         .hero-content h1 span {
             color: var(--primary);
-            font-weight: 620;
         }
 
         .hero-content p {
             font-size: 1rem;
-            color: var(--text-muted);
-            margin-bottom: 28px;
-            max-width: 480px;
+            color: #4a6272;
+            margin-bottom: 32px;
+            max-width: 500px;
         }
 
         .btn-group {
             display: flex;
-            gap: 14px;
+            gap: 16px;
             flex-wrap: wrap;
         }
 
         .btn-primary {
             background: var(--primary);
             color: white;
-            padding: 10px 28px;
+            padding: 12px 30px;
             border-radius: 44px;
-            font-weight: 500;
+            font-weight: 600;
             text-decoration: none;
-            transition: 0.2s;
+            transition: 0.25s;
+            box-shadow: 0 6px 14px rgba(0, 89, 157, 0.25);
             display: inline-block;
-            border: none;
-            cursor: pointer;
         }
 
         .btn-primary:hover {
-            background: #3f6a7e;
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 22px -8px rgba(0, 89, 157, 0.4);
         }
 
         .btn-outline {
             background: transparent;
-            border: 1px solid var(--primary-border);
-            padding: 10px 28px;
+            border: 1.5px solid var(--primary);
+            padding: 12px 30px;
             border-radius: 44px;
-            font-weight: 500;
+            font-weight: 600;
             color: var(--primary);
             text-decoration: none;
-            transition: 0.2s;
-        }
-
-        .btn-outline:hover {
-            background: var(--primary-light);
-            border-color: var(--primary);
         }
 
         .stats {
             display: flex;
-            gap: 36px;
+            gap: 40px;
             margin-top: 40px;
         }
 
         .stat h3 {
             font-size: 1.6rem;
-            font-weight: 620;
+            font-weight: 700;
             color: var(--primary);
         }
 
-        .stat p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        /* Cards – minimal soft white */
+        /* Glass cards */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
             gap: 28px;
-            margin: 48px 0 64px;
+            margin: 50px 0 70px;
         }
 
         .glass-card {
-            background: #ffffff;
-            border-radius: 28px;
-            padding: 26px 24px;
-            transition: all 0.25s ease;
-            box-shadow: var(--card-shadow);
-            border: 1px solid #edf2f6;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border-radius: 32px;
+            padding: 28px 24px;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
         }
 
         .glass-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--card-shadow-hover);
-            border-color: var(--primary-border);
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+            background: rgba(255, 255, 255, 0.85);
         }
 
         .card-icon {
-            background: var(--primary-light);
-            width: 54px;
-            height: 54px;
-            border-radius: 22px;
+            background: rgba(0, 89, 157, 0.1);
+            width: 60px;
+            height: 60px;
+            border-radius: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 26px;
             color: var(--primary);
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         .card-title {
-            font-size: 1.7rem;
-            font-weight: 600;
-            margin-bottom: 6px;
-            letter-spacing: -0.3px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 8px;
         }
 
         .price {
-            font-size: 1.7rem;
-            font-weight: 600;
+            font-size: 1.8rem;
+            font-weight: 700;
             color: var(--primary);
-            margin: 14px 0 16px;
+            margin: 16px 0 12px;
         }
 
         .card-btn {
             width: 100%;
-            background: var(--primary-light);
-            border: none;
-            padding: 11px 0;
-            border-radius: 60px;
-            font-weight: 500;
+            background: rgba(0, 89, 157, 0.05);
+            border: 1px solid rgba(0, 89, 157, 0.2);
+            padding: 12px 0;
+            border-radius: 50px;
+            font-weight: 600;
             color: var(--primary);
             cursor: pointer;
             transition: 0.2s;
-            font-size: 0.9rem;
+            margin-top: 12px;
         }
 
         .card-btn:hover {
@@ -305,60 +314,83 @@
             color: white;
         }
 
-        .express {
-            border-top: 3px solid var(--primary);
-            background: #fefefe;
+        .enroll-link {
+            margin-top: 14px;
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
 
-        /* Locations — minimalist soft white panels */
+        .enroll-link a {
+            color: var(--primary);
+            text-decoration: none;
+            background: rgba(0, 89, 157, 0.08);
+            padding: 6px 14px;
+            border-radius: 40px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+            font-weight: 500;
+        }
+
+        .enroll-link a:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .express {
+            border: 2px solid var(--primary);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Locations glass */
         .locations-glass {
-            background: #ffffff;
-            border-radius: 44px;
-            padding: 48px 0;
+            background: rgba(0, 89, 157, 0.03);
+            border-radius: 56px;
+            padding: 60px 0;
             margin: 40px 0;
-            box-shadow: var(--card-shadow);
-            border: 1px solid #eef2f6;
         }
 
         .locations-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-            gap: 22px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
         }
 
         .loc-item {
-            background: #fbfdff;
-            border-radius: 24px;
-            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(8px);
+            border-radius: 28px;
+            padding: 18px 22px;
             display: flex;
             align-items: center;
             gap: 18px;
-            transition: 0.2s;
-            border: 1px solid #eef2f8;
+            transition: 0.25s;
+            border: 1px solid rgba(255, 255, 255, 0.6);
         }
 
         .loc-item:hover {
-            transform: translateY(-3px);
-            border-color: var(--primary-border);
+            transform: translateY(-4px);
+            border-color: var(--primary);
             background: white;
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.02);
         }
 
         .loc-icon {
             background: var(--primary-light);
-            width: 48px;
-            height: 48px;
+            width: 52px;
+            height: 52px;
             border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
+            font-size: 24px;
             color: var(--primary);
         }
 
         .map-link {
             font-size: 0.7rem;
-            font-weight: 500;
+            font-weight: 600;
             color: var(--primary);
             text-decoration: none;
             display: inline-flex;
@@ -367,132 +399,107 @@
             margin-top: 8px;
         }
 
-        /* AmoCRM container — clean card */
+        /* AmoCRM glass container (updated) */
         .amo-glass-container {
-            background: white;
-            border-radius: 40px;
-            padding: 40px 32px;
-            margin: 50px 0 60px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            border-radius: 48px;
+            padding: 44px 32px;
+            margin: 60px 0 60px;
             text-align: center;
-            border: 1px solid #eef2f6;
-            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: var(--shadow-sm);
         }
 
         .amo-title {
-            font-size: 1.7rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #1e3e4f;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 12px;
         }
 
-        /* CTA minimal soft */
+        /* CTA glass */
         .cta-glass {
-            background: #eef3f8;
-            border-radius: 40px;
-            padding: 38px 36px;
+            background: linear-gradient(115deg, var(--primary), #003d66);
+            border-radius: 48px;
+            padding: 44px 40px;
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
             gap: 24px;
             margin-bottom: 60px;
-            border: 1px solid #dce7ef;
-        }
-
-        .cta-text h3 {
-            font-size: 1.6rem;
-            font-weight: 600;
-            color: #1f4b60;
         }
 
         .btn-white {
             background: white;
             color: var(--primary);
-            padding: 12px 32px;
+            padding: 14px 36px;
             border-radius: 60px;
-            font-weight: 600;
+            font-weight: 700;
             text-decoration: none;
             transition: 0.2s;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-            border: 1px solid #d4e0e8;
         }
 
-        .btn-white:hover {
-            background: #ffffffea;
-            border-color: var(--primary);
-        }
-
-        /* Footer minimal deep but gentle */
+        /* Footer glass */
         .glass-footer {
-            background: #1f2f38;
-            backdrop-filter: blur(6px);
-            border-radius: 40px 40px 0 0;
-            padding: 52px 0 28px;
-            color: #cbdbe6;
+            background: rgba(12, 30, 46, 0.96);
+            backdrop-filter: blur(10px);
+            border-radius: 48px 48px 0 0;
+            padding: 60px 0 30px;
+            color: #cddfec;
         }
 
         .footer-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 48px;
+            gap: 50px;
             justify-content: space-between;
         }
 
         .social-links a {
-            color: #bacddc;
-            font-size: 1.4rem;
-            margin-right: 18px;
-            transition: 0.2s;
-        }
-
-        .social-links a:hover {
-            color: white;
+            color: #b8d0e2;
+            font-size: 1.5rem;
+            margin-right: 20px;
         }
 
         .copyright {
             text-align: center;
-            border-top: 1px solid #315260;
+            border-top: 1px solid #2b4a62;
             padding-top: 32px;
             margin-top: 48px;
             font-size: 0.7rem;
         }
 
         @media (max-width: 780px) {
-            .hero-content h1 { font-size: 2rem; }
+            .hero-content h1 { font-size: 2.2rem; }
             .navbar { flex-direction: column; align-items: flex-start; }
             .container { padding: 0 20px; }
             .stats { gap: 24px; }
-            .cta-glass { flex-direction: column; text-align: center; }
+            .glass-header {
+                padding: 0 16px;
+            }
         }
 
-        /* reveal animation soft */
+        /* Animations */
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
         .reveal {
             opacity: 0;
         }
         .reveal.visible {
-            animation: fadeUp 0.5s ease-out forwards;
-        }
-
-        /* minor */
-        h2 {
-            letter-spacing: -0.2px;
-        }
-        a {
-            text-decoration: none;
+            animation: fadeUp 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
         }
     </style>
 </head>
 <body>
 
-<header class="glass-header">
+<header class="glass-header" id="autoHideHeader">
     <div class="container">
         <div class="navbar">
             <div class="logo">
-                <div class="logo-icon"><i class="fas fa-car-side"></i></div>
+                <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
                 <div class="logo-text">
                     <h1>Xavfsiz <span>Haydovchi</span></h1>
                     <p>Andijon | Avtodrom | Litsenziya</p>
@@ -527,8 +534,8 @@
                         <div class="stat"><h3>98%</h3><p>Imtihon natijasi</p></div>
                     </div>
                 </div>
-                <div style="flex:0.8; text-align:center; opacity:0.7;">
-                    <i class="fas fa-car" style="font-size: 150px; color: #cad9e4;"></i>
+                <div style="flex:0.8; text-align:center;">
+                    <i class="fas fa-car" style="font-size: 180px; color: rgba(0,89,157,0.15);"></i>
                 </div>
             </div>
         </div>
@@ -536,24 +543,73 @@
 
     <!-- Kurslar toifalari -->
     <div class="container" id="kurslar">
-        <h2 style="font-size: 1.9rem; font-weight: 600; text-align: center; margin-bottom: 10px; color: #1f4357;">Litsenziya <span style="color: var(--primary);">toifalari</span></h2>
-        <p style="text-align: center; color: #5f7a8a; margin-bottom: 44px;">Eng mashhur toifalar va shaffof narxlar</p>
+        <h2 style="font-size: 2rem; font-weight: 700; text-align: center; margin-bottom: 12px;">Litsenziya <span style="color: var(--primary);">toifalari</span></h2>
+        <p style="text-align: center; color: #5f7d92; margin-bottom: 48px;">Eng mashhur toifalar va shaffof narxlar</p>
         <div class="cards-grid">
-            <div class="glass-card reveal"><div class="card-icon"><i class="fas fa-motorcycle"></i></div><div class="card-title">A toifa</div><div class="price">2,250,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Ro‘yxatdan o‘tish</button></div>
-            <div class="glass-card reveal"><div class="card-icon"><i class="fas fa-car"></i></div><div class="card-title">B toifa</div><div class="price">4,100,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Yozilish</button></div>
-            <div class="glass-card reveal"><div class="card-icon"><i class="fas fa-truck-moving"></i></div><div class="card-title">BC toifa</div><div class="price">7,000,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Kursga yozilish</button></div>
-            <div class="glass-card reveal"><div class="card-icon"><i class="fas fa-truck"></i></div><div class="card-title">C toifa</div><div class="price">3,800,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Batafsil</button></div>
-            <div class="glass-card reveal"><div class="card-icon"><i class="fas fa-trailer"></i></div><div class="card-title">CE toifa</div><div class="price">3,800,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Yozilish</button></div>
-            <div class="glass-card reveal"><div class="card-icon"><i class="fas fa-bus"></i></div><div class="card-title">D toifa</div><div class="price">5,000,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Yozilish</button></div>
-            <div class="glass-card express reveal"><div><span style="background: var(--primary-light); color: var(--primary); padding: 3px 12px; border-radius: 60px; font-size: 0.7rem; font-weight: 500;"><i class="fas fa-bolt"></i> EXPRESS KURS</span></div><div class="card-title" style="font-size: 1.5rem;">Tezkor tayyorlov</div><div class="price">Maxsus narx</div><button class="card-btn" onclick="window.open('https://t.me/s/xavfsiz_xaydovchi','_blank')">Telegram orqali</button></div>
+            <!-- A toifa -->
+            <div class="glass-card reveal">
+                <div class="card-icon"><i class="fas fa-motorcycle"></i></div>
+                <div class="card-title">A toifa</div>
+                <div class="price">2,250,000 so‘m</div>
+                <button class="card-btn" onclick="window.location.href='tel:+998980770007'">Ro‘yxatdan o‘tish</button>
+                <div class="enroll-link"><a href="https://forms.amocrm.ru/rzrwxvc" target="_blank"><i class="fas fa-pen-alt"></i> Kursga yozilish</a></div>
+            </div>
+            <!-- B toifa -->
+            <div class="glass-card reveal">
+                <div class="card-icon"><i class="fas fa-car"></i></div>
+                <div class="card-title">B toifa</div>
+                <div class="price">4,100,000 so‘m</div>
+                <button class="card-btn" onclick="window.location.href='tel:+998980770007'">Yozilish</button>
+                <div class="enroll-link"><a href="https://forms.amocrm.ru/rzrwxvc" target="_blank"><i class="fas fa-pen-alt"></i> Kursga yozilish</a></div>
+            </div>
+            <!-- BC toifa -->
+            <div class="glass-card reveal">
+                <div class="card-icon"><i class="fas fa-truck-moving"></i></div>
+                <div class="card-title">BC toifa</div>
+                <div class="price">7,000,000 so‘m</div>
+                <button class="card-btn" onclick="window.location.href='tel:+998980770007'">Kursga yozilish</button>
+                <div class="enroll-link"><a href="https://forms.amocrm.ru/rzrwxvc" target="_blank"><i class="fas fa-pen-alt"></i> Kursga yozilish</a></div>
+            </div>
+            <!-- C toifa -->
+            <div class="glass-card reveal">
+                <div class="card-icon"><i class="fas fa-truck"></i></div>
+                <div class="card-title">C toifa</div>
+                <div class="price">3,800,000 so‘m</div>
+                <button class="card-btn" onclick="window.location.href='tel:+998980770007'">Batafsil</button>
+                <div class="enroll-link"><a href="https://forms.amocrm.ru/rzrwxvc" target="_blank"><i class="fas fa-pen-alt"></i> Kursga yozilish</a></div>
+            </div>
+            <!-- CE toifa -->
+            <div class="glass-card reveal">
+                <div class="card-icon"><i class="fas fa-trailer"></i></div>
+                <div class="card-title">CE toifa</div>
+                <div class="price">3,800,000 so‘m</div>
+                <button class="card-btn" onclick="window.location.href='tel:+998980770007'">Yozilish</button>
+                <div class="enroll-link"><a href="https://forms.amocrm.ru/rzrwxvc" target="_blank"><i class="fas fa-pen-alt"></i> Kursga yozilish</a></div>
+            </div>
+            <!-- D toifa -->
+            <div class="glass-card reveal">
+                <div class="card-icon"><i class="fas fa-bus"></i></div>
+                <div class="card-title">D toifa</div>
+                <div class="price">5,000,000 so‘m</div>
+                <button class="card-btn" onclick="window.location.href='tel:+998980770007'">Yozilish</button>
+                <div class="enroll-link"><a href="https://forms.amocrm.ru/rzrwxvc" target="_blank"><i class="fas fa-pen-alt"></i> Kursga yozilish</a></div>
+            </div>
+            <!-- Express kurs -->
+            <div class="glass-card express reveal">
+                <div><span style="background: var(--primary); color: white; padding: 3px 12px; border-radius: 40px; font-size: 0.7rem;"><i class="fas fa-bolt"></i> EXPRESS KURS</span></div>
+                <div class="card-title" style="font-size: 1.5rem;">Tezkor tayyorlov</div>
+                <div class="price">Maxsus narx</div>
+                <button class="card-btn" onclick="window.open('https://t.me/s/xavfsiz_xaydovchi','_blank')">Telegram orqali</button>
+                <div class="enroll-link"><a href="https://forms.amocrm.ru/rzrwxvc" target="_blank"><i class="fas fa-pen-alt"></i> Kursga yozilish (Express)</a></div>
+            </div>
         </div>
     </div>
 
-    <!-- Filiallar (xaritada ko‘rish) minimal section -->
+    <!-- Filiallar (xaritada ko‘rish) -->
     <div class="locations-glass" id="filiallar">
         <div class="container">
-            <h2 style="font-size: 1.9rem; font-weight: 600; text-align: center;">📍 Filiallar <span style="color: var(--primary);">va avtodrom</span></h2>
-            <p style="text-align: center; margin-bottom: 44px; color: #5f7a8a;">Andijon bo‘ylab 7 qulay manzil, Bo‘stonda eng zamonaviy avtodrom</p>
+            <h2 style="font-size: 2rem; font-weight: 700; text-align: center;">📍 Filiallar <span style="color: var(--primary);">va avtodrom</span></h2>
+            <p style="text-align: center; margin-bottom: 48px; color: #5f7d92;">Andijon bo‘ylab 7 qulay manzil, Bo‘stonda eng zamonaviy avtodrom</p>
             <div class="locations-grid">
                 <div class="loc-item reveal"><div class="loc-icon"><i class="fas fa-store"></i></div><div><h4>Yangi bozor</h4><a class="map-link" href="https://yandex.uz/maps/-/CPH6uC0C" target="_blank"><i class="fas fa-map-marker-alt"></i> Xaritada ko‘rish</a></div></div>
                 <div class="loc-item reveal"><div class="loc-icon"><i class="fas fa-flag-checkered"></i></div><div><h4>Bo‘ston (Avtodrom)</h4><a class="map-link" href="https://yandex.uz/maps/-/CPH6yMzZ" target="_blank"><i class="fas fa-map-marker-alt"></i> Xaritada ko‘rish</a></div></div>
@@ -566,29 +622,29 @@
         </div>
     </div>
 
-    <!-- AmoCRM integratsiyasi yangi script bilan (minimal block) -->
+    <!-- Yangilangan AmoCRM integratsiyasi (yangi ID va hash) -->
     <div class="container">
         <div class="amo-glass-container reveal" id="amocrm-block">
-            <i class="fas fa-pen-fancy" style="font-size: 1.9rem; color: var(--primary); margin-bottom: 12px; display: inline-block;"></i>
+            <i class="fas fa-envelope-open-text" style="font-size: 2.2rem; color: var(--primary); margin-bottom: 16px; display: inline-block;"></i>
             <h2 class="amo-title">Tez ro‘yxatdan o‘ting yoki savol qoldiring</h2>
-            <p style="color: #5b7c8c;">Menejerlar 24 soat ichida siz bilan bog‘lanadi</p>
-            <!-- NEW AmoCRM scripts (replacement) -->
+            <p>Menejerlar 24 soat ichida siz bilan bog‘lanadi</p>
+            <!-- Yangi AmoCRM script (ID: 1715926) -->
             <script>
-                !function(a,m,o,c,r,m1){a[o+c]=a[o+c]||{setMeta:function(p){this.params=(this.params||[]).concat([p])}},a[o+r]=a[o+r]||function(f){a[o+r].f=(a[o+r].f||[]).concat([f])},a[o+r]({id:"1715926",hash:"34a8acd41660d7dcc1a482098af1c93e",locale:"ru"}),a[o+m1]=a[o+m1]||function(f,k){a[o+m1].f=(a[o+m1].f||[]).concat([[f,k]])}}(window,0,"amo_forms_","params","load","loaded");
+            !function(a,m,o,c,r,m1){a[o+c]=a[o+c]||{setMeta:function(p){this.params=(this.params||[]).concat([p])}},a[o+r]=a[o+r]||function(f){a[o+r].f=(a[o+r].f||[]).concat([f])},a[o+r]({id:"1715926",hash:"34a8acd41660d7dcc1a482098af1c93e",locale:"ru"}),a[o+m1]=a[o+m1]||function(f,k){a[o+m1].f=(a[o+m1].f||[]).concat([[f,k]])}}(window,0,"amo_forms_","params","load","loaded");
             </script>
             <script id="amoforms_script_1715926" async="async" charset="utf-8" src="https://forms.amocrm.ru/forms/assets/js/amoforms.js?1780060354"></script>
         </div>
     </div>
 
-    <!-- CTA Banner minimal -->
+    <!-- CTA Banner -->
     <div class="container">
         <div class="cta-glass reveal">
             <div class="cta-text">
-                <h3><i class="fas fa-mobile-alt"></i> Bugun ro‘yxatdan o‘ting!</h3>
-                <p style="color: #476b7c; margin-top: 6px;">Telegram yoki qo‘ng‘iroq: 98 077 00 07</p>
+                <h3 style="color: white; font-size: 1.8rem;"><i class="fas fa-mobile-alt"></i> Bugun ro‘yxatdan o‘ting!</h3>
+                <p style="color: #d9ecff;">Telegram yoki qo‘ng‘iroq: 98 077 00 07</p>
                 <div style="margin-top: 12px;">
-                    <a href="tel:+998980770007" style="color: #2c5c74; font-weight: 500; margin-right: 24px;"><i class="fas fa-phone-alt"></i> 98 077 00 07</a>
-                    <a href="https://t.me/s/xavfsiz_xaydovchi" style="color: #2c5c74;" target="_blank"><i class="fab fa-telegram"></i> Telegram</a>
+                    <a href="tel:+998980770007" style="color: white; font-weight: 600; margin-right: 24px;"><i class="fas fa-phone-alt"></i> 98 077 00 07</a>
+                    <a href="https://t.me/s/xavfsiz_xaydovchi" style="color: white;" target="_blank"><i class="fab fa-telegram"></i> Telegram</a>
                 </div>
             </div>
             <a href="https://www.instagram.com/avtomaktab_andijon/" target="_blank" class="btn-white"><i class="fab fa-instagram"></i> Instagram</a>
@@ -600,20 +656,20 @@
     <div class="container">
         <div class="footer-grid">
             <div class="footer-col">
-                <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 18px;">
-                    <div class="logo-icon" style="background: #2d5568;"><i class="fas fa-car-side"></i></div>
-                    <h4 style="color: #f1f6f9;">Xavfsiz Haydovchi</h4>
+                <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 20px;">
+                    <div class="logo-icon" style="background: #1e4f6e;"><i class="fas fa-car-side"></i></div>
+                    <h4 style="color: white;">Xavfsiz Haydovchi</h4>
                 </div>
-                <p style="color: #b9cedb;">Andijonning eng katta avtomaktabi. Rasmiy litsenziya, avtodrom va 7 qulay filial.</p>
+                <p>Andijonning eng katta avtomaktabi. Rasmiy litsenziya, avtodrom va 7 qulay filial.</p>
             </div>
             <div class="footer-col">
-                <h4 style="color: #eef4f8;">Kurslar</h4>
-                <a href="#" style="color: #bacbd6; display: block; margin-bottom: 8px;">A, B, BC, C, CE, D</a>
-                <a href="#" style="color: #bacbd6;">Express kurs</a>
+                <h4 style="color: white;">Kurslar</h4>
+                <a href="#" style="color: #cddfec; display: block; margin-bottom: 8px;">A, B, BC, C, CE, D</a>
+                <a href="#" style="color: #cddfec;">Express kurs</a>
             </div>
             <div class="footer-col">
-                <h4 style="color: #eef4f8;">Bog‘lanish</h4>
-                <a href="tel:+998980770007" style="color: #bacbd6;"><i class="fas fa-phone-alt"></i> 98 077 00 07</a>
+                <h4 style="color: white;">Bog‘lanish</h4>
+                <a href="tel:+998980770007" style="color: #cddfec;"><i class="fas fa-phone-alt"></i> 98 077 00 07</a>
                 <div class="social-links" style="margin-top: 16px;">
                     <a href="https://t.me/s/xavfsiz_xaydovchi" target="_blank"><i class="fab fa-telegram"></i></a>
                     <a href="https://www.instagram.com/avtomaktab_andijon/" target="_blank"><i class="fab fa-instagram"></i></a>
@@ -625,9 +681,10 @@
     </div>
 </footer>
 
-<!-- Scroll Reveal soft + interactive handlers -->
+<!-- Scroll reveal + Header Auto-Hide + Enhanced event handlers -->
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    (function() {
+        // REVEAL ANIMATION
         const reveals = document.querySelectorAll('.reveal');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -636,51 +693,71 @@
                     observer.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.1, rootMargin: '0px 0px -10px 0px' });
+        }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
         reveals.forEach(el => observer.observe(el));
 
-        // universal card and button actions
-        const allActionBtns = document.querySelectorAll('.card-btn, .btn-primary, .btn-outline');
-        allActionBtns.forEach(btn => {
-            if (!btn.hasAttribute('data-listener')) {
-                btn.setAttribute('data-listener', 'true');
-                btn.addEventListener('click', (e) => {
-                    const text = btn.innerText.trim();
-                    if (text.includes('Yozilish') || text.includes('Ro‘yxat') || text.includes('Kursga') || text.includes('Batafsil')) {
-                        e.preventDefault();
-                        window.location.href = 'tel:+998980770007';
-                    }
-                    if (text.includes('Telegram')) {
-                        e.preventDefault();
-                        window.open('https://t.me/s/xavfsiz_xaydovchi', '_blank');
-                    }
-                    if (btn.classList.contains('btn-primary') && !btn.innerText.includes('Telegram')) {
-                        if(btn.getAttribute('href') === '#kurslar') return;
-                        e.preventDefault();
-                        window.location.href = 'tel:+998980770007';
-                    }
-                });
-            }
-        });
-        // fix outline buttons separately
-        document.querySelectorAll('.phone-gloss, .btn-outline').forEach(btn => {
-            if(!btn.hasAttribute('data-listener2')) {
-                btn.setAttribute('data-listener2', 'true');
-                btn.addEventListener('click', (e) => {
-                    if(btn.classList.contains('phone-gloss')) return;
-                    if(btn.getAttribute('href') !== '#') e.preventDefault();
-                    if(!btn.innerText.includes('Konsultatsiya')) return;
-                    window.location.href = 'tel:+998980770007';
-                });
-            }
-        });
-        // ensure that direct phone call works
-        const phoneButtons = document.querySelectorAll('[href="tel:+998980770007"]');
-        phoneButtons.forEach(btn => {});
-    });
-</script>
+        // AUTO-HIDE HEADER ON SCROLL (mobile & desktop)
+        const header = document.getElementById('autoHideHeader');
+        if (header) {
+            let lastScrollY = window.scrollY;
+            let ticking = false;
+            const SCROLL_THRESHOLD = 20; // minimal scroll before hiding
 
-<!-- Font Awesome 6 (minimal) -->
+            function onScroll() {
+                if (ticking) return;
+                requestAnimationFrame(() => {
+                    const currentY = window.scrollY;
+                    if (currentY <= 20) {
+                        // near top - always show header
+                        header.classList.remove('header-hidden');
+                    } 
+                    else if (currentY > lastScrollY && currentY > SCROLL_THRESHOLD) {
+                        // scrolling down
+                        header.classList.add('header-hidden');
+                    } 
+                    else if (currentY < lastScrollY) {
+                        // scrolling up
+                        header.classList.remove('header-hidden');
+                    }
+                    lastScrollY = currentY;
+                    ticking = false;
+                });
+                ticking = true;
+            }
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            // initial state
+            header.classList.remove('header-hidden');
+        }
+
+        // fix any buttons / card clicks for form redirects but keep default behavior,
+        // also ensure external enroll links open correctly.
+        // additionally ensure all existing card buttons maintain original purpose.
+        // no double-binding needed, cards already have inline onclick, but enroll links use target="_blank".
+        // ensure smooth behavior
+        const enrollLinks = document.querySelectorAll('.enroll-link a');
+        enrollLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                // no further action, it's already a standard link
+            });
+        });
+
+        // add consistency for express card button telemetry, keep default
+        // "Kuchliroq tizimda" - also prevent any header conflict in iOS
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+
+        // minor improvement: fix potential sticky hover on mobile
+        const allButtons = document.querySelectorAll('.card-btn, .btn-primary, .btn-outline, .phone-gloss');
+        allButtons.forEach(btn => {
+            btn.addEventListener('touchstart', function(e) {
+                // just ensures responsiveness, no double fire
+            });
+        });
+    })();
+</script>
+<!-- Font Awesome -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
 </body>
 </html>
