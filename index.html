@@ -1,412 +1,680 @@
 <!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Xavfsiz Haydovchi | Andijondagi eng katta avtomaktab</title>
+    <!-- Google Fonts & Font Awesome 6 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- AOS animation library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<!--
-  To change the theme, change the class on the html tag below to one of:
-  - theme-auto: Automatically switches based on user's system preferences
-  - theme-light: Forces light theme
-  - theme-dark: Forces dark theme
--->
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #0b2b3d;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
 
-<html class="theme-auto" lang="en"> <!-- Update`class="theme-auto" with your preference -->
+        :root {
+            --primary: #00599D;
+            --primary-dark: #00447a;
+            --primary-glow: rgba(0, 89, 157, 0.4);
+            --primary-light: #e7f0fa;
+            --dark-bg: #0A1F2E;
+            --gray-light: #f8fcff;
+            --gray-border: #eef2f8;
+            --text-dark: #0f2b3b;
+        }
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+        /* animated gradient background for hero */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-    <!-- Page Title - Change this to your name/brand (50-60 characters recommended) -->
-    <title>LittleLink</title>
-    <link rel="icon" type="image/x-icon" href="/images/avatar.png"> <!-- Update this with your own favicon -->
+        .animated-bg {
+            background: radial-gradient(circle at 10% 20%, rgba(0,89,157,0.03) 0%, rgba(255,255,255,1) 90%);
+        }
 
-    <!-- Meta Description - Write a description (150-160 characters recommended) -->
-    <meta name="description" content="Replace this with your own, this appears in search results and when sharing.">
+        /* custom scroll */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #eef2f8;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 20px;
+        }
 
-    <!-- Keywords -->
-    <meta name="keywords" content="your name, industry, and specialties">
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 28px;
+        }
 
-    <!-- Canonical URL - Helps prevent duplicate content issues -->
-    <meta rel="canonical" href="https://yourwebsite.com">
+        /* header with glassmorphism */
+        .header {
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,89,157,0.2);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .logo-icon {
+            background: linear-gradient(135deg, var(--primary), #0077be);
+            width: 48px;
+            height: 48px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            color: white;
+            box-shadow: 0 12px 18px -8px var(--primary-glow);
+            transition: 0.3s;
+        }
+        .logo-text h1 {
+            font-size: 1.7rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(120deg, #0a2a3b, var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .logo-text span {
+            color: var(--primary);
+            background: none;
+            -webkit-background-clip: unset;
+            background-clip: unset;
+        }
+        .logo-text p {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #1f3e4d;
+            transition: 0.2s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: var(--primary);
+            transition: 0.25s;
+        }
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+        .nav-links a.active {
+            color: var(--primary);
+        }
+        .btn-outline {
+            border: 1.5px solid var(--primary);
+            background: transparent;
+            padding: 8px 24px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--primary);
+            transition: 0.25s;
+            cursor: pointer;
+        }
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px var(--primary-glow);
+            transform: translateY(-2px);
+        }
 
-    <!-- Author Information -->
-    <meta name="author" content="Your Name">
+        /* hero */
+        .hero {
+            padding: 80px 0 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 40px;
+        }
+        .hero-content {
+            flex: 1;
+        }
+        .hero-badge {
+            background: var(--primary-light);
+            color: var(--primary);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 20px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            margin-bottom: 24px;
+            backdrop-filter: blur(2px);
+        }
+        .hero-content h2 {
+            font-size: 3.2rem;
+            font-weight: 900;
+            line-height: 1.2;
+            color: #0A2540;
+            margin-bottom: 20px;
+        }
+        .hero-content h2 span {
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+        .hero-content p {
+            font-size: 1.05rem;
+            color: #4a5b6b;
+            margin-bottom: 32px;
+            max-width: 550px;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 28px;
+        }
+        .stat-item h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
 
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/brands.css">
+        /* buttons */
+        .btn-primary {
+            background: linear-gradient(95deg, var(--primary), #0070b0);
+            color: white;
+            border: none;
+            padding: 14px 34px;
+            border-radius: 44px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s;
+            box-shadow: 0 10px 18px -6px var(--primary-glow);
+            display: inline-block;
+            text-decoration: none;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 28px -8px var(--primary-glow);
+        }
+        .btn-secondary {
+            background: rgba(0,89,157,0.08);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 12px 30px;
+            border-radius: 44px;
+            font-weight: 700;
+            margin-left: 12px;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
 
-    <!-- LittleLink Extended Stylesheet (Optional) -->
-    <!-- <link rel="stylesheet" href="css/brands-extended.css"> -->
-    <!-- Learn more at https://github.com/sethcottle/littlelink-extended.
-         Remove comments if you've added LittleLink Extended dependencies -->
+        /* cards modern effect */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 32px;
+            margin: 50px 0 80px;
+        }
+        .price-card {
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(2px);
+            border-radius: 32px;
+            padding: 28px 24px;
+            border: 1px solid var(--gray-border);
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            box-shadow: 0 12px 24px -12px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        .price-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: var(--primary);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .price-card:hover::before {
+            opacity: 1;
+        }
+        .price-card:hover {
+            transform: translateY(-10px) scale(1.01);
+            border-color: var(--primary);
+            box-shadow: 0 30px 40px -18px rgba(0,89,157,0.25);
+        }
+        .category-icon {
+            background: var(--primary-light);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 24px;
+            font-size: 28px;
+            color: var(--primary);
+            margin-bottom: 22px;
+            transition: 0.2s;
+        }
+        .price-card:hover .category-icon {
+            transform: scale(1.03);
+            background: var(--primary);
+            color: white;
+        }
+        .price-tag {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 16px 0 12px;
+        }
+        .card-btn {
+            background: transparent;
+            border: 1px solid var(--gray-border);
+            padding: 12px 0;
+            width: 100%;
+            border-radius: 40px;
+            font-weight: 700;
+            color: var(--primary);
+            cursor: pointer;
+            transition: 0.25s;
+        }
+        .card-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        .express-card {
+            background: linear-gradient(125deg, #ffffff 0%, #f1f9ff 100%);
+            border: 2px solid var(--primary);
+            position: relative;
+        }
+        .express-badge {
+            background: var(--primary);
+            color: white;
+            font-size: 0.7rem;
+            padding: 5px 14px;
+            border-radius: 60px;
+            display: inline-flex;
+            gap: 5px;
+        }
 
-  </head>
+        /* Location cards with modern hover */
+        .locations {
+            background: linear-gradient(145deg, #f9fdfe 0%, #ffffff 100%);
+            border-radius: 56px;
+            padding: 70px 0;
+            margin: 40px 0 60px;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.02), 0 20px 35px -12px rgba(0,0,0,0.05);
+        }
+        .locations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 28px;
+        }
+        .loc-card {
+            background: white;
+            border-radius: 28px;
+            padding: 18px 22px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            transition: all 0.3s;
+            border: 1px solid rgba(0,89,157,0.1);
+            box-shadow: 0 5px 12px rgba(0,0,0,0.02);
+        }
+        .loc-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 30px -15px rgba(0,89,157,0.2);
+        }
+        .loc-card i:first-child {
+            font-size: 32px;
+            background: var(--primary-light);
+            padding: 14px;
+            border-radius: 20px;
+            color: var(--primary);
+        }
+        .loc-info h4 {
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+        .map-link {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 8px;
+            letter-spacing: 0.3px;
+        }
+        .map-link i {
+            font-size: 12px;
+        }
+        .map-link:hover {
+            text-decoration: underline;
+        }
 
-<body>
+        /* CTA banner */
+        .cta-banner {
+            background: linear-gradient(115deg, var(--primary), #003d66);
+            border-radius: 48px;
+            padding: 50px 48px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 28px;
+            margin: 40px 0;
+            box-shadow: 0 28px 40px -12px rgba(0,89,157,0.4);
+        }
+        .btn-white {
+            background: white;
+            color: var(--primary);
+            padding: 14px 36px;
+            border-radius: 50px;
+            font-weight: 800;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .btn-white:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+        }
 
+        /* AmoCRM Form Section */
+        .amo-section {
+            background: var(--gray-light);
+            border-radius: 48px;
+            padding: 60px 40px;
+            margin: 40px 0 70px;
+            text-align: center;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.03);
+        }
+        .amo-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        #amoforms_form_1715890 {
+            margin-top: 30px;
+            min-height: 380px;
+        }
+
+        footer {
+            background: #0C1E2E;
+            color: #cfdfed;
+            padding: 60px 0 30px;
+            border-radius: 48px 48px 0 0;
+        }
+        .footer-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+            justify-content: space-between;
+        }
+        .social-icons a {
+            color: #bfd6e8;
+            font-size: 1.6rem;
+            margin-right: 20px;
+            transition: 0.2s;
+        }
+        .social-icons a:hover {
+            color: white;
+            transform: translateY(-3px);
+        }
+        .copyright {
+            text-align: center;
+            border-top: 1px solid #244b62;
+            padding-top: 32px;
+            margin-top: 40px;
+            font-size: 0.7rem;
+        }
+        @media (max-width: 800px) {
+            .hero-content h2 { font-size: 2.2rem; }
+            .navbar { flex-direction: column; align-items: flex-start; }
+            .cta-banner { flex-direction: column; text-align: center; }
+        }
+        /* floating elements */
+        .floating-shape {
+            position: absolute;
+            z-index: -1;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="animated-bg">
+
+<header class="header">
     <div class="container">
-        <div class="column">
-
-            <!--
-              By default, the Avatar is rounded. Use the following:
-              - avatar--rounded: Automatically rounds the image
-              - avatar--soft: Slightly rounds the image
-              - avatar--none: Removes any rounding
-
-              Be sure to replace the src with your own image path and update the alt text
-            -->
-            <img class="avatar avatar--rounded" src="images/avatar.png" srcset="images/avatar@2x.png 2x" alt="LittleLink">
-
-            <!-- Replace with your name or brand -->
-            <h1>
-              <div>LittleLink</div>
-            </h1>
-
-            <!-- Add a short description about yourself or your brand -->
-            <p>An open source DIY Linktree alternative.</p>
-
-            <!-- All your buttons go here -->
-            <div class="button-stack" role="navigation">
-
-              <!-- Default LittleLink -->
-              <a class="button button-default" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/littlelink.svg" alt="LittleLink Logo">LittleLink</a>
-
-              <!-- Amazon -->
-              <a class="button button-amazon" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/amazon.svg" alt="Amazon Wishlist Logo">Amazon Wishlist</a>
-
-              <!-- Amazon Music -->
-              <a class="button button-amazon-music" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/amazon-music.svg" alt="Amazon Music Logo">Listen on Amazon Music</a>
-
-              <!-- Apple App Store -->
-              <a class="button button-appstore" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/apple.svg" alt="Apple Logo">Apple App Store</a>
-
-              <!-- Apple Invites -->
-              <a class="button button-invites" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/apple-invites.svg" alt="Apple Invites Logo">Apple Invites</a>
-
-              <!-- Apple Music -->
-              <a class="button button-apple-music" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/apple-music.svg" alt="Apple Music Logo">Listen on Apple Music</a>
-
-              <!-- Apple Music Alternate -->
-              <a class="button button-apple-music-alt" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/apple-music-alt.svg" alt="Apple Music Logo">Listen on Apple Music</a>
-
-              <!-- Apple Podcasts -->
-              <a class="button button-apple-podcasts" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/apple-podcasts.svg" alt="Apple Podcasts Logo">Listen on Apple Podcasts</a>
-
-              <!-- Apple Podcasts Alternate -->
-              <a class="button button-apple-podcasts-alt" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/apple-podcasts-alt.svg" alt="Apple Podcasts Logo">Listen on Apple Podcasts</a>
-
-              <!-- Bandcamp -->
-              <a class="button button-bandcamp" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/bandcamp.svg" alt="Bandcamp Logo">Bandcamp</a>
-
-              <!-- Behance -->
-              <a class="button button-behance" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/behance.svg" alt="Behance Logo">Behance</a>
-
-              <!-- Bluesky -->
-              <a class="button button-bluesky" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/bluesky.svg" alt="Bluesky Logo">Bluesky</a>
-
-              <!-- Bluesky Alt -->
-              <a class="button button-bluesky-alt" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/bluesky-alt.svg" alt="Bluesky Logo">Bluesky</a>
-
-              <!-- Buy Me A Coffee -->
-              <a class="button button-coffee" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/buy-me-a-coffee.svg" alt="Buy Me A Coffee Logo">Buy Me A Coffee</a>
-
-              <!-- Cal.com -->
-              <a class="button button-cal" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/cal.svg" alt="Cal.com Logo">Schedule with Cal.com</a>
-
-              <!-- Calendly -->
-              <a class="button button-calendly" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/calendly.svg" alt="Calendly Logo">Schedule with Calendly</a>
-
-              <!-- Cash App -->
-              <a class="button button-cash-app" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/cash-app-dollar.svg" alt="Cash App Logo">Cash App</a>
-
-              <!-- Dev.to -->
-              <a class="button button-dev-to" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/dev-to.svg" alt="Dev.to Logo">Dev.to</a>
-
-              <!-- Discogs -->
-              <a class="button button-discogs" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/discogs.svg" alt="Discogs Logo">Discogs</a>
-
-              <!-- Discogs Alt -->
-              <a class="button button-discogs-alt" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/discogs-alt.svg" alt="Discogs Logo">Discogs</a>
-
-              <!-- Discord -->
-              <a class="button button-discord" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/discord.svg" alt="Discord Logo">Discord</a>
-
-              <!-- Dribbble -->
-              <a class="button button-dribbble" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/dribbble.svg" alt="Dribbble Logo">Dribbble</a>
-
-              <!-- Etsy -->
-              <a class="button button-etsy" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/etsy.svg" alt="Etsy Logo">Shop on Etsy</a>
-
-              <!-- Facebook -->
-              <a class="button button-faceb" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/facebook.svg" alt="Facebook Logo">Find us on Facebook</a>
-
-              <!-- Facebook Messenger -->
-              <a class="button button-messenger" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/messenger.svg" alt="Messenger Logo">Chat on Messenger</a>
-
-              <!-- Figma -->
-              <a class="button button-figma" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/figma.svg" alt="Figma Logo">Figma Community</a>
-
-              <!-- Fiverr -->
-              <a class="button button-fiverr" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/fiverr.svg" alt="Fiverr Logo">Fiverr Gig</a>
-
-              <!-- Flickr -->
-              <a class="button button-flickr" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/flickr.svg" alt="Flickr Logo">Flickr</a>
-
-              <!-- GitHub -->
-              <a class="button button-github" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/github.svg" alt="GitHub Logo">GitHub</a>
-
-              <!-- GitLab -->
-              <a class="button button-gitlab" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/gitlab.svg" alt="GitLab Logo">GitLab</a>
-
-              <!-- GoFundMe -->
-              <a class="button button-gofundme" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/gofundme.svg" alt="GoFundMe Logo">GoFundMe</a>
-
-              <!-- Goodreads -->
-              <a class="button button-goodreads" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/goodreads.svg" alt="Goodreads Logo">Goodreads</a>
-
-              <!-- Google Drive -->
-              <a class="button button-google-black" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/google-drive.svg" alt="Google Drive Logo">View in Google Drive</a>
-
-              <!-- Google Play Store -->
-              <a class="button button-playstore" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/google-play.svg" alt="Google Play Store Logo">Google Play Store</a>
-
-              <!-- Google Scholar -->
-              <a class="button button-google-scholar" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/google-scholar.svg" alt="Google Scholar Logo">Google Scholar</a>
-
-              <!-- Hashnode -->
-              <a class="button button-hashnode" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/hashnode.svg" alt="Hashnode Logo">Hashnode</a>
-
-              <!-- Instagram -->
-              <a class="button button-instagram" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/instagram.svg" alt="Instagram Logo">Instagram</a>
-
-              <!-- Kick -->
-              <a class="button button-kick" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/kick.svg" alt="Kick Logo">Kick</a>
-
-              <!-- Kick Alt -->
-              <a class="button button-kick-alt" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/kick-alt.svg" alt="Kick Logo">Kick</a>
-
-              <!-- Kickstarter -->
-              <a class="button button-kickstarter" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/kickstarter.svg" alt="Kickstarter Logo">Kickstarter</a>
-
-              <!-- Kit -->
-              <a class="button button-kit" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/kit.svg" alt="Kit Logo">Kit</a>
-
-              <!-- Ko-fi -->
-              <a class="button button-ko-fi" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/ko-fi.svg" alt="Ko-fi Logo">Support me on Ko-fi</a>
-
-              <!-- Last.fm -->
-              <a class="button button-last-fm" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/last-fm.svg" alt="">Last.fm</a>
-
-              <!-- Letterboxd -->
-              <a class="button button-letterboxd" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/letterboxd.svg" alt="">Letterboxd</a>
-
-              <!-- Line -->
-              <a class="button button-line" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/line.svg" alt="Line Logo">Line</a>
-
-              <!-- LinkedIn -->
-              <a class="button button-linked" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/linkedin.svg" alt="LinkedIn Logo">LinkedIn</a>
-
-              <!-- Mailchimp -->
-              <a class="button button-mailchimp" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/mailchimp.svg" alt="Mailchimp Logo">Mailchimp</a>
-
-              <!-- Mastodon -->
-              <a class="button button-mastodon" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/mastodon.svg" alt="Mastodon Logo">Mastodon</a>
-
-              <!-- Matrix -->
-              <a class="button button-matrix" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/matrix.svg" alt="Matrix Logo">Matrix</a>
-
-              <!-- Medium -->
-              <a class="button button-medium" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/medium.svg" alt="Medium Logo">Medium</a>
-
-              <!-- Meetup -->
-              <a class="button button-meetup" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/meetup.svg" alt="Meetup Logo">Meetup</a>
-
-              <!-- Meetup Alt -->
-              <a class="button button-meetup-alt" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/meetup-alt.svg" alt="Meetup Logo">Meetup</a>
-
-              <!-- Microsoft Store -->
-              <a class="button button-microsoft" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/microsoft.svg" alt="Microsoft Logo">Get it from Microsoft</a>
-
-              <!-- Notion -->
-              <a class="button button-notion" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/notion.svg" alt="Notion Logo">Notion</a>
-
-              <!-- Obsidian -->
-              <a class="button button-obsidian" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/obsidian.svg" alt="Obsidian Logo">Obsidian</a>
-
-              <!-- OnlyFans -->
-              <a class="button button-onlyfans" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/onlyfans.svg" alt="OnlyFans Logo">OnlyFans (18+)</a>
-
-              <!-- Patreon -->
-              <a class="button button-patreon" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/patreon.svg" alt="Patreon Logo">Patreon</a>
-
-              <!-- PayPal -->
-              <a class="button button-paypal" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/paypal.svg" alt="PayPal Logo">PayPal</a>
-
-              <!-- Pinterest -->
-              <a class="button button-pinterest" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/pinterest.svg" alt="Pinterest Logo">Pinterest</a>
-
-              <!-- Product Hunt -->
-              <a class="button button-product-hunt" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/product-hunt.svg" alt="Product Hunt Logo">Product Hunt</a>
-
-              <!-- Reddit -->
-              <a class="button button-reddit" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/reddit.svg" alt="Reddit Logo">Reddit</a>
-
-              <!-- Shop -->
-              <a class="button button-shop" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/shop.svg" alt="Shop Logo">Buy with Shop</a>
-
-              <!-- Signal -->
-              <a class="button button-signal" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/signal.svg" alt="Signal Logo">Signal</a>
-
-              <!-- Signal Alt -->
-              <a class="button button-signal-alt" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/signal-alt.svg" alt="Signal Logo">Signal</a>
-
-              <!-- Slack -->
-              <a class="button button-slack" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/slack.svg" alt="Slack Logo">Join Slack</a>
-
-              <!-- Snapchat -->
-              <a class="button button-snapchat" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/snapchat.svg" alt="Snapchat Logo">Snapchat</a>
-
-              <!-- SoundCloud -->
-              <a class="button button-soundcloud" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/soundcloud.svg" alt="SoundCloud Logo">SoundCloud</a>
-
-              <!-- Spotify -->
-              <a class="button button-spotify" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/spotify.svg" alt="Spotify Logo">Listen on Spotify</a>
-
-              <!-- Spotify Alt -->
-              <a class="button button-spotify-alt" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/spotify-alt.svg" alt="Spotify Logo">Listen on Spotify</a>
-
-              <!-- Square -->
-              <a class="button button-square" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/square.svg" alt="Square Logo">Buy with Square</a>
-
-              <!-- Stack Overflow -->
-              <a class="button button-stack-overflow" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/stack-overflow.svg" alt="Stack Overflow Logo">Stack Overflow</a>
-
-              <!-- Steam -->
-              <a class="button button-steam" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/steam.svg" alt="Steam Logo">Steam</a>
-
-              <!-- Steam Alt -->
-              <a class="button button-steam-alt" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/steam.svg" alt="Steam Logo">Steam</a>
-
-              <!-- Strava -->
-              <a class="button button-strava" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/strava.svg" alt="Strava Logo">Strava</a>
-
-              <!-- Substack -->
-              <a class="button button-substack" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/substack.svg" alt="Substack Logo">Substack</a>
-
-              <!-- Telegram -->
-              <a class="button button-telegram" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/telegram.svg" alt="Telegram Logo">Telegram</a>
-
-              <!-- Threads -->
-              <a class="button button-threads" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/threads.svg" alt="Threads Logo">Threads</a>
-
-              <!-- Threema -->
-              <a class="button button-threema" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/threema.svg" alt="Threema Logo">Threema</a>
-
-              <!-- TikTok -->
-              <a class="button button-tiktok" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/tiktok.svg" alt="TikTok Logo">TikTok</a>
-
-              <!-- Trello -->
-              <a class="button button-trello" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/trello.svg" alt="Trello Logo">Trello</a>
-
-              <!-- Tumblr -->
-              <a class="button button-tumb" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/tumblr.svg" alt="Tumblr Logo">Tumblr</a>
-
-              <!-- Twitch -->
-              <a class="button button-twitch" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/twitch.svg" alt="Twitch Logo">Twitch</a>
-
-              <!-- Unsplash -->
-              <a class="button button-unsplash" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/unsplash.svg" alt="Unsplash Logo">Unsplash</a>
-
-              <!-- Venmo -->
-              <a class="button button-venmo" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/venmo.svg" alt="Venmo Logo">Venmo</a>
-
-              <!-- Vimeo -->
-              <a class="button button-vimeo" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/vimeo.svg" alt="Vimeo Logo">Vimeo</a>
-
-              <!-- VSCO -->
-              <a class="button button-vsco" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/vsco.svg" alt="VSCO Logo">VSCO</a>
-
-              <!-- WhatsApp -->
-              <a class="button button-whatsapp" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/whatsapp.svg" alt="WhatsApp Logo">WhatsApp</a>
-
-              <!-- WordPress -->
-              <a class="button button-wordpress" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/wordpress.svg" alt="WordPress Logo">WordPress</a>
-
-              <!-- X -->
-              <a class="button button-x" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/x.svg" alt="X Logo">Follow on X</a>
-
-              <!-- YouTube -->
-              <a class="button button-yt" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/youtube.svg" alt="YouTube Logo">YouTube</a>
-
-              <!-- YouTube Alt -->
-              <a class="button button-yt-alt" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/youtube-alt.svg" alt="YouTube Logo">YouTube</a>
-
-              <!-- YouTube Music -->
-              <a class="button button-yt" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/youtube-music.svg" alt="YouTube Music Logo">Listen on YouTube Music</a>
-
-              <!-- Zoom -->
-              <a class="button button-zoom" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/zoom.svg" alt="Zoom Logo">Join Zoom Webinar</a>
-
-              <!-- Generic Blog -->
-              <a class="button button-default" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/generic-blog.svg" alt="Blog Icon">Read our blog</a>
-
-              <!-- Generic Calendar -->
-              <a class="button button-default" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/generic-calendar.svg" alt="Calendar Icon">Event RSVP</a>
-
-              <!-- Generic Cloud -->
-              <a class="button button-default" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/generic-cloud.svg" alt="Cloud Icon">Download File</a>
-
-              <!-- Generic Code -->
-              <a class="button button-default" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/generic-code.svg" alt="Code Icon">View the code</a>
-
-              <!-- Generic Computer -->
-              <a class="button button-default" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/generic-computer.svg" alt="Computer Icon">Homelab Setup</a>
-
-              <!-- Generic Email -->
-              <a class="button button-default" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/generic-email.svg" alt="Email Icon">Email Us</a>
-
-              <!-- Generic Email Alt -->
-              <a class="button button-default" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/generic-email-alt.svg" alt="Email Icon">Email Us</a>
-
-              <!-- Generic Homepage -->
-              <a class="button button-default" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/generic-homepage.svg" alt="Homepage Icon">Visit Homepage</a>
-
-              <!-- Generic Map -->
-              <a class="button button-default" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/generic-map.svg" alt="Map Icon">Get Directions</a>
-
-              <!-- Generic Phone -->
-              <a class="button button-default" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/generic-phone.svg" alt="Phone Icon">Call Us</a>
-
-              <!-- Generic Review -->
-              <a class="button button-default" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/generic-review.svg" alt="Review Icon">Leave us a review</a>
-
-              <!-- Generic RSS -->
-              <a class="button button-default" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/generic-rss.svg" alt="RSS Icon">RSS Subscribe</a>
-
-              <!-- Generic Shopping Bag -->
-              <a class="button button-default" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/generic-shopping-bag.svg" alt="Shopping Bag Icon">Visit Our Shop</a>
-
-              <!-- Generic Shopping Tag -->
-              <a class="button button-default" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/generic-shopping-tag.svg" alt="Shopping Tag Icon">10% Discount</a>
-
-              <!-- Generic SMS -->
-              <a class="button button-default" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/generic-sms.svg" alt="SMS Icon">Send us a message</a>
-
-              <!-- Generic Website -->
-              <a class="button button-default" href="#" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/generic-website.svg" alt="Website Icon">Visit Website</a>
-
-              <!-- LittleLink Extended -->
-              <a class="button button-default" href="https://github.com/sethcottle/littlelink-extended" target="_blank" rel="noopener" role="button"><img class="icon" aria-hidden="true" src="images/icons/littlelink.svg" alt="LittleLink Logo">LittleLink Extended</a>
-
-      </div>
-
-      <!-- Feel free to add your own footer information, including updating `privacy.html` to reflect how your LittleLink fork is set up -->
-      <footer>
-        <a href="privacy.html">Privacy Policy</a> | Build your own by forking <a href="https://littlelink.io" target="_blank" rel="noopener">LittleLink</a>
-      </footer>
-
+        <div class="navbar">
+            <div class="logo-area">
+                <img src="images/logo.png" alt="logo" style="height: 48px; width: auto; display: none;" onerror="this.style.display='none'">
+                <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="logo-text">
+                    <h1>Xavfsiz <span>Haydovchi</span></h1>
+                    <p><i class="fas fa-map-pin"></i> Andijon | Avtodrom | Rasmiy litsenziya</p>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="active">Bosh sahifa</a>
+                <a href="#kurslar">Kurslar</a>
+                <a href="#filiallar">Filiallar</a>
+                <a href="#aloqa">Aloqa</a>
+                <button class="btn-outline" onclick="window.location.href='tel:+998980770007'"><i class="fas fa-phone-alt"></i> 98 077 00 07</button>
+            </div>
+        </div>
     </div>
-  </div>
+</header>
 
+<main>
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content" data-aos="fade-up" data-aos-duration="800">
+                    <span class="hero-badge"><i class="fas fa-trophy"></i> Andijondagi eng katta avtomaktab</span>
+                    <h2>Professional haydovchilik <span>sari ishonchli qadam</span></h2>
+                    <p>🏆 Avtodrom, sertifikatlangan instruktorlar, yuqori natija. Xavfsiz haydovchi bilan haydashni o'rganing va birinchi urinishda litsenziya oling.</p>
+                    <div>
+                        <a href="#kurslar" class="btn-primary"><i class="fas fa-graduation-cap"></i> Kurslarni ko'rish</a>
+                        <a href="tel:+998980770007" class="btn-secondary"><i class="fas fa-headset"></i> Konsultatsiya</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-item"><h3>7+</h3><p>Filiallar</p></div>
+                        <div class="stat-item"><h3>1</h3><p>Avtodrom</p></div>
+                        <div class="stat-item"><h3>98%</h3><p>Imtihon natijasi</p></div>
+                    </div>
+                </div>
+                <div class="hero-image" data-aos="fade-left" style="flex:0.8; text-align:center;">
+                    <i class="fas fa-car-side" style="font-size: 220px; color: var(--primary-light); opacity: 0.7;"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container" id="kurslar">
+        <div style="margin: 40px 0 20px; text-align:center;" data-aos="fade-up">
+            <h2 class="section-title" style="font-size: 2.3rem; font-weight:800;">Litsenziya <span style="color:var(--primary)">toifalari</span></h2>
+            <p class="section-sub" style="color:#5c6f87;">Eng ommabop toifalar va qulay narxlar — sizning ehtiyojingizga mos kurs</p>
+        </div>
+        <div class="categories-grid">
+            <!-- A -->
+            <div class="price-card" data-aos="zoom-in" data-aos-delay="100"><div class="category-icon"><i class="fas fa-motorcycle"></i></div><div class="card-title-big" style="font-size: 1.8rem; font-weight:800;">A toifa</div><div class="card-desc">Mototsikllar, skuterlar</div><div class="price-tag">2,250,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Ro‘yxatdan o‘tish</button></div>
+            <!-- B -->
+            <div class="price-card" data-aos="zoom-in" data-aos-delay="150"><div class="category-icon"><i class="fas fa-car"></i></div><div class="card-title-big">B toifa</div><div class="card-desc">Yengil avtomobillar (3500 kg gacha)</div><div class="price-tag">4,100,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Yozilish</button></div>
+            <!-- BC -->
+            <div class="price-card" data-aos="zoom-in" data-aos-delay="200"><div class="category-icon"><i class="fas fa-truck-moving"></i></div><div class="card-title-big">BC toifa</div><div class="card-desc">B + C kombinatsiyasi</div><div class="price-tag">7,000,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Kursga yozilish</button></div>
+            <!-- C -->
+            <div class="price-card" data-aos="zoom-in" data-aos-delay="250"><div class="category-icon"><i class="fas fa-truck"></i></div><div class="card-title-big">C toifa</div><div class="card-desc">Yuk avtomobillari >3500kg</div><div class="price-tag">3,800,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Batafsil</button></div>
+            <!-- CE -->
+            <div class="price-card" data-aos="zoom-in" data-aos-delay="300"><div class="category-icon"><i class="fas fa-trailer"></i></div><div class="card-title-big">CE toifa</div><div class="card-desc">Yuk mashinasi + tirkama</div><div class="price-tag">3,800,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Yozilish</button></div>
+            <!-- D -->
+            <div class="price-card" data-aos="zoom-in" data-aos-delay="350"><div class="category-icon"><i class="fas fa-bus"></i></div><div class="card-title-big">D toifa</div><div class="card-desc">Avtobuslar, yo'lovchi tashish</div><div class="price-tag">5,000,000 so‘m</div><button class="card-btn" onclick="window.location.href='tel:+998980770007'">Yozilish</button></div>
+            <!-- Express -->
+            <div class="price-card express-card" data-aos="zoom-in" data-aos-delay="400"><div><span class="express-badge"><i class="fas fa-bolt"></i> EXPRESS KURS</span></div><div class="card-title-big" style="font-size:1.5rem;">Tezkor tayyorlov</div><div class="card-desc">Intensiv dastur, individual yondashuv</div><div class="price-tag">Shaxsiy taklif</div><button class="card-btn" onclick="window.open('https://t.me/s/xavfsiz_xaydovchi', '_blank')">Telegram orqali</button></div>
+        </div>
+    </div>
+
+    <!-- FILIALLAR + XARITADA KO'RISH -->
+    <div class="locations" id="filiallar">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">📍 Bizning <span style="color:var(--primary)">filiallar</span> va avtodrom</h2>
+            <p class="section-sub" data-aos="fade-up">Andijonning barcha tumanlarida qulay manzillar. Eng katta avtodrom — Bo'stonda</p>
+            <div class="locations-grid">
+                <div class="loc-card" data-aos="fade-right"><i class="fas fa-store"></i><div class="loc-info"><h4>Yangi bozor</h4><a class="map-link" href="https://yandex.uz/maps/-/CPH6uC0C" target="_blank"><i class="fas fa-map-marked-alt"></i> Xaritada ko‘rish</a></div></div>
+                <div class="loc-card" data-aos="fade-right" data-aos-delay="50"><i class="fas fa-flag-checkered"></i><div class="loc-info"><h4>Bo‘ston (Avtodrom)</h4><a class="map-link" href="https://yandex.uz/maps/-/CPH6yMzZ" target="_blank"><i class="fas fa-map-marked-alt"></i> Xaritada ko‘rish</a></div></div>
+                <div class="loc-card" data-aos="fade-right" data-aos-delay="100"><i class="fas fa-water"></i><div class="loc-info"><h4>Soy</h4><a class="map-link" href="https://yandex.uz/maps/-/CPH6NRYs" target="_blank"><i class="fas fa-map-marked-alt"></i> Xaritada ko‘rish</a></div></div>
+                <div class="loc-card" data-aos="fade-right" data-aos-delay="150"><i class="fas fa-city"></i><div class="loc-info"><h4>Eski shahar</h4><a class="map-link" href="https://yandex.uz/navi/10329/andijan/?ll=72.346828%2C40.785410&mode=whatshere&whatshere%5Bpoint%5D=72.346846%2C40.785458&whatshere%5Bzoom%5D=19&z=16" target="_blank"><i class="fas fa-map-marked-alt"></i> Xaritada ko‘rish</a></div></div>
+                <div class="loc-card" data-aos="fade-right" data-aos-delay="200"><i class="fas fa-road"></i><div class="loc-info"><h4>80 metr</h4><a class="map-link" href="https://yandex.uz/navi/10329/andijan/?ll=72.332867%2C40.777147&mode=whatshere&whatshere%5Bpoint%5D=72.332677%2C40.777256&whatshere%5Bzoom%5D=19&z=16" target="_blank"><i class="fas fa-map-marked-alt"></i> Xaritada ko‘rish</a></div></div>
+                <div class="loc-card" data-aos="fade-right" data-aos-delay="250"><i class="fas fa-exchange-alt"></i><div class="loc-info"><h4>Yangi yo‘l</h4><a class="map-link" href="https://yandex.uz/navi/10329/andijan/?ll=72.344501%2C40.813760&mode=whatshere&whatshere%5Bpoint%5D=72.344377%2C40.813529&whatshere%5Bzoom%5D=19&z=16" target="_blank"><i class="fas fa-map-marked-alt"></i> Xaritada ko‘rish</a></div></div>
+                <div class="loc-card" data-aos="fade-right" data-aos-delay="300"><i class="fas fa-hospital-user"></i><div class="loc-info"><h4>Semashka</h4><a class="map-link" href="https://yandex.uz/maps/-/CPH6fEMy" target="_blank"><i class="fas fa-map-marked-alt"></i> Xaritada ko‘rish</a></div></div>
+            </div>
+            <div style="text-align:center; margin-top:40px;" data-aos="fade-up"><i class="fas fa-circle-check" style="color:var(--primary);"></i> <strong>Eng katta avtodrom + haqiqiy harakatdagi mashg'ulotlar</strong></div>
+        </div>
+    </div>
+
+    <!-- AmoCRM Integratsiyasi -->
+    <div class="container">
+        <div class="amo-section" data-aos="flip-up">
+            <h2 class="amo-title"><i class="fas fa-envelope-open-text"></i> Taklif va savollaringiz uchun</h2>
+            <p>Kursga yozilish, konsultatsiya olish yoki savol qoldirish — shaklni to‘ldiring, biz siz bilan bog‘lanamiz.</p>
+            <!-- AmoForms container -->
+            <div id="amoforms_form_1715890"></div>
+        </div>
+    </div>
+
+    <!-- CTA BANNER -->
+    <div class="container">
+        <div class="cta-banner" data-aos="zoom-in">
+            <div class="cta-text">
+                <h3 style="color:white;"><i class="fas fa-graduation-cap"></i> Tezda ro‘yxatdan o‘ting!</h3>
+                <p style="color:#dcf0ff;">Savollar bo‘lsa, qo'ng'iroq qiling yoki ijtimoiy tarmoqlarda kuzating</p>
+                <div style="margin-top: 16px;">
+                    <a href="tel:+998980770007" style="color:white; font-weight:700; margin-right:20px;"><i class="fas fa-phone-alt"></i> 98 077 00 07</a>
+                    <a href="https://t.me/s/xavfsiz_xaydovchi" style="color:white;" target="_blank"><i class="fab fa-telegram"></i> Telegram</a>
+                </div>
+            </div>
+            <a href="https://www.instagram.com/avtomaktab_andijon/" target="_blank" class="btn-white"><i class="fab fa-instagram"></i> Instagram</a>
+        </div>
+    </div>
+</main>
+
+<footer id="aloqa">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div style="display:flex; gap:12px; align-items:center; margin-bottom:20px;">
+                    <div class="logo-icon" style="background:#1f4d6e;"><i class="fas fa-car"></i></div>
+                    <h4 style="color:white;">Xavfsiz Haydovchi</h4>
+                </div>
+                <p>Andijon viloyatidagi eng nufuzli avtomaktab, litsenziya olish uchun to‘liq sharoit. Avtodrom va tajribali instruktorlar</p>
+            </div>
+            <div class="footer-col">
+                <h4>Kurslar</h4>
+                <a href="#">A, B, BC, C, CE, D toifalari</a>
+                <a href="#">Ekspress tayyorlov</a>
+                <a href="#">Online nazariya</a>
+            </div>
+            <div class="footer-col">
+                <h4>Bog‘lanish</h4>
+                <p><i class="fas fa-phone-alt"></i> <a href="tel:+998980770007" style="color:#bfd6e8;">98 077 00 07</a></p>
+                <p><i class="fab fa-telegram"></i> <a href="https://t.me/s/xavfsiz_xaydovchi" target="_blank">Telegram kanal</a></p>
+                <p><i class="fab fa-youtube"></i> <a href="https://www.youtube.com/@avtomaktab_andijon" target="_blank">YouTube</a></p>
+                <div class="social-icons">
+                    <a href="https://t.me/s/xavfsiz_xaydovchi" target="_blank"><i class="fab fa-telegram"></i></a>
+                    <a href="https://www.instagram.com/avtomaktab_andijon/" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/@avtomaktab_andijon" target="_blank"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">© 2025 Xavfsiz Haydovchi avtomaktab — Andijon. Barcha huquqlar himoyalangan. Rasmiy litsenziya asosida faoliyat</div>
+    </div>
+</footer>
+
+<!-- AmoCRM Script integratsiyasi -->
+<script>
+    !function(a,m,o,c,r,m1){a[o+c]=a[o+c]||{setMeta:function(p){this.params=(this.params||[]).concat([p])}},a[o+r]=a[o+r]||function(f){a[o+r].f=(a[o+r].f||[]).concat([f])},a[o+r]({id:"1715890",hash:"9ac3defe787f555fdaa77306654fb1c5",locale:"ru"}),a[o+m1]=a[o+m1]||function(f,k){a[o+m1].f=(a[o+m1].f||[]).concat([[f,k]])}}(window,0,"amo_forms_","params","load","loaded");
+</script>
+<script id="amoforms_script_1715890" async="async" charset="utf-8" src="https://forms.amocrm.ru/forms/assets/js/amoforms.js?1780056134"></script>
+
+<!-- AOS & smooth effects -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 800, once: true, offset: 30 });
+    // Additional dynamic effects
+    document.querySelectorAll('.card-btn, .btn-primary, .btn-secondary, .btn-white').forEach(btn => {
+        if(!btn.getAttribute('data-listener')) {
+            btn.setAttribute('data-listener', 'true');
+            btn.addEventListener('click', (e) => {
+                if(btn.innerText.includes('Yozilish') || btn.innerText.includes("Ro‘yxat") || btn.innerText.includes("Kursga")) {
+                    window.location.href = 'tel:+998980770007';
+                }
+                if(btn.innerText.includes('Telegram')) {
+                    window.open('https://t.me/s/xavfsiz_xaydovchi', '_blank');
+                }
+            });
+        }
+    });
+    // Ensure AmoCRM form container exists after load
+    if(typeof AmoForms !== 'undefined') { console.log("AmoCRM loaded"); }
+</script>
 </body>
-
 </html>
