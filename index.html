@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Xavfsiz Haydovchi | Andijon Avtomaktab</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/favicon.png">
     <!-- SF Pro & system fonts + Font Awesome -->
     <style>
         * {
@@ -17,15 +19,32 @@
             background: #f5f7fb;
             color: #1c2e3a;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated gradient background effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(0,89,157,0.03) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(0,89,157,0.04) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: -2;
         }
 
         :root {
             --primary: #00599D;
+            --primary-dark: #003d66;
             --primary-light: rgba(0, 89, 157, 0.12);
-            --glass-bg: rgba(255, 255, 255, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.6);
+            --glass-bg: rgba(255, 255, 255, 0.72);
+            --glass-border: rgba(255, 255, 255, 0.7);
             --shadow-sm: 0 8px 20px rgba(0, 0, 0, 0.02);
-            --shadow-md: 0 20px 35px -10px rgba(0, 89, 157, 0.15);
+            --shadow-md: 0 20px 35px -10px rgba(0, 89, 157, 0.2);
+            --shadow-glow: 0 0 15px rgba(0,89,157,0.2);
         }
 
         .container {
@@ -36,7 +55,7 @@
 
         /* iOS glass header + Auto Hide */
         .glass-header {
-            background: rgba(255, 255, 255, 0.78);
+            background: rgba(255, 255, 255, 0.82);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             position: fixed;
@@ -45,23 +64,22 @@
             width: 100%;
             z-index: 1000;
             border-bottom: 1px solid rgba(0, 89, 157, 0.2);
-            transition: transform 0.28s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            transition: transform 0.28s cubic-bezier(0.2, 0.9, 0.4, 1.1), box-shadow 0.3s;
             will-change: transform;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.02);
         }
-
+        .glass-header:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
         .header-hidden {
             transform: translateY(-100%);
         }
 
-        /* offset main content to prevent header overlap */
         main {
             margin-top: 88px;
         }
-
         @media (max-width: 780px) {
-            main {
-                margin-top: 78px;
-            }
+            main { margin-top: 78px; }
         }
 
         .navbar {
@@ -76,22 +94,16 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
         }
-
-        .logo-icon {
-            background: var(--primary);
-            width: 46px;
-            height: 46px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: white;
-            box-shadow: 0 6px 12px -4px rgba(0, 89, 157, 0.3);
+        .logo-img {
+            height: 48px;
+            width: auto;
+            transition: transform 0.2s ease;
         }
-
+        .logo-img:hover {
+            transform: scale(1.02);
+        }
         .logo-text h1 {
             font-size: 1.5rem;
             font-weight: 700;
@@ -101,11 +113,7 @@
             background-clip: text;
             color: transparent;
         }
-
-        .logo-text span {
-            color: var(--primary);
-        }
-
+        .logo-text span { color: var(--primary); }
         .logo-text p {
             font-size: 0.7rem;
             font-weight: 500;
@@ -118,21 +126,30 @@
             align-items: center;
             flex-wrap: wrap;
         }
-
         .nav-links a {
             text-decoration: none;
             font-weight: 500;
             font-size: 0.9rem;
             color: #2c4b62;
             transition: 0.2s;
+            position: relative;
         }
-
-        .nav-links a.active {
-            color: var(--primary);
-            font-weight: 600;
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.2s;
         }
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+        .nav-links a.active { color: var(--primary); font-weight: 600; }
 
-        /* Header registration button */
         .register-btn {
             background: var(--primary);
             border: none;
@@ -142,35 +159,37 @@
             font-size: 0.85rem;
             color: white;
             cursor: pointer;
-            transition: 0.2s;
+            transition: 0.25s;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 2px 8px rgba(0,89,157,0.2);
+            box-shadow: 0 4px 10px rgba(0,89,157,0.3);
         }
-
         .register-btn:hover {
             background: #00447a;
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(0,89,157,0.4);
         }
 
         /* Hero */
         .hero {
             padding: 40px 0 50px;
         }
-
         .hero-grid {
             display: flex;
             align-items: center;
             gap: 40px;
             flex-wrap: wrap;
+            justify-content: center;
         }
-
         .hero-content {
             flex: 1;
+            text-align: center;
         }
-
+        @media (min-width: 992px) {
+            .hero-content { text-align: left; }
+        }
         .badge-glass {
             background: var(--primary-light);
             backdrop-filter: blur(4px);
@@ -183,8 +202,8 @@
             font-size: 0.75rem;
             color: var(--primary);
             margin-bottom: 24px;
+            border: 1px solid rgba(0,89,157,0.2);
         }
-
         .hero-content h1 {
             font-size: 3rem;
             font-weight: 700;
@@ -192,24 +211,27 @@
             margin-bottom: 20px;
             color: #0a2a3c;
         }
-
-        .hero-content h1 span {
-            color: var(--primary);
-        }
-
+        .hero-content h1 span { color: var(--primary); }
         .hero-content p {
             font-size: 1rem;
             color: #4a6272;
             margin-bottom: 32px;
             max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
         }
-
+        @media (min-width: 992px) {
+            .hero-content p { margin-left: 0; margin-right: 0; }
+        }
         .btn-group {
             display: flex;
             gap: 16px;
             flex-wrap: wrap;
+            justify-content: center;
         }
-
+        @media (min-width: 992px) {
+            .btn-group { justify-content: flex-start; }
+        }
         .btn-primary {
             background: var(--primary);
             color: white;
@@ -221,12 +243,10 @@
             box-shadow: 0 6px 14px rgba(0, 89, 157, 0.25);
             display: inline-block;
         }
-
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 22px -8px rgba(0, 89, 157, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 22px -8px rgba(0, 89, 157, 0.5);
         }
-
         .btn-outline {
             background: transparent;
             border: 1.5px solid var(--primary);
@@ -235,47 +255,66 @@
             font-weight: 600;
             color: var(--primary);
             text-decoration: none;
+            transition: 0.2s;
         }
-
+        .btn-outline:hover {
+            background: rgba(0,89,157,0.05);
+            transform: translateY(-2px);
+        }
         .stats {
             display: flex;
             gap: 40px;
             margin-top: 40px;
+            justify-content: center;
         }
-
+        @media (min-width: 992px) {
+            .stats { justify-content: flex-start; }
+        }
         .stat h3 {
             font-size: 1.6rem;
             font-weight: 700;
             color: var(--primary);
         }
 
-        /* Glass cards */
+        /* Glass cards with extra effects */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
             gap: 28px;
             margin: 50px 0 30px;
         }
-
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
             border-radius: 32px;
             padding: 28px 24px;
             border: 1px solid var(--glass-border);
-            transition: all 0.3s ease;
+            transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             box-shadow: var(--shadow-sm);
             display: flex;
             flex-direction: column;
+            position: relative;
+            overflow: hidden;
         }
-
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(0,89,157,0.05), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+        .glass-card:hover::before { opacity: 1; }
         .glass-card:hover {
-            transform: translateY(-8px);
+            transform: translateY(-10px);
             border-color: var(--primary);
-            box-shadow: var(--shadow-md);
+            box-shadow: var(--shadow-md), var(--shadow-glow);
             background: rgba(255, 255, 255, 0.85);
         }
-
         .card-icon {
             background: rgba(0, 89, 157, 0.1);
             width: 60px;
@@ -287,21 +326,20 @@
             font-size: 26px;
             color: var(--primary);
             margin-bottom: 24px;
+            transition: 0.2s;
         }
-
-        .card-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 8px;
+        .glass-card:hover .card-icon {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.02);
         }
-
+        .card-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 8px; }
         .price {
             font-size: 1.8rem;
             font-weight: 700;
             color: var(--primary);
             margin: 16px 0 12px;
         }
-
         .card-btn {
             width: 100%;
             background: rgba(0, 89, 157, 0.05);
@@ -311,53 +349,26 @@
             font-weight: 600;
             color: var(--primary);
             cursor: pointer;
-            transition: 0.2s;
+            transition: 0.25s;
             margin-top: 12px;
         }
-
         .card-btn:hover {
             background: var(--primary);
             color: white;
+            transform: translateY(-2px);
         }
-
-        .enroll-link {
-            margin-top: 14px;
-            text-align: center;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .enroll-link a {
-            color: var(--primary);
-            text-decoration: none;
-            background: rgba(0, 89, 157, 0.08);
-            padding: 6px 14px;
-            border-radius: 40px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: 0.2s;
-            font-weight: 500;
-        }
-
-        .enroll-link a:hover {
-            background: var(--primary);
-            color: white;
-        }
-
         .express {
             border: 2px solid var(--primary);
             background: rgba(255, 255, 255, 0.9);
         }
 
-        /* Single enroll button below cards */
+        /* Global enroll button */
         .global-enroll {
             text-align: center;
             margin: 20px 0 60px;
         }
-
-        .global-enroll .btn-large {
-            background: var(--primary);
+        .btn-large {
+            background: linear-gradient(95deg, var(--primary), #0077be);
             color: white;
             padding: 14px 48px;
             font-size: 1.1rem;
@@ -365,29 +376,29 @@
             text-decoration: none;
             font-weight: 700;
             display: inline-block;
-            transition: 0.25s;
-            box-shadow: 0 8px 18px rgba(0,89,157,0.3);
+            transition: 0.3s;
+            box-shadow: 0 8px 20px rgba(0,89,157,0.4);
+            border: none;
+            cursor: pointer;
+        }
+        .btn-large:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px -8px rgba(0,89,157,0.6);
+            background: linear-gradient(95deg, #004a7a, #00599D);
         }
 
-        .global-enroll .btn-large:hover {
-            transform: translateY(-2px);
-            background: #004a82;
-        }
-
-        /* Locations glass */
+        /* Locations */
         .locations-glass {
-            background: rgba(0, 89, 157, 0.03);
+            background: rgba(0, 89, 157, 0.02);
             border-radius: 56px;
             padding: 60px 0;
             margin: 40px 0;
         }
-
         .locations-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 24px;
         }
-
         .loc-item {
             background: rgba(255, 255, 255, 0.75);
             backdrop-filter: blur(8px);
@@ -399,13 +410,12 @@
             transition: 0.25s;
             border: 1px solid rgba(255, 255, 255, 0.6);
         }
-
         .loc-item:hover {
-            transform: translateY(-4px);
+            transform: translateY(-5px);
             border-color: var(--primary);
             background: white;
+            box-shadow: 0 12px 25px -12px rgba(0,0,0,0.1);
         }
-
         .loc-icon {
             background: var(--primary-light);
             width: 52px;
@@ -417,7 +427,6 @@
             font-size: 24px;
             color: var(--primary);
         }
-
         .map-link {
             font-size: 0.7rem;
             font-weight: 600;
@@ -429,7 +438,7 @@
             margin-top: 8px;
         }
 
-        /* AmoCRM glass container */
+        /* AmoCRM glass */
         .amo-glass-container {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(16px);
@@ -440,36 +449,35 @@
             border: 1px solid rgba(255, 255, 255, 0.6);
             box-shadow: var(--shadow-sm);
         }
+        .amo-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 12px; }
 
-        .amo-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-        }
-
-        /* Video carousel section */
-        .video-section {
-            margin: 40px 0 70px;
-        }
-
+        /* Video carousel */
+        .video-section { margin: 40px 0 70px; }
         .section-title {
             font-size: 2rem;
             font-weight: 700;
             text-align: center;
             margin-bottom: 40px;
-            color: #0a2a3c;
         }
-        .section-title span {
-            color: var(--primary);
+        .section-title span { color: var(--primary); position: relative; display: inline-block; }
+        .section-title span::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+            transform: scaleX(0.6);
+            opacity: 0.6;
         }
-
         .carousel-container {
             position: relative;
             display: flex;
             align-items: center;
             gap: 12px;
         }
-
         .carousel-wrapper {
             overflow-x: auto;
             scroll-snap-type: x mandatory;
@@ -479,13 +487,11 @@
             border-radius: 32px;
             flex: 1;
         }
-
         .carousel-track {
             display: flex;
             gap: 24px;
             padding: 8px 4px;
         }
-
         .carousel-item {
             flex: 0 0 calc(50% - 12px);
             min-width: 280px;
@@ -494,19 +500,15 @@
             border-radius: 28px;
             backdrop-filter: blur(4px);
             padding: 12px;
-            box-shadow: var(--shadow-sm);
-            transition: 0.2s;
+            transition: 0.3s;
         }
-
+        .carousel-item:hover { transform: scale(1.01); background: rgba(255,255,255,0.8); }
         @media (max-width: 780px) {
-            .carousel-item {
-                flex: 0 0 85%;
-            }
+            .carousel-item { flex: 0 0 85%; }
         }
-
         .video-wrapper {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 */
+            padding-bottom: 56.25%;
             height: 0;
             border-radius: 24px;
             overflow: hidden;
@@ -520,29 +522,25 @@
             height: 100%;
             border: 0;
         }
-
         .carousel-btn {
             background: var(--primary);
             color: white;
             border: none;
-            width: 44px;
-            height: 44px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             font-size: 1.2rem;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             transition: 0.2s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             flex-shrink: 0;
         }
         .carousel-btn:hover {
             background: #00447a;
-            transform: scale(1.02);
+            transform: scale(1.05);
         }
 
-        /* Footer glass */
+        /* Footer */
         .glass-footer {
             background: rgba(12, 30, 46, 0.96);
             backdrop-filter: blur(10px);
@@ -550,20 +548,19 @@
             padding: 60px 0 30px;
             color: #cddfec;
         }
-
         .footer-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 50px;
             justify-content: space-between;
         }
-
         .social-links a {
             color: #b8d0e2;
             font-size: 1.5rem;
             margin-right: 20px;
+            transition: 0.2s;
         }
-
+        .social-links a:hover { color: white; transform: translateY(-2px); display: inline-block; }
         .copyright {
             text-align: center;
             border-top: 1px solid #2b4a62;
@@ -571,14 +568,11 @@
             margin-top: 48px;
             font-size: 0.7rem;
         }
-
         @media (max-width: 780px) {
             .hero-content h1 { font-size: 2.2rem; }
             .navbar { flex-direction: column; align-items: flex-start; }
             .container { padding: 0 20px; }
-            .stats { gap: 24px; }
-            .glass-header { padding: 0 16px; }
-            .carousel-btn { width: 36px; height: 36px; }
+            .carousel-btn { width: 40px; height: 40px; }
         }
 
         /* Animations */
@@ -586,12 +580,8 @@
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .reveal {
-            opacity: 0;
-        }
-        .reveal.visible {
-            animation: fadeUp 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards;
-        }
+        .reveal { opacity: 0; }
+        .reveal.visible { animation: fadeUp 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1) forwards; }
     </style>
 </head>
 <body>
@@ -600,7 +590,8 @@
     <div class="container">
         <div class="navbar">
             <div class="logo">
-                <div class="logo-icon"><i class="fas fa-shield-alt"></i></div>
+                <!-- Logo image from images/logo.png -->
+                <img src="images/logo.png" alt="Xavfsiz Haydovchi" class="logo-img" onerror="this.onerror=null; this.src='https://placehold.co/48x48?text=Logo';">
                 <div class="logo-text">
                     <h1>Xavfsiz <span>Haydovchi</span></h1>
                     <p>Andijon | Avtodrom | Litsenziya</p>
@@ -611,7 +602,6 @@
                 <a href="#kurslar">Kurslar</a>
                 <a href="#filiallar">Filiallar</a>
                 <a href="#aloqa">Aloqa</a>
-                <!-- Header registration link instead of phone number -->
                 <a href="https://forms.amocrm.ru/rzrwxvc" target="_blank" class="register-btn"><i class="fas fa-user-plus"></i> Ro'yxatdan o'tish</a>
             </div>
         </div>
@@ -637,16 +627,15 @@
                     </div>
                 </div>
                 <div style="flex:0.8; text-align:center;">
-                    <i class="fas fa-car" style="font-size: 180px; color: rgba(0,89,157,0.15);"></i>
+                    <i class="fas fa-car" style="font-size: 180px; color: rgba(0,89,157,0.12);"></i>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Kurslar toifalari - yangi sarlavha, pastki matn yo'q -->
+    <!-- Kurslar toifalari -->
     <div class="container" id="kurslar">
         <h2 style="font-size: 2rem; font-weight: 700; text-align: center; margin-bottom: 16px;">Avtomaktabimizda mavjud <span style="color: var(--primary);">toifalar</span></h2>
-        <!-- hech nima yozma, subtitle olib tashlandi -->
         <div class="cards-grid">
             <!-- A toifa -->
             <div class="glass-card reveal">
@@ -654,7 +643,6 @@
                 <div class="card-title">A toifa</div>
                 <div class="price">2,250,000 so‘m</div>
                 <button class="card-btn" onclick="window.location.href='tel:+998980770007'">Ro‘yxatdan o‘tish</button>
-                <div class="enroll-link"><a href="https://forms.amocrm.ru/rzrwxvc" target="_blank"><i class="fas fa-pen-alt"></i> Kursga yozilish</a></div>
             </div>
             <!-- B toifa -->
             <div class="glass-card reveal">
@@ -662,7 +650,6 @@
                 <div class="card-title">B toifa</div>
                 <div class="price">4,100,000 so‘m</div>
                 <button class="card-btn" onclick="window.location.href='tel:+998980770007'">Yozilish</button>
-                <div class="enroll-link"><a href="https://forms.amocrm.ru/rzrwxvc" target="_blank"><i class="fas fa-pen-alt"></i> Kursga yozilish</a></div>
             </div>
             <!-- BC toifa -->
             <div class="glass-card reveal">
@@ -670,7 +657,6 @@
                 <div class="card-title">BC toifa</div>
                 <div class="price">7,000,000 so‘m</div>
                 <button class="card-btn" onclick="window.location.href='tel:+998980770007'">Kursga yozilish</button>
-                <div class="enroll-link"><a href="https://forms.amocrm.ru/rzrwxvc" target="_blank"><i class="fas fa-pen-alt"></i> Kursga yozilish</a></div>
             </div>
             <!-- C toifa -->
             <div class="glass-card reveal">
@@ -678,7 +664,6 @@
                 <div class="card-title">C toifa</div>
                 <div class="price">3,800,000 so‘m</div>
                 <button class="card-btn" onclick="window.location.href='tel:+998980770007'">Batafsil</button>
-                <div class="enroll-link"><a href="https://forms.amocrm.ru/rzrwxvc" target="_blank"><i class="fas fa-pen-alt"></i> Kursga yozilish</a></div>
             </div>
             <!-- CE toifa -->
             <div class="glass-card reveal">
@@ -686,7 +671,6 @@
                 <div class="card-title">CE toifa</div>
                 <div class="price">3,800,000 so‘m</div>
                 <button class="card-btn" onclick="window.location.href='tel:+998980770007'">Yozilish</button>
-                <div class="enroll-link"><a href="https://forms.amocrm.ru/rzrwxvc" target="_blank"><i class="fas fa-pen-alt"></i> Kursga yozilish</a></div>
             </div>
             <!-- D toifa -->
             <div class="glass-card reveal">
@@ -694,7 +678,6 @@
                 <div class="card-title">D toifa</div>
                 <div class="price">5,000,000 so‘m</div>
                 <button class="card-btn" onclick="window.location.href='tel:+998980770007'">Yozilish</button>
-                <div class="enroll-link"><a href="https://forms.amocrm.ru/rzrwxvc" target="_blank"><i class="fas fa-pen-alt"></i> Kursga yozilish</a></div>
             </div>
             <!-- Express kurs -->
             <div class="glass-card express reveal">
@@ -702,7 +685,6 @@
                 <div class="card-title" style="font-size: 1.5rem;">Tezkor tayyorlov</div>
                 <div class="price">Maxsus narx</div>
                 <button class="card-btn" onclick="window.open('https://t.me/s/xavfsiz_xaydovchi','_blank')">Telegram orqali</button>
-                <div class="enroll-link"><a href="https://forms.amocrm.ru/rzrwxvc" target="_blank"><i class="fas fa-pen-alt"></i> Kursga yozilish</a></div>
             </div>
         </div>
 
@@ -731,7 +713,7 @@
 
     <!-- AmoCRM form -->
     <div class="container">
-        <div class="amo-glass-container reveal" id="amocrm-block">
+        <div class="amo-glass-container reveal">
             <i class="fas fa-envelope-open-text" style="font-size: 2.2rem; color: var(--primary); margin-bottom: 16px; display: inline-block;"></i>
             <h2 class="amo-title">Tez ro‘yxatdan o‘ting yoki savol qoldiring</h2>
             <p>Menejerlar 24 soat ichida siz bilan bog‘lanadi</p>
@@ -742,7 +724,7 @@
         </div>
     </div>
 
-    <!-- VIDEO CAROUSEL - Natijalarimiz (footerdan oldin) -->
+    <!-- VIDEO CAROUSEL - Natijalarimiz -->
     <div class="container video-section">
         <h2 class="section-title reveal"><span>Natijalarimiz</span> — videolar</h2>
         <div class="carousel-container reveal">
@@ -751,15 +733,14 @@
                 <div class="carousel-track">
                     <div class="carousel-item">
                         <div class="video-wrapper">
-                            <iframe src="https://www.youtube.com/embed/cZfR8jMlmac" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <iframe src="https://www.youtube.com/embed/cZfR8jMlmac" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <div class="video-wrapper">
-                            <iframe src="https://www.youtube.com/embed/bghxsXkDoAM" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <iframe src="https://www.youtube.com/embed/bghxsXkDoAM" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
                     </div>
-                    <!-- yangi videolar qo'shilganda shu yerga qo'shiladi, carousel avtomatik ishlaydi -->
                 </div>
             </div>
             <button class="carousel-btn next-btn" aria-label="Keyingi"><i class="fas fa-chevron-right"></i></button>
@@ -772,7 +753,7 @@
         <div class="footer-grid">
             <div class="footer-col">
                 <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 20px;">
-                    <div class="logo-icon" style="background: #1e4f6e;"><i class="fas fa-car-side"></i></div>
+                    <img src="images/logo.png" alt="logo" style="height: 44px; width: auto;" onerror="this.src='https://placehold.co/44x44'">
                     <h4 style="color: white;">Xavfsiz Haydovchi</h4>
                 </div>
                 <p>O‘zbekistondagi eng katta avtomaktab. Rasmiy litsenziya, avtodrom va 7 qulay filial.</p>
@@ -798,7 +779,7 @@
 
 <script>
     (function() {
-        // REVEAL ANIMATION
+        // reveal animation
         const reveals = document.querySelectorAll('.reveal');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -810,7 +791,7 @@
         }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
         reveals.forEach(el => observer.observe(el));
 
-        // AUTO-HIDE HEADER
+        // auto-hide header
         const header = document.getElementById('autoHideHeader');
         if (header) {
             let lastScrollY = window.scrollY;
@@ -819,15 +800,9 @@
                 if (ticking) return;
                 requestAnimationFrame(() => {
                     const currentY = window.scrollY;
-                    if (currentY <= 20) {
-                        header.classList.remove('header-hidden');
-                    } 
-                    else if (currentY > lastScrollY && currentY > 20) {
-                        header.classList.add('header-hidden');
-                    } 
-                    else if (currentY < lastScrollY) {
-                        header.classList.remove('header-hidden');
-                    }
+                    if (currentY <= 20) header.classList.remove('header-hidden');
+                    else if (currentY > lastScrollY && currentY > 20) header.classList.add('header-hidden');
+                    else if (currentY < lastScrollY) header.classList.remove('header-hidden');
                     lastScrollY = currentY;
                     ticking = false;
                 });
@@ -837,33 +812,21 @@
             header.classList.remove('header-hidden');
         }
 
-        // VIDEO CAROUSEL with manual swipe + buttons
+        // video carousel manual controls
         const wrapper = document.getElementById('videoCarousel');
         const prevBtn = document.querySelector('.prev-btn');
         const nextBtn = document.querySelector('.next-btn');
         if (wrapper && prevBtn && nextBtn) {
-            const scrollStep = () => {
-                const itemWidth = wrapper.querySelector('.carousel-item')?.clientWidth || 320;
-                const scrollAmount = itemWidth + 24; // gap 24px
-                return scrollAmount;
+            const getScrollAmount = () => {
+                const firstItem = wrapper.querySelector('.carousel-item');
+                if (!firstItem) return 300;
+                return firstItem.clientWidth + 24;
             };
-            prevBtn.addEventListener('click', () => {
-                wrapper.scrollBy({ left: -scrollStep(), behavior: 'smooth' });
-            });
-            nextBtn.addEventListener('click', () => {
-                wrapper.scrollBy({ left: scrollStep(), behavior: 'smooth' });
-            });
-            // touch / swipe is supported natively by overflow auto, no extra code needed
+            prevBtn.addEventListener('click', () => wrapper.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' }));
+            nextBtn.addEventListener('click', () => wrapper.scrollBy({ left: getScrollAmount(), behavior: 'smooth' }));
         }
-
-        // fix any external links behavior
-        const allFormLinks = document.querySelectorAll('a[href*="forms.amocrm.ru"], .register-btn, .global-enroll a');
-        allFormLinks.forEach(link => {
-            link.setAttribute('target', '_blank');
-        });
     })();
 </script>
-<!-- Font Awesome -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
 </body>
 </html>
