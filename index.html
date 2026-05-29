@@ -132,21 +132,27 @@
             font-weight: 600;
         }
 
-        .phone-gloss {
-            background: rgba(0, 89, 157, 0.08);
-            border: 1px solid rgba(0, 89, 157, 0.3);
+        /* Header registration button */
+        .register-btn {
+            background: var(--primary);
+            border: none;
             padding: 8px 22px;
             border-radius: 40px;
             font-weight: 600;
             font-size: 0.85rem;
-            color: var(--primary);
+            color: white;
             cursor: pointer;
             transition: 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(0,89,157,0.2);
         }
 
-        .phone-gloss:hover {
-            background: var(--primary);
-            color: white;
+        .register-btn:hover {
+            background: #00447a;
+            transform: translateY(-1px);
         }
 
         /* Hero */
@@ -248,7 +254,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
             gap: 28px;
-            margin: 50px 0 70px;
+            margin: 50px 0 30px;
         }
 
         .glass-card {
@@ -344,6 +350,30 @@
             background: rgba(255, 255, 255, 0.9);
         }
 
+        /* Single enroll button below cards */
+        .global-enroll {
+            text-align: center;
+            margin: 20px 0 60px;
+        }
+
+        .global-enroll .btn-large {
+            background: var(--primary);
+            color: white;
+            padding: 14px 48px;
+            font-size: 1.1rem;
+            border-radius: 60px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            transition: 0.25s;
+            box-shadow: 0 8px 18px rgba(0,89,157,0.3);
+        }
+
+        .global-enroll .btn-large:hover {
+            transform: translateY(-2px);
+            background: #004a82;
+        }
+
         /* Locations glass */
         .locations-glass {
             background: rgba(0, 89, 157, 0.03);
@@ -399,13 +429,13 @@
             margin-top: 8px;
         }
 
-        /* AmoCRM glass container (updated) */
+        /* AmoCRM glass container */
         .amo-glass-container {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(16px);
             border-radius: 48px;
             padding: 44px 32px;
-            margin: 60px 0 60px;
+            margin: 60px 0 50px;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.6);
             box-shadow: var(--shadow-sm);
@@ -417,27 +447,99 @@
             margin-bottom: 12px;
         }
 
-        /* CTA glass */
-        .cta-glass {
-            background: linear-gradient(115deg, var(--primary), #003d66);
-            border-radius: 48px;
-            padding: 44px 40px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 24px;
-            margin-bottom: 60px;
+        /* Video carousel section */
+        .video-section {
+            margin: 40px 0 70px;
         }
 
-        .btn-white {
-            background: white;
-            color: var(--primary);
-            padding: 14px 36px;
-            border-radius: 60px;
+        .section-title {
+            font-size: 2rem;
             font-weight: 700;
-            text-decoration: none;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #0a2a3c;
+        }
+        .section-title span {
+            color: var(--primary);
+        }
+
+        .carousel-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .carousel-wrapper {
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            border-radius: 32px;
+            flex: 1;
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 24px;
+            padding: 8px 4px;
+        }
+
+        .carousel-item {
+            flex: 0 0 calc(50% - 12px);
+            min-width: 280px;
+            scroll-snap-align: start;
+            background: rgba(255,255,255,0.6);
+            border-radius: 28px;
+            backdrop-filter: blur(4px);
+            padding: 12px;
+            box-shadow: var(--shadow-sm);
             transition: 0.2s;
+        }
+
+        @media (max-width: 780px) {
+            .carousel-item {
+                flex: 0 0 85%;
+            }
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 */
+            height: 0;
+            border-radius: 24px;
+            overflow: hidden;
+            background: #000;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .carousel-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+        .carousel-btn:hover {
+            background: #00447a;
+            transform: scale(1.02);
         }
 
         /* Footer glass */
@@ -475,9 +577,8 @@
             .navbar { flex-direction: column; align-items: flex-start; }
             .container { padding: 0 20px; }
             .stats { gap: 24px; }
-            .glass-header {
-                padding: 0 16px;
-            }
+            .glass-header { padding: 0 16px; }
+            .carousel-btn { width: 36px; height: 36px; }
         }
 
         /* Animations */
@@ -510,7 +611,8 @@
                 <a href="#kurslar">Kurslar</a>
                 <a href="#filiallar">Filiallar</a>
                 <a href="#aloqa">Aloqa</a>
-                <button class="phone-gloss" onclick="window.location.href='tel:+998980770007'"><i class="fas fa-phone-alt"></i> 98 077 00 07</button>
+                <!-- Header registration link instead of phone number -->
+                <a href="https://forms.amocrm.ru/rzrwxvc" target="_blank" class="register-btn"><i class="fas fa-user-plus"></i> Ro'yxatdan o'tish</a>
             </div>
         </div>
     </div>
@@ -521,12 +623,12 @@
         <div class="container">
             <div class="hero-grid">
                 <div class="hero-content reveal">
-                    <span class="badge-glass"><i class="fas fa-award"></i> Andijondagi eng katta avtomaktab</span>
+                    <span class="badge-glass"><i class="fas fa-award"></i> O‘zbekistondagi eng katta avtomaktab</span>
                     <h1>Biz bilan <span>prava olish oson</span></h1>
                     <p>🏆 Avtodrom, professional instruktorlar va 100% natija. Litsenziya olish endi oson va qulay.</p>
                     <div class="btn-group">
                         <a href="#kurslar" class="btn-primary"><i class="fas fa-list-ul"></i> Kurslar</a>
-                        <a href="tel:+998980770007" class="btn-outline"><i class="fas fa-headset"></i> Konsultatsiya</a>
+                        <a href="https://forms.amocrm.ru/rzrwxvc" target="_blank" class="btn-outline"><i class="fas fa-headset"></i> Konsultatsiya</a>
                     </div>
                     <div class="stats">
                         <div class="stat"><h3>7+</h3><p>Filiallar</p></div>
@@ -541,10 +643,10 @@
         </div>
     </section>
 
-    <!-- Kurslar toifalari -->
+    <!-- Kurslar toifalari - yangi sarlavha, pastki matn yo'q -->
     <div class="container" id="kurslar">
-        <h2 style="font-size: 2rem; font-weight: 700; text-align: center; margin-bottom: 12px;">Litsenziya <span style="color: var(--primary);">toifalari</span></h2>
-        <p style="text-align: center; color: #5f7d92; margin-bottom: 48px;">Eng mashhur toifalar va shaffof narxlar</p>
+        <h2 style="font-size: 2rem; font-weight: 700; text-align: center; margin-bottom: 16px;">Avtomaktabimizda mavjud <span style="color: var(--primary);">toifalar</span></h2>
+        <!-- hech nima yozma, subtitle olib tashlandi -->
         <div class="cards-grid">
             <!-- A toifa -->
             <div class="glass-card reveal">
@@ -600,12 +702,17 @@
                 <div class="card-title" style="font-size: 1.5rem;">Tezkor tayyorlov</div>
                 <div class="price">Maxsus narx</div>
                 <button class="card-btn" onclick="window.open('https://t.me/s/xavfsiz_xaydovchi','_blank')">Telegram orqali</button>
-                <div class="enroll-link"><a href="https://forms.amocrm.ru/rzrwxvc" target="_blank"><i class="fas fa-pen-alt"></i> Kursga yozilish (Express)</a></div>
+                <div class="enroll-link"><a href="https://forms.amocrm.ru/rzrwxvc" target="_blank"><i class="fas fa-pen-alt"></i> Kursga yozilish</a></div>
             </div>
+        </div>
+
+        <!-- Bitta tugma (toifalar ostida) -->
+        <div class="global-enroll reveal">
+            <a href="https://forms.amocrm.ru/rzrwxvc" target="_blank" class="btn-large"><i class="fas fa-pen-fancy"></i> Yozilish</a>
         </div>
     </div>
 
-    <!-- Filiallar (xaritada ko‘rish) -->
+    <!-- Filiallar -->
     <div class="locations-glass" id="filiallar">
         <div class="container">
             <h2 style="font-size: 2rem; font-weight: 700; text-align: center;">📍 Filiallar <span style="color: var(--primary);">va avtodrom</span></h2>
@@ -622,13 +729,12 @@
         </div>
     </div>
 
-    <!-- Yangilangan AmoCRM integratsiyasi (yangi ID va hash) -->
+    <!-- AmoCRM form -->
     <div class="container">
         <div class="amo-glass-container reveal" id="amocrm-block">
             <i class="fas fa-envelope-open-text" style="font-size: 2.2rem; color: var(--primary); margin-bottom: 16px; display: inline-block;"></i>
             <h2 class="amo-title">Tez ro‘yxatdan o‘ting yoki savol qoldiring</h2>
             <p>Menejerlar 24 soat ichida siz bilan bog‘lanadi</p>
-            <!-- Yangi AmoCRM script (ID: 1715926) -->
             <script>
             !function(a,m,o,c,r,m1){a[o+c]=a[o+c]||{setMeta:function(p){this.params=(this.params||[]).concat([p])}},a[o+r]=a[o+r]||function(f){a[o+r].f=(a[o+r].f||[]).concat([f])},a[o+r]({id:"1715926",hash:"34a8acd41660d7dcc1a482098af1c93e",locale:"ru"}),a[o+m1]=a[o+m1]||function(f,k){a[o+m1].f=(a[o+m1].f||[]).concat([[f,k]])}}(window,0,"amo_forms_","params","load","loaded");
             </script>
@@ -636,18 +742,27 @@
         </div>
     </div>
 
-    <!-- CTA Banner -->
-    <div class="container">
-        <div class="cta-glass reveal">
-            <div class="cta-text">
-                <h3 style="color: white; font-size: 1.8rem;"><i class="fas fa-mobile-alt"></i> Bugun ro‘yxatdan o‘ting!</h3>
-                <p style="color: #d9ecff;">Telegram yoki qo‘ng‘iroq: 98 077 00 07</p>
-                <div style="margin-top: 12px;">
-                    <a href="tel:+998980770007" style="color: white; font-weight: 600; margin-right: 24px;"><i class="fas fa-phone-alt"></i> 98 077 00 07</a>
-                    <a href="https://t.me/s/xavfsiz_xaydovchi" style="color: white;" target="_blank"><i class="fab fa-telegram"></i> Telegram</a>
+    <!-- VIDEO CAROUSEL - Natijalarimiz (footerdan oldin) -->
+    <div class="container video-section">
+        <h2 class="section-title reveal"><span>Natijalarimiz</span> — videolar</h2>
+        <div class="carousel-container reveal">
+            <button class="carousel-btn prev-btn" aria-label="Oldingi"><i class="fas fa-chevron-left"></i></button>
+            <div class="carousel-wrapper" id="videoCarousel">
+                <div class="carousel-track">
+                    <div class="carousel-item">
+                        <div class="video-wrapper">
+                            <iframe src="https://www.youtube.com/embed/cZfR8jMlmac" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="video-wrapper">
+                            <iframe src="https://www.youtube.com/embed/bghxsXkDoAM" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <!-- yangi videolar qo'shilganda shu yerga qo'shiladi, carousel avtomatik ishlaydi -->
                 </div>
             </div>
-            <a href="https://www.instagram.com/avtomaktab_andijon/" target="_blank" class="btn-white"><i class="fab fa-instagram"></i> Instagram</a>
+            <button class="carousel-btn next-btn" aria-label="Keyingi"><i class="fas fa-chevron-right"></i></button>
         </div>
     </div>
 </main>
@@ -660,7 +775,7 @@
                     <div class="logo-icon" style="background: #1e4f6e;"><i class="fas fa-car-side"></i></div>
                     <h4 style="color: white;">Xavfsiz Haydovchi</h4>
                 </div>
-                <p>Andijonning eng katta avtomaktabi. Rasmiy litsenziya, avtodrom va 7 qulay filial.</p>
+                <p>O‘zbekistondagi eng katta avtomaktab. Rasmiy litsenziya, avtodrom va 7 qulay filial.</p>
             </div>
             <div class="footer-col">
                 <h4 style="color: white;">Kurslar</h4>
@@ -681,7 +796,6 @@
     </div>
 </footer>
 
-<!-- Scroll reveal + Header Auto-Hide + Enhanced event handlers -->
 <script>
     (function() {
         // REVEAL ANIMATION
@@ -696,27 +810,22 @@
         }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
         reveals.forEach(el => observer.observe(el));
 
-        // AUTO-HIDE HEADER ON SCROLL (mobile & desktop)
+        // AUTO-HIDE HEADER
         const header = document.getElementById('autoHideHeader');
         if (header) {
             let lastScrollY = window.scrollY;
             let ticking = false;
-            const SCROLL_THRESHOLD = 20; // minimal scroll before hiding
-
             function onScroll() {
                 if (ticking) return;
                 requestAnimationFrame(() => {
                     const currentY = window.scrollY;
                     if (currentY <= 20) {
-                        // near top - always show header
                         header.classList.remove('header-hidden');
                     } 
-                    else if (currentY > lastScrollY && currentY > SCROLL_THRESHOLD) {
-                        // scrolling down
+                    else if (currentY > lastScrollY && currentY > 20) {
                         header.classList.add('header-hidden');
                     } 
                     else if (currentY < lastScrollY) {
-                        // scrolling up
                         header.classList.remove('header-hidden');
                     }
                     lastScrollY = currentY;
@@ -724,36 +833,33 @@
                 });
                 ticking = true;
             }
-
             window.addEventListener('scroll', onScroll, { passive: true });
-            // initial state
             header.classList.remove('header-hidden');
         }
 
-        // fix any buttons / card clicks for form redirects but keep default behavior,
-        // also ensure external enroll links open correctly.
-        // additionally ensure all existing card buttons maintain original purpose.
-        // no double-binding needed, cards already have inline onclick, but enroll links use target="_blank".
-        // ensure smooth behavior
-        const enrollLinks = document.querySelectorAll('.enroll-link a');
-        enrollLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                // no further action, it's already a standard link
+        // VIDEO CAROUSEL with manual swipe + buttons
+        const wrapper = document.getElementById('videoCarousel');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        if (wrapper && prevBtn && nextBtn) {
+            const scrollStep = () => {
+                const itemWidth = wrapper.querySelector('.carousel-item')?.clientWidth || 320;
+                const scrollAmount = itemWidth + 24; // gap 24px
+                return scrollAmount;
+            };
+            prevBtn.addEventListener('click', () => {
+                wrapper.scrollBy({ left: -scrollStep(), behavior: 'smooth' });
             });
-        });
-
-        // add consistency for express card button telemetry, keep default
-        // "Kuchliroq tizimda" - also prevent any header conflict in iOS
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
+            nextBtn.addEventListener('click', () => {
+                wrapper.scrollBy({ left: scrollStep(), behavior: 'smooth' });
+            });
+            // touch / swipe is supported natively by overflow auto, no extra code needed
         }
 
-        // minor improvement: fix potential sticky hover on mobile
-        const allButtons = document.querySelectorAll('.card-btn, .btn-primary, .btn-outline, .phone-gloss');
-        allButtons.forEach(btn => {
-            btn.addEventListener('touchstart', function(e) {
-                // just ensures responsiveness, no double fire
-            });
+        // fix any external links behavior
+        const allFormLinks = document.querySelectorAll('a[href*="forms.amocrm.ru"], .register-btn, .global-enroll a');
+        allFormLinks.forEach(link => {
+            link.setAttribute('target', '_blank');
         });
     })();
 </script>
