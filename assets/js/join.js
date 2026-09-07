@@ -10,6 +10,7 @@
   var fldMashina = document.getElementById("fld-shaxsiyMashina");
   var fldToifalar = document.getElementById("fld-toifalar");
   var fldKompyuter = document.getElementById("fld-kompyuterBiladimi");
+  var fldOldinSohada = document.getElementById("fld-oldinSohada");
 
   function toggleField(el, show) {
     if (!el) return;
@@ -28,17 +29,21 @@
     var isAmaliy = v === "Amaliy o'qituvchi";
     var isNazariy = v === "Nazariy o'qituvchi";
     var isAdmin = v === "Administrator";
+    var isCallOperator = v === "Call operator";
 
     // "Oldin qayerda ishlagansiz?" is asked for every position, not conditional.
     toggleField(fldMashina, isAmaliy || isNazariy);
     toggleField(fldToifalar, isAmaliy || isNazariy);
-    toggleField(fldKompyuter, isAdmin);
+    toggleField(fldKompyuter, isAdmin || isCallOperator);
+    toggleField(fldOldinSohada, isCallOperator);
   }
 
   if (lavozimSelect) {
     lavozimSelect.addEventListener("change", updateConditionalFields);
     updateConditionalFields();
   }
+
+  var filialGroup = document.getElementById("fld-filial");
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -48,11 +53,17 @@
       return;
     }
 
+    var fd = new FormData(form);
+    var filialSelected = fd.getAll("filial");
+    if (filialGroup && filialSelected.length === 0) {
+      filialGroup.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+
     var submitBtn = document.getElementById("submitBtn");
     submitBtn.disabled = true;
     submitBtn.classList.add("is-loading");
 
-    var fd = new FormData(form);
     var toifalar = fd.getAll("toifalar").join(", ");
 
     var payload = {
@@ -61,12 +72,13 @@
       telefon: (fd.get("telefon") || "").toString().trim(),
       manzil: (fd.get("manzil") || "").toString().trim(),
       yosh: (fd.get("yosh") || "").toString().trim(),
-      filial: fd.get("filial") || "",
+      filial: filialSelected.join(", "),
       lavozim: fd.get("lavozim") || "",
       oldinIshlaganJoy: (fd.get("oldinIshlaganJoy") || "").toString().trim(),
       shaxsiyMashina: fd.get("shaxsiyMashina") || "",
       toifalar: toifalar,
-      kompyuterBiladimi: fd.get("kompyuterBiladimi") || ""
+      kompyuterBiladimi: fd.get("kompyuterBiladimi") || "",
+      oldinSohada: fd.get("oldinSohada") || ""
     };
 
     fetch(WEBHOOK_URL, {

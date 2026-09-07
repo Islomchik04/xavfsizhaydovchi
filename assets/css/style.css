@@ -452,6 +452,10 @@ p{margin:0; color:var(--ink-soft); line-height:1.6;}
 .social-card h3{ font-size:18px; margin-bottom:8px; }
 .social-card p{ font-size:14.5px; margin-bottom:16px; }
 .social-link{ font-size:14px; font-weight:700; color:var(--blue); }
+.social-icon svg{ display:block; }
+.social-icon-tg{ color:#29a9eb; }
+.social-icon-ig{ color:#e1306c; }
+.social-icon-yt{ color:#ff0000; }
 
 /* CTA */
 .cta-section{
@@ -533,6 +537,18 @@ p{margin:0; color:var(--ink-soft); line-height:1.6;}
 .reveal.visible{ opacity:1; transform:translate(0,0); }
 
 /* =========================================================
+   Header: compact layout for medium desktop widths
+   (prevents nav/buttons from wrapping before the burger takes over)
+   ========================================================= */
+@media (max-width: 1360px){
+  .header-inner{ gap:14px; }
+  .nav{ gap:2px; }
+  .nav-link{ padding:8px 10px; font-size:14px; }
+  .header-phone span{ display:none; }
+  .header-actions{ gap:8px; }
+}
+
+/* =========================================================
    Responsive
    ========================================================= */
 @media (max-width: 980px){
@@ -541,7 +557,7 @@ p{margin:0; color:var(--ink-soft); line-height:1.6;}
   .burger{ display:flex; }
 
   .nav{
-    position:fixed; top:76px; left:0; right:0; bottom:0;
+    position:fixed; top:76px; left:0; right:0; bottom:0; z-index:999;
     background:#fff; flex-direction:column; align-items:stretch; gap:4px;
     padding:16px; transform:translateX(100%); transition:transform .3s var(--ease);
     overflow-y:auto;
@@ -552,6 +568,11 @@ p{margin:0; color:var(--ink-soft); line-height:1.6;}
   .hero-inner{ grid-template-columns:1fr; }
   .hero-art{ order:-1; min-height:280px; }
   .float-card{ display:none; }
+
+  .hero-copy{ text-align:center; }
+  .hero-copy .eyebrow{ margin-left:auto; margin-right:auto; }
+  .hero-cta{ justify-content:center; }
+  .hero-trust{ justify-content:center; }
 
   .stats-grid{ grid-template-columns:repeat(2, 1fr); row-gap:28px; }
   .stat-tile{ border-left:none !important; padding-left:0 !important; }
@@ -615,6 +636,7 @@ p{margin:0; color:var(--ink-soft); line-height:1.6;}
 .field{ display:flex; flex-direction:column; gap:8px; }
 .field-full{ grid-column:1 / -1; }
 .field label{ font-weight:600; font-size:14.5px; color:var(--ink); }
+.field-hint{ font-weight:400; color:var(--ink-faint); font-size:13px; }
 .field input[type="text"],
 .field input[type="tel"],
 .field input[type="number"],
@@ -699,4 +721,46 @@ p{margin:0; color:var(--ink-soft); line-height:1.6;}
   .form-card{ padding:28px 20px; }
   .form-grid{ grid-template-columns:1fr; }
   .join-hero{ padding:130px 0 44px; }
+}
+
+/* =========================================================
+   O'quvchilarimiz natijalari: YouTube video carousel
+   ========================================================= */
+.video-carousel{ position:relative; display:flex; align-items:center; gap:12px; }
+.video-track{
+  display:flex; gap:16px; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none;
+  padding:8px 4px 16px; flex:1 1 auto;
+}
+.video-track::-webkit-scrollbar{ display:none; }
+.video-card{ flex:0 0 auto; width:280px; }
+.video-card-placeholder{
+  flex:0 0 auto; width:100%; padding:40px; text-align:center; color:var(--ink-faint, #8a97a6);
+}
+.video-thumb{
+  position:relative; width:100%; aspect-ratio:16/9; border-radius:var(--radius-lg,16px);
+  overflow:hidden; cursor:pointer; background:#000; box-shadow:var(--shadow-sm);
+}
+.video-thumb img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .3s ease; }
+.video-thumb:hover img{ transform:scale(1.05); }
+.video-play{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-size:20px; color:#fff; background:rgba(11,27,43,.25);
+}
+.video-play::before{
+  content:""; position:absolute; width:56px; height:56px; border-radius:50%;
+  background:rgba(255,255,255,.22); backdrop-filter:blur(2px);
+}
+.video-frame-wrap{
+  position:relative; width:100%; aspect-ratio:16/9; border-radius:var(--radius-lg,16px);
+  overflow:hidden; background:#000;
+}
+.video-frame-wrap iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+.video-nav{
+  flex:0 0 auto; width:40px; height:40px; border-radius:50%; border:1px solid var(--border);
+  background:#fff; color:var(--blue); font-size:20px; line-height:1; cursor:pointer; box-shadow:var(--shadow-sm);
+}
+.video-nav:hover{ background:var(--blue); color:#fff; }
+@media (max-width:700px){
+  .video-nav{ display:none; }
+  .video-card{ width:220px; }
 }

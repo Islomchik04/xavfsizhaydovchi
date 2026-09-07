@@ -87,21 +87,20 @@
               <input type="number" id="yosh" name="yosh" required min="16" max="80" inputmode="numeric">
             </div>
 
-            <div class="field">
-              <label for="filial">Qaysi filialimiz yaqin? *</label>
-              <select id="filial" name="filial" required>
-                <option value="" disabled selected>Tanlang</option>
-                <option>Yangi bozor</option>
-                <option>Yangi bozor 2</option>
-                <option>Bo'ston (Avtodrom)</option>
-                <option>Soy</option>
-                <option>Eski shahar</option>
-                <option>80 metr</option>
-                <option>Yangi yo'l</option>
-                <option>Semashka</option>
-                <option>Bozorcha</option>
-                <option>Prospekt</option>
-              </select>
+            <div class="field field-full" id="fld-filial">
+              <label>Qaysi filialimiz yaqin? * <span class="field-hint">(bir nechtasini tanlashingiz mumkin)</span></label>
+              <div class="checkbox-row">
+                <label class="checkbox-pill"><input type="checkbox" name="filial" value="Yangi bozor"><span>Yangi bozor</span></label>
+                <label class="checkbox-pill"><input type="checkbox" name="filial" value="Yangi bozor 2"><span>Yangi bozor 2</span></label>
+                <label class="checkbox-pill"><input type="checkbox" name="filial" value="Bo'ston (Avtodrom)"><span>Bo'ston (Avtodrom)</span></label>
+                <label class="checkbox-pill"><input type="checkbox" name="filial" value="Soy"><span>Soy</span></label>
+                <label class="checkbox-pill"><input type="checkbox" name="filial" value="Eski shahar"><span>Eski shahar</span></label>
+                <label class="checkbox-pill"><input type="checkbox" name="filial" value="80 metr"><span>80 metr</span></label>
+                <label class="checkbox-pill"><input type="checkbox" name="filial" value="Yangi yo'l"><span>Yangi yo'l</span></label>
+                <label class="checkbox-pill"><input type="checkbox" name="filial" value="Semashka"><span>Semashka</span></label>
+                <label class="checkbox-pill"><input type="checkbox" name="filial" value="Bozorcha"><span>Bozorcha</span></label>
+                <label class="checkbox-pill"><input type="checkbox" name="filial" value="Prospekt"><span>Prospekt</span></label>
+              </div>
             </div>
 
             <div class="field field-full">
@@ -118,9 +117,9 @@
               </select>
             </div>
 
-            <div class="field field-full" id="fld-oldinIshlaganJoy">
+            <div class="field field-full conditional-field" id="fld-oldinIshlaganJoy" hidden>
               <label for="oldinIshlaganJoy">Oldin qayerda ishlagansiz?</label>
-              <textarea id="oldinIshlaganJoy" name="oldinIshlaganJoy" rows="3" placeholder="Ish joyi nomini yozing (agar ishlamagan bo'lsangiz, bo'sh qoldiring)"></textarea>
+              <textarea id="oldinIshlaganJoy" name="oldinIshlaganJoy" rows="3" placeholder="Ish joyi nomini yozing"></textarea>
             </div>
 
             <div class="field field-full conditional-field" id="fld-shaxsiyMashina" hidden>
@@ -150,6 +149,14 @@
               </div>
             </div>
 
+            <div class="field field-full conditional-field" id="fld-oldinSohada" hidden>
+              <label>Oldin shu sohada ishlaganmisiz?</label>
+              <div class="radio-row">
+                <label class="radio-pill"><input type="radio" name="oldinSohada" value="Ha"><span>Ha</span></label>
+                <label class="radio-pill"><input type="radio" name="oldinSohada" value="Yo'q"><span>Yo'q</span></label>
+              </div>
+            </div>
+
           </div>
 
           <button type="submit" class="btn btn-primary btn-lg btn-block" id="submitBtn">
@@ -170,9 +177,9 @@
       <h3>Xavfsiz Haydovchi</h3>
       <p>O'zbekistondagi eng katta avtomaktab.</p>
       <div class="footer-social">
-        <a href="https://t.me/s/xavfsiz_xaydovchi" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M21.05 3.16 2.9 10.24c-1.24.5-1.23 1.19-.23 1.5l4.65 1.45 1.8 5.48c.22.6.11.84.75.84.5 0 .72-.23 1-.5l2.4-2.33 4.7 3.47c.87.48 1.5.23 1.72-.8l3.1-14.6c.3-1.27-.48-1.84-1.74-1.6z"/><path fill="#fff" fill-opacity=".001" d="M0 0h24v24H0z"/></svg></a>
-        <a href="https://www.instagram.com/avtomaktab_andijon/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg></a>
-        <a href="https://www.youtube.com/@avtomaktab_andijon" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M22.5 7.2s-.2-1.6-.9-2.3c-.8-.9-1.8-.9-2.2-1C16.4 3.7 12 3.7 12 3.7h0s-4.4 0-7.4.2c-.4 0-1.4.1-2.2 1C1.7 5.6 1.5 7.2 1.5 7.2S1.3 9 1.3 10.9v2.1c0 1.9.2 3.7.2 3.7s.2 1.6.9 2.3c.8.9 1.9.9 2.4 1 1.7.2 7.2.2 7.2.2s4.4 0 7.4-.2c.4 0 1.4-.1 2.2-1 .7-.7.9-2.3.9-2.3s.2-1.9.2-3.7v-2.1c0-1.9-.2-3.7-.2-3.7zM9.7 14.6V8.7l5.5 3-5.5 2.9z"/></svg></a>
+        <a href="https://t.me/s/xavfsiz_xaydovchi" target="_blank" rel="noopener" aria-label="Telegram">✈️</a>
+        <a href="https://www.instagram.com/avtomaktab_andijon/" target="_blank" rel="noopener" aria-label="Instagram">📷</a>
+        <a href="https://www.youtube.com/@avtomaktab_andijon" target="_blank" rel="noopener" aria-label="YouTube">▶️</a>
       </div>
     </div>
 

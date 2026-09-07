@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin panel — Xavfsiz Haydovchi</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body class="admin-body">
+
+<header class="admin-header">
+  <div class="container">
+    <a href="index.html" class="admin-brand">
+      <img src="assets/img/shield-header.png" alt="Xavfsiz Haydovchi">
+      <span>Admin panel</span>
+    </a>
+    <span class="admin-logout" id="adminLogout" hidden>Chiqish</span>
+  </div>
+</header>
+
+<main class="admin-main">
+  <div class="container">
+
+    <div class="admin-login" id="adminLogin">
+      <h1>Admin panelga kirish</h1>
+      <p>Davom etish uchun parolni kiriting</p>
+      <form id="adminLoginForm">
+        <div class="error" id="adminLoginError"></div>
+        <input type="password" id="adminPasswordInput" placeholder="Parol" autocomplete="current-password" required>
+        <button type="submit" class="btn btn-primary btn-block">Kirish</button>
+      </form>
+    </div>
+
+    <div id="adminDashboard" hidden>
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-panel="panelApplicants" type="button">Arizalar</button>
+        <button class="admin-tab" data-panel="panelVideos" type="button">Videolar</button>
+      </div>
+
+      <div class="admin-panel active" id="panelApplicants">
+        <div class="admin-card">
+          <h2>Ro'yxatdan o'tganlar</h2>
+          <div class="admin-count" id="applicantsCount"></div>
+          <div id="applicantsWrap"><div class="admin-empty">Yuklanmoqda...</div></div>
+        </div>
+      </div>
+
+      <div class="admin-panel" id="panelVideos">
+        <div class="admin-card">
+          <h2>Video qo'shish</h2>
+          <form id="addVideoForm" class="admin-add-video">
+            <input type="text" id="addVideoUrl" placeholder="YouTube havolasi (masalan https://youtu.be/...)" required>
+            <input type="text" id="addVideoTitle" placeholder="Sarlavha (ixtiyoriy)">
+            <button type="submit" class="btn btn-primary">Qo'shish</button>
+          </form>
+          <div class="admin-msg" id="addVideoMsg"></div>
+        </div>
+        <br>
+        <div class="admin-card">
+          <h2>Mavjud videolar</h2>
+          <div class="admin-video-grid" id="videoGrid"><div class="admin-empty">Yuklanmoqda...</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script src="assets/js/admin.js"></script>
+</body>
+</html>

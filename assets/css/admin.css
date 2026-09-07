@@ -1,0 +1,80 @@
+/* Admin panel styles (uses tokens from style.css) */
+body.admin-body{ background:var(--surface-alt); min-height:100vh; }
+
+.admin-header{
+  background:#fff; border-bottom:1px solid var(--border);
+  padding:16px 0; position:sticky; top:0; z-index:100;
+}
+.admin-header .container{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.admin-brand{ display:flex; align-items:center; gap:10px; font-weight:700; font-size:17px; }
+.admin-brand img{ width:32px; height:32px; }
+
+.admin-main{ padding:32px 0 80px; }
+
+/* ---- Login gate ---- */
+.admin-login{
+  max-width:380px; margin:80px auto; background:#fff; border:1px solid var(--border);
+  border-radius:var(--radius-lg); padding:36px 32px; box-shadow:var(--shadow);
+  text-align:center;
+}
+.admin-login h1{ font-size:22px; margin-bottom:8px; }
+.admin-login p{ font-size:14px; margin-bottom:22px; }
+.admin-login input{
+  width:100%; padding:12px 14px; border:1px solid var(--border); border-radius:var(--radius-sm);
+  font-size:15px; margin-bottom:14px; font-family:var(--font);
+}
+.admin-login .error{ color:#c0392b; font-size:13.5px; margin-bottom:10px; display:none; }
+.admin-login .error.show{ display:block; }
+
+/* ---- Tabs ---- */
+.admin-tabs{ display:flex; gap:8px; margin-bottom:24px; flex-wrap:wrap; }
+.admin-tab{
+  padding:10px 20px; border-radius:999px; border:1px solid var(--border); background:#fff;
+  font-weight:600; font-size:14.5px; cursor:pointer; color:var(--ink-soft);
+}
+.admin-tab.active{ background:var(--blue); border-color:var(--blue); color:#fff; }
+
+.admin-panel{ display:none; }
+.admin-panel.active{ display:block; }
+
+.admin-card{
+  background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg);
+  padding:24px; box-shadow:var(--shadow-sm);
+}
+.admin-card h2{ font-size:18px; margin-bottom:16px; }
+
+/* ---- Applicants table ---- */
+.admin-table-wrap{ overflow-x:auto; }
+table.admin-table{ width:100%; border-collapse:collapse; font-size:13.5px; white-space:nowrap; }
+table.admin-table th, table.admin-table td{
+  padding:10px 14px; border-bottom:1px solid var(--border); text-align:left;
+}
+table.admin-table th{ background:var(--surface-alt); font-weight:700; color:var(--ink); }
+table.admin-table tr:hover td{ background:var(--surface-alt); }
+.admin-empty{ padding:24px; text-align:center; color:var(--ink-faint); }
+.admin-count{ font-size:13.5px; color:var(--ink-faint); margin-bottom:12px; }
+
+/* ---- Videos management ---- */
+.admin-add-video{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:24px; }
+.admin-add-video input{
+  flex:1 1 220px; padding:11px 14px; border:1px solid var(--border); border-radius:var(--radius-sm);
+  font-size:14.5px; font-family:var(--font);
+}
+.admin-video-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:16px; }
+.admin-video-card{
+  border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; background:#fff;
+}
+.admin-video-card img{ width:100%; aspect-ratio:16/9; object-fit:cover; display:block; }
+.admin-video-card-body{ padding:10px 12px; display:flex; align-items:center; justify-content:between; gap:8px; }
+.admin-video-id{ font-size:12px; color:var(--ink-faint); flex:1 1 auto; overflow:hidden; text-overflow:ellipsis; }
+.admin-video-delete{
+  border:none; background:#fdecea; color:#c0392b; border-radius:8px; padding:6px 10px;
+  font-size:12.5px; font-weight:600; cursor:pointer; flex:0 0 auto;
+}
+.admin-video-delete:hover{ background:#f8d7d3; }
+
+.admin-msg{ font-size:13.5px; margin-top:10px; }
+.admin-msg.ok{ color:#1a7f37; }
+.admin-msg.err{ color:#c0392b; }
+
+.admin-logout{ font-size:13.5px; color:var(--ink-faint); cursor:pointer; text-decoration:underline; }

@@ -61,8 +61,9 @@
     requestAnimationFrame(function () {
       var y = window.scrollY;
       header.classList.toggle("scrolled", y > 8);
-      if (y > lastY && y > 120) header.classList.add("header-hidden");
-      else header.classList.remove("header-hidden");
+      var navOpen = nav && nav.classList.contains("active");
+      if (!navOpen && y > lastY && y > 120) header.classList.add("header-hidden");
+      else if (!navOpen) header.classList.remove("header-hidden");
       lastY = y;
       ticking = false;
 
@@ -83,6 +84,7 @@
       burger.setAttribute("aria-expanded", String(!open));
       nav.classList.toggle("active");
       document.body.style.overflow = open ? "" : "hidden";
+      if (!open) header.classList.remove("header-hidden");
     });
     nav.querySelectorAll("a").forEach(function (link) {
       link.addEventListener("click", function () {
