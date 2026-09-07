@@ -634,6 +634,7 @@ p{margin:0; color:var(--ink-soft); line-height:1.6;}
   padding-right:40px;
 }
 
+.field[hidden]{ display:none; }
 .conditional-field{ animation:fieldIn .35s var(--ease); }
 @keyframes fieldIn{
   from{ opacity:0; transform:translateY(-6px); }
