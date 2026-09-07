@@ -494,6 +494,12 @@ p{margin:0; color:var(--ink-soft); line-height:1.6;}
 .footer-social a:hover{ background:var(--blue); transform:translateY(-3px); }
 .footer-social a{ color:rgba(255,255,255,.85); }
 .footer-social a:hover{ color:#fff; }
+.footer-social a.social-icon-tg{ color:#4fb6f5; }
+.footer-social a.social-icon-ig{ color:#f2679a; }
+.footer-social a.social-icon-yt{ color:#ff5a5a; }
+.footer-social a.social-icon-tg:hover,
+.footer-social a.social-icon-ig:hover,
+.footer-social a.social-icon-yt:hover{ color:#fff; }
 .footer-col h4{ color:#fff; font-size:15px; margin-bottom:18px; }
 .footer-col{ display:flex; flex-direction:column; gap:12px; font-size:14.5px; }
 .footer-col a{ color:rgba(255,255,255,.65); transition:color .15s ease; }
@@ -557,7 +563,7 @@ p{margin:0; color:var(--ink-soft); line-height:1.6;}
   .burger{ display:flex; }
 
   .nav{
-    position:fixed; top:76px; left:0; right:0; z-index:999;
+    position:fixed; top:76px; left:0; right:0; z-index:1500;
     height:calc(100vh - 76px); height:calc(100dvh - 76px);
     background:#fff; flex-direction:column; align-items:stretch; gap:4px;
     padding:16px; transform:translateX(100%); transition:transform .3s var(--ease);
@@ -676,6 +682,22 @@ p{margin:0; color:var(--ink-soft); line-height:1.6;}
 .radio-pill input, .checkbox-pill input{ accent-color:var(--blue); }
 .radio-pill:has(input:checked), .checkbox-pill:has(input:checked){
   border-color:var(--blue); background:rgba(0,105,190,.08); color:var(--blue);
+}
+
+/* Filial (branch) multi-select: a compact grid instead of wrapped pills,
+   since 10 branch names of varying length made the pill layout bulky. */
+#fld-filial .checkbox-row{
+  display:grid; grid-template-columns:1fr 1fr; gap:8px;
+}
+#fld-filial .checkbox-pill{
+  border-radius:var(--radius-sm); padding:10px 12px; font-size:14px;
+  justify-content:flex-start; gap:10px;
+}
+@media (min-width:560px){
+  #fld-filial .checkbox-row{ grid-template-columns:1fr 1fr 1fr; }
+}
+@media (max-width:420px){
+  #fld-filial .checkbox-row{ grid-template-columns:1fr; }
 }
 
 .form-note{ text-align:center; font-size:13.5px; color:var(--ink-faint); margin-top:16px; }

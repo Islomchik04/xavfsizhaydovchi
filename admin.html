@@ -38,6 +38,7 @@
       <div class="admin-tabs">
         <button class="admin-tab active" data-panel="panelApplicants" type="button">Arizalar</button>
         <button class="admin-tab" data-panel="panelVideos" type="button">Videolar</button>
+        <button class="admin-tab" data-panel="panelOptions" type="button">Sozlamalar</button>
       </div>
 
       <div class="admin-panel active" id="panelApplicants">
@@ -62,6 +63,30 @@
         <div class="admin-card">
           <h2>Mavjud videolar</h2>
           <div class="admin-video-grid" id="videoGrid"><div class="admin-empty">Yuklanmoqda...</div></div>
+        </div>
+      </div>
+
+      <div class="admin-panel" id="panelOptions">
+        <div class="admin-card">
+          <h2>Filiallar</h2>
+          <p class="admin-card-hint">Bu yerga qo'shilgan filiallar "Jamoaga qo'shilish" formasida ko'rinadi.</p>
+          <form id="addFilialForm" class="admin-add-inline">
+            <input type="text" id="addFilialInput" placeholder="Yangi filial nomi" required>
+            <button type="submit" class="btn btn-primary">Qo'shish</button>
+          </form>
+          <div class="admin-msg" id="addFilialMsg"></div>
+          <div class="admin-chip-list" id="filialList"><div class="admin-empty">Yuklanmoqda...</div></div>
+        </div>
+        <br>
+        <div class="admin-card">
+          <h2>Lavozimlar</h2>
+          <p class="admin-card-hint">Bu yerga qo'shilgan lavozimlar "Jamoaga qo'shilish" formasida ko'rinadi.</p>
+          <form id="addLavozimForm" class="admin-add-inline">
+            <input type="text" id="addLavozimInput" placeholder="Yangi lavozim nomi" required>
+            <button type="submit" class="btn btn-primary">Qo'shish</button>
+          </form>
+          <div class="admin-msg" id="addLavozimMsg"></div>
+          <div class="admin-chip-list" id="lavozimList"><div class="admin-empty">Yuklanmoqda...</div></div>
         </div>
       </div>
     </div>

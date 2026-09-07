@@ -11,6 +11,46 @@
   var fldToifalar = document.getElementById("fld-toifalar");
   var fldKompyuter = document.getElementById("fld-kompyuterBiladimi");
   var fldOldinSohada = document.getElementById("fld-oldinSohada");
+  var filialFieldGroup = document.getElementById("fld-filial");
+  var filialCheckboxRow = filialFieldGroup ? filialFieldGroup.querySelector(".checkbox-row") : null;
+
+  function escapeHtml(str) {
+    return String(str == null ? "" : str).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  // Filiallar (branches) and lavozimlar (positions) can be managed from the
+  // admin panel, so load the current lists from the backend and rebuild the
+  // form's options with them. If the request fails, the hardcoded options
+  // already in the HTML stay as a fallback.
+  function loadDynamicOptions() {
+    fetch(WEBHOOK_URL + "?action=options")
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (!data || data.result !== "success") return;
+
+        if (filialCheckboxRow && Array.isArray(data.filiallar) && data.filiallar.length) {
+          filialCheckboxRow.innerHTML = data.filiallar.map(function (name) {
+            var safe = escapeHtml(name);
+            return '<label class="checkbox-pill"><input type="checkbox" name="filial" value="' + safe + '"><span>' + safe + "</span></label>";
+          }).join("");
+        }
+
+        if (lavozimSelect && Array.isArray(data.lavozimlar) && data.lavozimlar.length) {
+          var currentValue = lavozimSelect.value;
+          lavozimSelect.innerHTML = '<option value="" disabled selected>Tanlang</option>' +
+            data.lavozimlar.map(function (name) {
+              return "<option>" + escapeHtml(name) + "</option>";
+            }).join("");
+          if (currentValue && data.lavozimlar.indexOf(currentValue) !== -1) {
+            lavozimSelect.value = currentValue;
+          }
+          updateConditionalFields();
+        }
+      })
+      .catch(function () { /* keep the hardcoded fallback options */ });
+  }
 
   function toggleField(el, show) {
     if (!el) return;
@@ -42,6 +82,8 @@
     lavozimSelect.addEventListener("change", updateConditionalFields);
     updateConditionalFields();
   }
+
+  loadDynamicOptions();
 
   var filialGroup = document.getElementById("fld-filial");
 

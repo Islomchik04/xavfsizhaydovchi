@@ -23,6 +23,16 @@
   var addVideoTitle = document.getElementById("addVideoTitle");
   var addVideoMsg = document.getElementById("addVideoMsg");
 
+  var filialList = document.getElementById("filialList");
+  var addFilialForm = document.getElementById("addFilialForm");
+  var addFilialInput = document.getElementById("addFilialInput");
+  var addFilialMsg = document.getElementById("addFilialMsg");
+
+  var lavozimList = document.getElementById("lavozimList");
+  var addLavozimForm = document.getElementById("addLavozimForm");
+  var addLavozimInput = document.getElementById("addLavozimInput");
+  var addLavozimMsg = document.getElementById("addLavozimMsg");
+
   function getPassword() {
     try { return sessionStorage.getItem(SESSION_KEY) || ""; } catch (e) { return ""; }
   }
@@ -44,6 +54,7 @@
     if (logoutBtn) logoutBtn.hidden = false;
     loadApplicants();
     loadVideos();
+    loadOptions();
   }
 
   function tryLogin(password) {
@@ -206,6 +217,102 @@
         });
     });
   }
+
+  // ---- Filiallar / Lavozimlar (shown as dynamic options in the join form) ----
+  function loadOptions() {
+    renderOptionList(filialList, [], true);
+    renderOptionList(lavozimList, [], true);
+    fetch(WEBHOOK_URL + "?action=options")
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (!data || data.result !== "success") {
+          renderOptionList(filialList, [], false, true);
+          renderOptionList(lavozimList, [], false, true);
+          return;
+        }
+        renderOptionList(filialList, data.filiallar || [], false, false, "deleteFilial");
+        renderOptionList(lavozimList, data.lavozimlar || [], false, false, "deleteLavozim");
+      })
+      .catch(function () {
+        renderOptionList(filialList, [], false, true);
+        renderOptionList(lavozimList, [], false, true);
+      });
+  }
+
+  function renderOptionList(container, items, loading, errored, deleteAction) {
+    if (!container) return;
+    if (loading) {
+      container.innerHTML = '<div class="admin-empty">Yuklanmoqda...</div>';
+      return;
+    }
+    if (errored) {
+      container.innerHTML = '<div class="admin-empty">Xatolik: ro\'yxatni yuklab bo\'lmadi</div>';
+      return;
+    }
+    if (!items.length) {
+      container.innerHTML = '<div class="admin-empty">Hozircha yo\'q</div>';
+      return;
+    }
+    container.innerHTML = "";
+    items.forEach(function (name) {
+      var chip = document.createElement("span");
+      chip.className = "admin-chip";
+      chip.innerHTML = '<span>' + escapeHtml(name) + '</span><button type="button" aria-label="O\'chirish">&times;</button>';
+      chip.querySelector("button").addEventListener("click", function () {
+        deleteOption(deleteAction, name, container.id === "filialList" ? "filial" : "lavozim");
+      });
+      container.appendChild(chip);
+    });
+  }
+
+  function deleteOption(action, name, kind) {
+    if (!window.confirm("\"" + name + "\" ni o'chirishni tasdiqlaysizmi?")) return;
+    fetch(WEBHOOK_URL, {
+      method: "POST",
+      body: JSON.stringify({ action: action, password: getPassword(), name: name })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function () { loadOptions(); })
+      .catch(function () { loadOptions(); });
+  }
+
+  function bindAddOptionForm(form, input, msg, action) {
+    if (!form) return;
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      msg.textContent = "";
+      msg.className = "admin-msg";
+      var name = input.value.trim();
+      if (!name) return;
+      var submitBtn = form.querySelector("button[type=submit]");
+      submitBtn.disabled = true;
+      fetch(WEBHOOK_URL, {
+        method: "POST",
+        body: JSON.stringify({ action: action, password: getPassword(), name: name })
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          submitBtn.disabled = false;
+          if (data && data.result === "success") {
+            msg.textContent = "Qo'shildi";
+            msg.className = "admin-msg ok";
+            input.value = "";
+            loadOptions();
+          } else {
+            msg.textContent = "Xatolik yuz berdi";
+            msg.className = "admin-msg err";
+          }
+        })
+        .catch(function () {
+          submitBtn.disabled = false;
+          msg.textContent = "Xatolik: tarmoq bilan bog'lanib bo'lmadi";
+          msg.className = "admin-msg err";
+        });
+    });
+  }
+
+  bindAddOptionForm(addFilialForm, addFilialInput, addFilialMsg, "addFilial");
+  bindAddOptionForm(addLavozimForm, addLavozimInput, addLavozimMsg, "addLavozim");
 
   // Init: if a password is already stored this session, verify and go straight to dashboard.
   var storedPw = getPassword();

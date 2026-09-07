@@ -74,37 +74,65 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  /* ---- Mobile burger menu ---- */
+  /* ---- Mobile burger menu ----
+     Some mobile browsers (notably iOS Safari) mis-position a
+     position:fixed element that lives inside an ancestor with
+     backdrop-filter (.site-header uses one) -- the fixed element's
+     containing block becomes that ancestor instead of the viewport,
+     which can make the open menu render off-screen / invisible.
+     To sidestep this entirely, we "portal" the nav out to a direct
+     child of <body> while it's open on mobile, and move it back to
+     its normal spot in the header once closed. */
   var burger = document.getElementById("burgerBtn");
   var nav = document.getElementById("mainNav");
   if (burger && nav) {
+    var navHome = nav.parentNode;
+    var navAnchor = nav.nextSibling;
+    var navPortaled = false;
+
+    function portalNavOut() {
+      if (navPortaled) return;
+      document.body.appendChild(nav);
+      navPortaled = true;
+    }
+    function portalNavBack() {
+      if (!navPortaled) return;
+      if (navAnchor && navAnchor.parentNode === navHome) navHome.insertBefore(nav, navAnchor);
+      else navHome.appendChild(nav);
+      navPortaled = false;
+    }
+
+    function openNav() {
+      if (window.innerWidth <= 980) portalNavOut();
+      nav.classList.add("active");
+      burger.setAttribute("aria-expanded", "true");
+      document.body.style.overflow = "hidden";
+      header.classList.remove("header-hidden");
+    }
+    function closeNav() {
+      nav.classList.remove("active");
+      burger.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+      portalNavBack();
+    }
+
     burger.addEventListener("click", function (e) {
       e.stopPropagation();
       var open = burger.getAttribute("aria-expanded") === "true";
-      burger.setAttribute("aria-expanded", String(!open));
-      nav.classList.toggle("active");
-      document.body.style.overflow = open ? "" : "hidden";
-      if (!open) header.classList.remove("header-hidden");
+      if (open) closeNav();
+      else openNav();
     });
     nav.querySelectorAll("a").forEach(function (link) {
-      link.addEventListener("click", function () {
-        nav.classList.remove("active");
-        burger.setAttribute("aria-expanded", "false");
-        document.body.style.overflow = "";
-      });
+      link.addEventListener("click", closeNav);
     });
     document.addEventListener("click", function (e) {
       if (nav.classList.contains("active") && !nav.contains(e.target) && !burger.contains(e.target)) {
-        nav.classList.remove("active");
-        burger.setAttribute("aria-expanded", "false");
-        document.body.style.overflow = "";
+        closeNav();
       }
     });
     window.addEventListener("resize", function () {
       if (window.innerWidth > 980 && nav.classList.contains("active")) {
-        nav.classList.remove("active");
-        burger.setAttribute("aria-expanded", "false");
-        document.body.style.overflow = "";
+        closeNav();
       }
     });
   }
