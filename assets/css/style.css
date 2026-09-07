@@ -488,6 +488,8 @@ p{margin:0; color:var(--ink-soft); line-height:1.6;}
   transition:background .2s ease, transform .2s var(--ease);
 }
 .footer-social a:hover{ background:var(--blue); transform:translateY(-3px); }
+.footer-social a{ color:rgba(255,255,255,.85); }
+.footer-social a:hover{ color:#fff; }
 .footer-col h4{ color:#fff; font-size:15px; margin-bottom:18px; }
 .footer-col{ display:flex; flex-direction:column; gap:12px; font-size:14.5px; }
 .footer-col a{ color:rgba(255,255,255,.65); transition:color .15s ease; }

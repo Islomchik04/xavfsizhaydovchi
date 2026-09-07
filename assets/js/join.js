@@ -7,7 +7,6 @@
   if (!form) return;
 
   var lavozimSelect = document.getElementById("lavozim");
-  var fldOldin = document.getElementById("fld-oldinIshlaganJoy");
   var fldMashina = document.getElementById("fld-shaxsiyMashina");
   var fldToifalar = document.getElementById("fld-toifalar");
   var fldKompyuter = document.getElementById("fld-kompyuterBiladimi");
@@ -30,7 +29,7 @@
     var isNazariy = v === "Nazariy o'qituvchi";
     var isAdmin = v === "Administrator";
 
-    toggleField(fldOldin, isAmaliy);
+    // "Oldin qayerda ishlagansiz?" is asked for every position, not conditional.
     toggleField(fldMashina, isAmaliy || isNazariy);
     toggleField(fldToifalar, isAmaliy || isNazariy);
     toggleField(fldKompyuter, isAdmin);
