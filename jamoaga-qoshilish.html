@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jamoaga qo'shilish — Xavfsiz Haydovchi</title>
+<meta name="description" content="Xavfsiz Haydovchi avtomaktabi jamoasiga qo'shiling — amaliy va nazariy o'qituvchi, administrator, call operator, SMM menejer, mobilograf va tozalov xodimi lavozimlariga ariza qoldiring.">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="256x256" href="assets/img/favicon.png">
+<link rel="apple-touch-icon" href="assets/img/favicon.png">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Asosiy kontentga o'tish</a>
+
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a href="index.html#top" class="brand">
+      <img src="assets/img/shield-header.png" alt="Xavfsiz Haydovchi" class="brand-logo">
+      <span class="brand-name">Xavfsiz<em>Haydovchi</em></span>
+    </a>
+
+    <nav class="nav" id="mainNav">
+      <a href="index.html#top" class="nav-link">Bosh sahifa</a>
+      <a href="index.html#kurslar" class="nav-link">Kurslar</a>
+      <a href="index.html#filiallar" class="nav-link">Filiallar</a>
+      <a href="index.html#natijalar" class="nav-link">Natijalar</a>
+      <a href="index.html#aloqa" class="nav-link">Aloqa</a>
+      <a href="jamoaga-qoshilish.html" class="nav-link active">Jamoaga qo'shilish</a>
+    </nav>
+
+    <div class="header-actions">
+      <a href="tel:+998980770007" class="header-phone">
+        <svg viewBox="0 0 24 24" class="icon"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.4 0 .8-.3 1.1l-2.2 2.1z" fill="currentColor"/></svg>
+        <span>+998 98 077 00 07</span>
+      </a>
+      <a href="index.html#top" class="btn btn-outline btn-sm">Bosh sahifa</a>
+    </div>
+
+    <button class="burger" id="burgerBtn" aria-label="Menyu" aria-expanded="false" aria-controls="mainNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="join-hero">
+    <div class="container">
+      <div class="join-hero-inner reveal reveal-up">
+        <span class="eyebrow eyebrow-dark">👥 Jamoamizga qo'shiling</span>
+        <h1>Xavfsiz Haydovchi jamoasiga <span class="text-accent">qo'shiling</span></h1>
+        <p>Andijondagi eng yirik avtomaktablardan birida martaba boshlang. Quyidagi shaklni to'ldiring — tez orada siz bilan bog'lanamiz.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section join-section">
+    <div class="container">
+      <div class="form-wrap reveal reveal-up">
+        <form id="joinForm" class="form-card" novalidate>
+          <div class="form-grid">
+
+            <div class="field">
+              <label for="ism">Ism *</label>
+              <input type="text" id="ism" name="ism" required autocomplete="given-name">
+            </div>
+
+            <div class="field">
+              <label for="familya">Familya *</label>
+              <input type="text" id="familya" name="familya" required autocomplete="family-name">
+            </div>
+
+            <div class="field">
+              <label for="telefon">Telefon raqam *</label>
+              <input type="tel" id="telefon" name="telefon" required placeholder="+998 90 123 45 67" autocomplete="tel">
+            </div>
+
+            <div class="field">
+              <label for="manzil">Manzil *</label>
+              <input type="text" id="manzil" name="manzil" required autocomplete="street-address">
+            </div>
+
+            <div class="field">
+              <label for="yosh">Yoshingiz *</label>
+              <input type="number" id="yosh" name="yosh" required min="16" max="80" inputmode="numeric">
+            </div>
+
+            <div class="field">
+              <label for="filial">Qaysi filialimiz yaqin? *</label>
+              <select id="filial" name="filial" required>
+                <option value="" disabled selected>Tanlang</option>
+                <option>Yangi bozor</option>
+                <option>Yangi bozor 2</option>
+                <option>Bo'ston (Avtodrom)</option>
+                <option>Soy</option>
+                <option>Eski shahar</option>
+                <option>80 metr</option>
+                <option>Yangi yo'l</option>
+                <option>Semashka</option>
+                <option>Bozorcha</option>
+                <option>Prospekt</option>
+              </select>
+            </div>
+
+            <div class="field field-full">
+              <label for="lavozim">Qaysi lavozimda ishlamoqchisiz? *</label>
+              <select id="lavozim" name="lavozim" required>
+                <option value="" disabled selected>Tanlang</option>
+                <option>Amaliy o'qituvchi</option>
+                <option>Nazariy o'qituvchi</option>
+                <option>Administrator</option>
+                <option>Call operator</option>
+                <option>SMM menejer</option>
+                <option>Mobilograf</option>
+                <option>Tozalov xodimi</option>
+              </select>
+            </div>
+
+            <div class="field field-full conditional-field" id="fld-oldinIshlaganJoy" hidden>
+              <label for="oldinIshlaganJoy">Oldin qayerda ishlagansiz?</label>
+              <textarea id="oldinIshlaganJoy" name="oldinIshlaganJoy" rows="3" placeholder="Ish joyi nomini yozing"></textarea>
+            </div>
+
+            <div class="field field-full conditional-field" id="fld-shaxsiyMashina" hidden>
+              <label>Shaxsiy mashinangiz bormi?</label>
+              <div class="radio-row">
+                <label class="radio-pill"><input type="radio" name="shaxsiyMashina" value="Ha"><span>Ha</span></label>
+                <label class="radio-pill"><input type="radio" name="shaxsiyMashina" value="Yo'q"><span>Yo'q</span></label>
+              </div>
+            </div>
+
+            <div class="field field-full conditional-field" id="fld-toifalar" hidden>
+              <label>Qaysi toifada pravaga egasiz?</label>
+              <div class="checkbox-row">
+                <label class="checkbox-pill"><input type="checkbox" name="toifalar" value="A"><span>A</span></label>
+                <label class="checkbox-pill"><input type="checkbox" name="toifalar" value="B"><span>B</span></label>
+                <label class="checkbox-pill"><input type="checkbox" name="toifalar" value="C"><span>C</span></label>
+                <label class="checkbox-pill"><input type="checkbox" name="toifalar" value="D"><span>D</span></label>
+                <label class="checkbox-pill"><input type="checkbox" name="toifalar" value="E"><span>E</span></label>
+              </div>
+            </div>
+
+            <div class="field field-full conditional-field" id="fld-kompyuterBiladimi" hidden>
+              <label>Kompyuterdan foydalanishni bilasizmi?</label>
+              <div class="radio-row">
+                <label class="radio-pill"><input type="radio" name="kompyuterBiladimi" value="Ha"><span>Ha</span></label>
+                <label class="radio-pill"><input type="radio" name="kompyuterBiladimi" value="Yo'q"><span>Yo'q</span></label>
+              </div>
+            </div>
+
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg btn-block" id="submitBtn">
+            <span class="btn-text">Arizani yuborish</span>
+          </button>
+          <p class="form-note">* — to'ldirilishi shart bo'lgan maydonlar</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <img src="assets/img/shield-header.png" alt="Xavfsiz Haydovchi" class="brand-logo">
+      <h3>Xavfsiz Haydovchi</h3>
+      <p>O'zbekistondagi eng katta avtomaktab.</p>
+      <div class="footer-social">
+        <a href="https://t.me/s/xavfsiz_xaydovchi" target="_blank" rel="noopener" aria-label="Telegram">✈️</a>
+        <a href="https://www.instagram.com/avtomaktab_andijon/" target="_blank" rel="noopener" aria-label="Instagram">📷</a>
+        <a href="https://www.youtube.com/@avtomaktab_andijon" target="_blank" rel="noopener" aria-label="YouTube">▶️</a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Kurslar</h4>
+      <a href="index.html#kurslar">A toifa</a>
+      <a href="index.html#kurslar">B toifa</a>
+      <a href="index.html#kurslar">BC toifa</a>
+      <a href="index.html#kurslar">C toifa</a>
+      <a href="index.html#kurslar">CE toifa</a>
+      <a href="index.html#kurslar">D toifa</a>
+      <a href="index.html#kurslar">Express kurs</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Filiallar</h4>
+      <a href="index.html#filiallar">Yangi bozor 2</a>
+      <a href="index.html#filiallar">Bo'ston (Avtodrom)</a>
+      <a href="index.html#filiallar">Soy</a>
+      <a href="index.html#filiallar">Eski shahar</a>
+      <a href="index.html#filiallar">80 metr</a>
+      <a href="index.html#filiallar">Yangi yo'l</a>
+      <a href="index.html#filiallar">Semashka</a>
+      <a href="index.html#filiallar">Bozorcha</a>
+      <a href="index.html#filiallar">Prospekt</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Bog'lanish</h4>
+      <a href="tel:+998980770007">📞 +998 98 077 00 07</a>
+      <a href="jamoaga-qoshilish.html">👥 Jamoaga qo'shilish</a>
+      <span class="footer-address">📍 Andijon shahri</span>
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    <p>© <span id="year"></span> Xavfsiz Haydovchi avtomaktabi. Barcha huquqlar himoyalangan.</p>
+  </div>
+</footer>
+
+<div class="success-overlay" id="successOverlay" aria-hidden="true">
+  <div class="success-card">
+    <div class="success-check">
+      <svg viewBox="0 0 80 80"><circle class="success-check-circle" cx="40" cy="40" r="36"/><path class="success-check-mark" d="M24 42l11 11 21-23"/></svg>
+    </div>
+    <h3>Ariza qabul qilindi!</h3>
+    <p>Siz bilan tez orada bog'lanamiz</p>
+  </div>
+</div>
+
+<button id="backToTop" class="back-to-top" aria-label="Yuqoriga">↑</button>
+
+<script src="assets/js/main.js"></script>
+<script src="assets/js/join.js"></script>
+
+</body>
+</html>
