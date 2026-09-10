@@ -16,6 +16,15 @@
 
   var applicantsWrap = document.getElementById("applicantsWrap");
   var applicantsCount = document.getElementById("applicantsCount");
+  var applicantsFilters = document.getElementById("applicantsFilters");
+  var applicantsSearch = document.getElementById("applicantsSearch");
+  var applicantsLavozimFilter = document.getElementById("applicantsLavozimFilter");
+  var applicantsFilialFilter = document.getElementById("applicantsFilialFilter");
+  var applicantsFilterClear = document.getElementById("applicantsFilterClear");
+
+  // Full dataset from the last successful fetch, kept around so filtering
+  // can happen instantly in the browser instead of re-querying the sheet.
+  var applicantsData = { headers: [], rows: [] };
 
   var videoGrid = document.getElementById("videoGrid");
   var addVideoForm = document.getElementById("addVideoForm");
@@ -109,7 +118,119 @@
     });
   }
 
+  // Finds the index of the header whose text contains `needle` (e.g. "lavozim"),
+  // so the position/branch filters work no matter how the sheet's columns are
+  // ordered or how many other columns sit around them.
+  function findColumnIndex(headers, needle) {
+    for (var i = 0; i < headers.length; i++) {
+      if (String(headers[i] || "").toLowerCase().indexOf(needle) !== -1) return i;
+    }
+    return -1;
+  }
+
+  function uniqueSorted(values) {
+    var seen = {};
+    var out = [];
+    values.forEach(function (v) {
+      v = String(v || "").trim();
+      if (v && !seen[v]) { seen[v] = true; out.push(v); }
+    });
+    out.sort(function (a, b) { return a.localeCompare(b, "uz"); });
+    return out;
+  }
+
+  function fillSelect(select, values) {
+    var current = select.value;
+    var options = ['<option value="">' + select.getAttribute("data-all-label") + "</option>"];
+    values.forEach(function (v) {
+      options.push('<option value="' + escapeHtml(v) + '">' + escapeHtml(v) + "</option>");
+    });
+    select.innerHTML = options.join("");
+    if (values.indexOf(current) !== -1) select.value = current;
+  }
+
+  var lavozimColIdx = -1;
+  var filialColIdx = -1;
+
+  function setupApplicantsFilters(headers, rows) {
+    lavozimColIdx = findColumnIndex(headers, "lavozim");
+    filialColIdx = findColumnIndex(headers, "filial");
+
+    applicantsFilters.hidden = false;
+    applicantsFilterClear.hidden = false;
+
+    if (lavozimColIdx !== -1) {
+      applicantsLavozimFilter.setAttribute("data-all-label", "Barcha lavozimlar");
+      fillSelect(applicantsLavozimFilter, uniqueSorted(rows.map(function (r) { return r[lavozimColIdx]; })));
+      applicantsLavozimFilter.hidden = false;
+    } else {
+      applicantsLavozimFilter.hidden = true;
+    }
+
+    if (filialColIdx !== -1) {
+      applicantsFilialFilter.setAttribute("data-all-label", "Barcha filiallar");
+      fillSelect(applicantsFilialFilter, uniqueSorted(rows.map(function (r) { return r[filialColIdx]; })));
+      applicantsFilialFilter.hidden = false;
+    } else {
+      applicantsFilialFilter.hidden = true;
+    }
+  }
+
+  function getFilteredRows() {
+    var rows = applicantsData.rows;
+    var q = (applicantsSearch.value || "").trim().toLowerCase();
+    var lavozimVal = applicantsLavozimFilter.value;
+    var filialVal = applicantsFilialFilter.value;
+
+    return rows.filter(function (row) {
+      if (lavozimVal && String(row[lavozimColIdx] || "") !== lavozimVal) return false;
+      if (filialVal && String(row[filialColIdx] || "") !== filialVal) return false;
+      if (q) {
+        var matches = row.some(function (cell) {
+          return String(cell || "").toLowerCase().indexOf(q) !== -1;
+        });
+        if (!matches) return false;
+      }
+      return true;
+    });
+  }
+
+  function renderApplicantsTable() {
+    var headers = applicantsData.headers;
+    var total = applicantsData.rows.length;
+    var filtered = getFilteredRows();
+    var filterActive = applicantsSearch.value.trim() || applicantsLavozimFilter.value || applicantsFilialFilter.value;
+
+    applicantsCount.textContent = filterActive
+      ? filtered.length + " / " + total + " ta ariza"
+      : total + " ta ariza";
+
+    if (!total) {
+      applicantsWrap.innerHTML = '<div class="admin-empty">Hozircha arizalar yo\'q</div>';
+      return;
+    }
+    if (!filtered.length) {
+      applicantsWrap.innerHTML = '<div class="admin-empty">Filtrga mos ariza topilmadi</div>';
+      return;
+    }
+
+    var html = '<div class="admin-table-wrap"><table class="admin-table"><thead><tr>';
+    headers.forEach(function (h) { html += "<th>" + escapeHtml(h) + "</th>"; });
+    html += "</tr></thead><tbody>";
+    filtered.forEach(function (row) {
+      html += "<tr>";
+      row.forEach(function (cell, i) {
+        var badge = (i === lavozimColIdx || i === filialColIdx) && cell ? " admin-cell-badge" : "";
+        html += '<td class="' + badge.trim() + '">' + escapeHtml(cell) + "</td>";
+      });
+      html += "</tr>";
+    });
+    html += "</tbody></table></div>";
+    applicantsWrap.innerHTML = html;
+  }
+
   function loadApplicants() {
+    applicantsFilters.hidden = true;
     applicantsWrap.innerHTML = '<div class="admin-empty">Yuklanmoqda...</div>';
     fetch(WEBHOOK_URL + "?action=applicants&password=" + encodeURIComponent(getPassword()))
       .then(function (r) { return r.json(); })
@@ -118,28 +239,25 @@
           applicantsWrap.innerHTML = '<div class="admin-empty">Xatolik: ma\'lumotlarni yuklab bo\'lmadi</div>';
           return;
         }
-        var headers = data.headers || [];
-        var rows = data.rows || [];
-        applicantsCount.textContent = rows.length + " ta ariza";
-        if (!rows.length) {
-          applicantsWrap.innerHTML = '<div class="admin-empty">Hozircha arizalar yo\'q</div>';
-          return;
-        }
-        var html = '<div class="admin-table-wrap"><table class="admin-table"><thead><tr>';
-        headers.forEach(function (h) { html += "<th>" + escapeHtml(h) + "</th>"; });
-        html += "</tr></thead><tbody>";
-        rows.forEach(function (row) {
-          html += "<tr>";
-          row.forEach(function (cell) { html += "<td>" + escapeHtml(cell) + "</td>"; });
-          html += "</tr>";
-        });
-        html += "</tbody></table></div>";
-        applicantsWrap.innerHTML = html;
+        applicantsData.headers = data.headers || [];
+        applicantsData.rows = data.rows || [];
+        if (applicantsData.rows.length) setupApplicantsFilters(applicantsData.headers, applicantsData.rows);
+        renderApplicantsTable();
       })
       .catch(function () {
         applicantsWrap.innerHTML = '<div class="admin-empty">Xatolik: tarmoq bilan bog\'lanib bo\'lmadi</div>';
       });
   }
+
+  applicantsSearch.addEventListener("input", renderApplicantsTable);
+  applicantsLavozimFilter.addEventListener("change", renderApplicantsTable);
+  applicantsFilialFilter.addEventListener("change", renderApplicantsTable);
+  applicantsFilterClear.addEventListener("click", function () {
+    applicantsSearch.value = "";
+    applicantsLavozimFilter.value = "";
+    applicantsFilialFilter.value = "";
+    renderApplicantsTable();
+  });
 
   function loadVideos() {
     videoGrid.innerHTML = '<div class="admin-empty">Yuklanmoqda...</div>';

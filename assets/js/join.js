@@ -7,6 +7,7 @@
   if (!form) return;
 
   var lavozimSelect = document.getElementById("lavozim");
+  var fldOldinIshlaganJoy = document.getElementById("fld-oldinIshlaganJoy");
   var fldMashina = document.getElementById("fld-shaxsiyMashina");
   var fldToifalar = document.getElementById("fld-toifalar");
   var fldKompyuter = document.getElementById("fld-kompyuterBiladimi");
@@ -61,6 +62,12 @@
         if (inp.type === "checkbox" || inp.type === "radio") inp.checked = false;
         else inp.value = "";
       }
+      // A `hidden` field is still checked by the browser's form validation —
+      // only `required` itself (not visibility) controls that. So fields that
+      // are only mandatory while shown use a `data-required` marker in the
+      // HTML, and the live `required` property is kept in sync with `show`
+      // here instead of being a static attribute.
+      if (inp.hasAttribute("data-required")) inp.required = show;
     });
   }
 
@@ -71,7 +78,9 @@
     var isAdmin = v === "Administrator";
     var isCallOperator = v === "Call operator";
 
-    // "Oldin qayerda ishlagansiz?" is asked for every position, not conditional.
+    // "Oldin qayerda ishlagansiz?" is asked for every position, not conditional
+    // on which one — it just waits for a position to be picked first.
+    toggleField(fldOldinIshlaganJoy, v !== "");
     toggleField(fldMashina, isAmaliy || isNazariy);
     toggleField(fldToifalar, isAmaliy || isNazariy);
     toggleField(fldKompyuter, isAdmin || isCallOperator);
@@ -99,6 +108,15 @@
     var filialSelected = fd.getAll("filial");
     if (filialGroup && filialSelected.length === 0) {
       filialGroup.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+
+    // "Qaysi toifada pravaga egasiz?" is a checkbox group, so the native
+    // `required` attribute can't express "pick at least one" — only enforce
+    // it while the field is actually shown (Amaliy/Nazariy o'qituvchi).
+    var toifalarSelected = fd.getAll("toifalar");
+    if (fldToifalar && !fldToifalar.hidden && toifalarSelected.length === 0) {
+      fldToifalar.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
 

@@ -42,9 +42,26 @@
       </div>
 
       <div class="admin-panel active" id="panelApplicants">
-        <div class="admin-card">
-          <h2>Ro'yxatdan o'tganlar</h2>
-          <div class="admin-count" id="applicantsCount"></div>
+        <div class="admin-card admin-card-applicants">
+          <div class="admin-card-head">
+            <div>
+              <h2>Ro'yxatdan o'tganlar</h2>
+              <div class="admin-count" id="applicantsCount"></div>
+            </div>
+            <div class="admin-filters" id="applicantsFilters" hidden>
+              <div class="admin-filter-search">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+                <input type="search" id="applicantsSearch" class="admin-filter-input" placeholder="Ism, telefon, manzil bo'yicha qidirish...">
+              </div>
+              <select id="applicantsLavozimFilter" class="admin-filter-select" hidden>
+                <option value="">Barcha lavozimlar</option>
+              </select>
+              <select id="applicantsFilialFilter" class="admin-filter-select" hidden>
+                <option value="">Barcha filiallar</option>
+              </select>
+              <button type="button" class="admin-filter-clear" id="applicantsFilterClear" hidden>Tozalash</button>
+            </div>
+          </div>
           <div id="applicantsWrap"><div class="admin-empty">Yuklanmoqda...</div></div>
         </div>
       </div>
