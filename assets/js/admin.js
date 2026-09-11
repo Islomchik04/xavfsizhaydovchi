@@ -128,6 +128,14 @@
     return -1;
   }
 
+  // The "Filial" field lets applicants pick several branches at once, saved
+  // as one comma-joined cell (e.g. "Yangi bozor, Humo"). Split it back into
+  // individual branch names so the filter offers each branch on its own
+  // instead of one option per unique combination.
+  function splitMultiValue(cell) {
+    return String(cell || "").split(",").map(function (v) { return v.trim(); }).filter(Boolean);
+  }
+
   function uniqueSorted(values) {
     var seen = {};
     var out = [];
@@ -169,7 +177,9 @@
 
     if (filialColIdx !== -1) {
       applicantsFilialFilter.setAttribute("data-all-label", "Barcha filiallar");
-      fillSelect(applicantsFilialFilter, uniqueSorted(rows.map(function (r) { return r[filialColIdx]; })));
+      var allBranches = [];
+      rows.forEach(function (r) { allBranches = allBranches.concat(splitMultiValue(r[filialColIdx])); });
+      fillSelect(applicantsFilialFilter, uniqueSorted(allBranches));
       applicantsFilialFilter.hidden = false;
     } else {
       applicantsFilialFilter.hidden = true;
@@ -184,7 +194,7 @@
 
     return rows.filter(function (row) {
       if (lavozimVal && String(row[lavozimColIdx] || "") !== lavozimVal) return false;
-      if (filialVal && String(row[filialColIdx] || "") !== filialVal) return false;
+      if (filialVal && splitMultiValue(row[filialColIdx]).indexOf(filialVal) === -1) return false;
       if (q) {
         var matches = row.some(function (cell) {
           return String(cell || "").toLowerCase().indexOf(q) !== -1;
