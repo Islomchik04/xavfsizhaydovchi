@@ -132,6 +132,7 @@
       telefon: (fd.get("telefon") || "").toString().trim(),
       manzil: (fd.get("manzil") || "").toString().trim(),
       yosh: (fd.get("yosh") || "").toString().trim(),
+      jins: fd.get("jins") || "",
       filial: filialSelected.join(", "),
       lavozim: fd.get("lavozim") || "",
       oldinIshlaganJoy: (fd.get("oldinIshlaganJoy") || "").toString().trim(),
